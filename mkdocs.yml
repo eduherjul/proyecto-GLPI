@@ -2,7 +2,8 @@ site_author: Edu
 site_name: Edu-mkdocs
 nav:
   - Inicio: index.md
-  - Proyecto final GLPI
+  - Proyecto final GLPI:
+    - Proyecto_final_git/proyecto_final.md
 docs_dir: docs
 site_dir: site
 theme:
