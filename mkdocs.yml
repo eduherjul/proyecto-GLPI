@@ -1,0 +1,50 @@
+site_author: Edu
+site_name: Edu-mkdocs
+nav:
+  - Inicio: index.md
+  - Proyecto final GLPI
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.top
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.indexes
+    - header.autohide
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: orange
+      accent: purple
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+markdown_extensions:
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+copyright: edu 2025  
