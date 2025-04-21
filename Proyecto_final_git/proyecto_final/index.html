@@ -2410,7 +2410,7 @@ exit<span class="p">;</span>
 </li>
 </ul>
 <h4 id="descarga-e-instalacion-de-glpi">Descarga e instalación de GLPI</h4>
-<p><img alt="GLPI" src="../image-1.png" />{ width=15% }</p>
+<p><img alt="GLPI" src="../image-1.png" /></p>
 <ul>
 <li>
 <p><strong>Paso 1. Procederemos desde su sitio oficial, la última versión para la fecha es la "10.0.18".</strong></p>
@@ -2604,43 +2604,43 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 </li>
 <li>
 <p><strong>Paso 4. Creamos un proyecto en Mkdocs.</strong></p>
-</li>
-</ul>
 <div class="highlight"><pre><span></span><code>mkdocs new mi-documentacion
 cd mi-documentacion
 </code></pre></div>
-<ul>
-<li><strong>Esto nos crea una estructura como esta:</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Esto nos crea una estructura como esta:</strong></p>
 <p><img alt="Estructura" src="../image-72.png" /></p>
-<ul>
-<li><strong>Paso 5. Añadimos el contenido de .md propio, ejemplo:(docs/Proyecto.md).</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Paso 5. Añadimos el contenido de .md propio, ejemplo:(docs/Proyecto.md).</strong></p>
 <div class="highlight"><pre><span></span><code># Proyecto
   - Paso 1
   - Paso 2
 </code></pre></div>
-<ul>
-<li><strong>Paso 6. Luego en nuestro "mkdocs.yml" añadiremos.</strong></li>
-</ul>
-<p><code>mkdocs
-  site-name: Mi documentación
-  theme:
-    name: material
-  nav:
-    - Inicio: index.md
-    - Tutorial: Proyecto.md</code></p>
-<ul>
-<li><strong>Paso 7 . Si queremos ver el sitio localmente.</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Paso 6. Luego en nuestro "mkdocs.yml" añadiremos.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">site-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Mi documentación</span><span class="w">  </span>
+<span class="nt">theme</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span><span class="w">  </span>
+<span class="nt">nav</span><span class="p">:</span><span class="w">  </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Inicio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span><span class="w">  </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Tutorial</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Proyecto.md</span><span class="w">   </span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Paso 7 . Si queremos ver el sitio localmente.</strong></p>
 <p><code>mkdocs serve</code></p>
 <p>Abriremos nuestro navegador en <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>
-<ul>
-<li><strong>Paso 8. Publicar con GitHub Pages (después de haberlo subido a GitHub)</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Paso 8. Publicar con GitHub Pages (después de haberlo subido a GitHub)</strong></p>
 <p><code>mkdocs gh-deploy</code></p>
 <p>Esto nos generará una carpeta <strong>site/</strong> la cual sube al repositorio en una rama especial llamada <strong>gh-pages</strong></p>
 <p><img alt="Con site" src="../image-73.png" /></p>
+</li>
+</ul>
 <h3 id="710-instalacion-de-git">7.10 - Instalación de Git</h3>
 <p><img alt="GitHub" src="../image-12.png" /></p>
 <ul>
