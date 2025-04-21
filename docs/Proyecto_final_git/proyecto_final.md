@@ -642,7 +642,7 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
 
 #### Descarga e instalación de GLPI
 
-![GLPI](image-1.png){ width=15% }
+![GLPI](image-1.png)
 
 - **Paso 1. Procederemos desde su sitio oficial, la última versión para la fecha es la "10.0.18".**
 
@@ -868,47 +868,47 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 - **Paso 4. Creamos un proyecto en Mkdocs.**
 
-  ```text
-  mkdocs new mi-documentacion
-  cd mi-documentacion
-  ```
+    ```text
+    mkdocs new mi-documentacion
+    cd mi-documentacion
+    ```
 
 - **Esto nos crea una estructura como esta:**
 
-  ![Estructura](image-72.png)
+    ![Estructura](image-72.png)
 
 - **Paso 5. Añadimos el contenido de .md propio, ejemplo:(docs/Proyecto.md).**
 
-  ```text
-  # Proyecto
-    - Paso 1
-    - Paso 2
-  ```  
+    ```text
+    # Proyecto
+      - Paso 1
+      - Paso 2
+    ```  
 
 - **Paso 6. Luego en nuestro "mkdocs.yml" añadiremos.**
 
-  ```mkdocs
-  site-name: Mi documentación
-  theme:
-    name: material
-  nav:
-    - Inicio: index.md
-    - Tutorial: Proyecto.md 
+    ```yaml
+    site-name: Mi documentación  
+    theme:  
+      name: material  
+    nav:  
+      - Inicio: index.md  
+      - Tutorial: Proyecto.md   
     ```
 
 - **Paso 7 . Si queremos ver el sitio localmente.**
 
-  `mkdocs serve`
+      `mkdocs serve`
 
-  Abriremos nuestro navegador en <http://127.0.0.1:8000>
+      Abriremos nuestro navegador en <http://127.0.0.1:8000>
 
 - **Paso 8. Publicar con GitHub Pages (después de haberlo subido a GitHub)**
 
-  `mkdocs gh-deploy`
+      `mkdocs gh-deploy`
 
-  Esto nos generará una carpeta **site/** la cual sube al repositorio en una rama especial llamada **gh-pages**
+      Esto nos generará una carpeta **site/** la cual sube al repositorio en una rama especial llamada **gh-pages**
 
-  ![Con site](image-73.png)
+      ![Con site](image-73.png)
 
 ### 7.10 - Instalación de Git
 
