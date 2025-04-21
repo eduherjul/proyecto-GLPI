@@ -868,7 +868,7 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 - **Paso 4. Creamos un proyecto en Mkdocs.**
 
-    ```text
+    ```markdown
     mkdocs new mi-documentacion
     cd mi-documentacion
     ```
@@ -877,7 +877,7 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
     ![Estructura](image-72.png)
 
-- **Paso 5. Añadimos el contenido de .md propio, ejemplo:(docs/Proyecto.md).**
+- **Paso 5. Añadimos el contenido de .md propio, ejemplo: (docs/Proyecto.md).**
 
     ```text
     # Proyecto
