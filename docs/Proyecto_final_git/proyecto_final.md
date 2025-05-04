@@ -874,25 +874,25 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
   - Abrimos GMail y hacemos clic en nuestra cuenta, arriba derecha. Después clic en **Gestionar tu cuenta de Google.**
 
-    ![Gestionar](image-75.png){ width=28% }
+    ![Gestionar](image-75.png)
 
   - Ahora clic en la sección **Seguridad** en la parte izquierda de la página.
 
-    ![Seguridad](image-76.png){ width=19% }
+    ![Seguridad](image-76.png)
 
   - En la parte media de la Página, en la sección **"Como inicias sesión en Google"**, **Verificación en dos pasos** (si no la tenemos ya), comprobaremos que lo tenemos **activado** para así poder crear la **contraseña de aplicación para GLPI.**
 
-    ![Verificación](image-77.png){ width=75% }
+    ![Verificación](image-77.png)
 
   - En la barra superior de búsqueda teclearemos Contraseñas de aplicación.
 
-    ![búsqueda](image-81.png){ width=60% }
+    ![búsqueda](image-81.png)
 
   - Introducimos el nombre de la aplicación que en nuestro caso será **GLPI** y    pulsamos en **Crear.**
 
-    ![nombre](image-82.png){ width=45% }
+    ![nombre](image-82.png)
 
-    ![passwd](image-83.png){ width=40% }
+    ![passwd](image-83.png)
 
   - Ahora ya hemos creado una nueva contraseña de aplicación exclusiva para enviar emails desde **GLPI**. Solamente para eso, **no sustituye** a tu contraseña de GMail.
   - **Quitaremos** los espacios generados entre los tramos de la contraseña y la guardaremos en un block de notas para posteriormente utilizarla en la **configuración del email de GLPI.**
