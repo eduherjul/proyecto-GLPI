@@ -1,10 +1,88 @@
 # PROYECTO FINAL DEL CICLO ASIX (Proyecto SIGEI-GLPI)
 
-## 1 - Escenario
+## 1 - Introducción del proyecto
+
+### 1.1 - Descripción del proyecto
+
+- El presente proyecto tiene por objeto crear una **aplicación web de Código abierto** que permita llevar el **control** de los equipos informáticos de una organización (empresa particular o de mantenimiento, escuela, instituto, ministerios, agencias, etc...) y sobre todo mantener un **historial ordenado** de todo lo que ocurre con el **soporte técnico.**
+
+### 1.2 - Objetivos del proyecto
+
+- Tener un **inventario completo** de los dispositivos tecnológicos de la organización.
+- Gestionar **incidencias** o problemas técnicos de manera ordenada.
+- Crear **códigos QR** para gestionar puntualmente vía móvil esas incidencias o consultas.*
+- **Asignar tareas** a técnicos y hacer **seguimiento** de su resolución por **e-mail.**
+- Obtener reportes útiles sobre el **estado del sistema** y los equipos.
+- Mejorar la **atención al usuario interno** de la empresa.
+
+## 2 - Análisis de opciones y requisitos vistos para considerar
+
+### 2.1 - Snipe-IT
+
+![SNIPE-IT](image.png)
+
+**Snipe-IT** es una **aplicación web de código abierto** diseñada para la **gestión de activos de TI.** Es una solución popular entre empresas y organizaciones que buscan una herramienta flexible y personalizable para rastrear y administrar sus activos de **hardware y software.**
+
+#### 2.1.1 - Enfoque
+
+- Principalmente una herramienta de gestión de activos de TI (**ITAM-gestión de activos de TI**).
+- Sobresale en el **seguimiento** de activos de hardware y software, **licencias** e información relacionada.
+
+#### 2.1.2 - Fortalezas
+
+- Interfaz **fácil** de usar.
+- Sólidas capacidades de seguimiento de activos.
+- Ideal para organizaciones que necesitan un **inventario detallado** de hardware y software.
+- Muy bueno en la gestión de licencias.
+- Muy bueno en el rastreo de los activos con **códigos de barras y códigos QR.**
+
+#### 2.1.3 - Limitaciones
+
+- Menos robusto en áreas como la mesa de ayuda y la gestión de servicios en comparación con **GLPI.**
+
+### 2.2 - GLPI ( Gestionnaire Libre de Parc Informatique)
+
+![GLPI](image-1.png)
+
+Un software **gratuito y open-source** para gestionar activos de TI (**hardware, software**).
+GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas** y **gestión de tareas** relacionadas con el **mantenimiento** y soporte de **sistemas informáticos**; o sea atender, ayudar, solucionar y rastrear problemas e incidencias (**tickets**).
+
+#### 2.2.1 - Enfoque
+
+- Una **suite integral** de gestión de servicios de TI (ITSM).
+- Incluye **gestión de activos**, **mesa de ayuda** y **funcionalidades** de mesa de servicio.
+
+#### 2.2.2 - Fortalezas
+
+- Centraliza inventarios, incidencias y recursos en una **plataforma web.**
+- **Multiplataforma + plugins** (flexible y escalable).
+- Fuertes herramientas para el **descubrimiento de redes.**
+- Cumplir normas (ITIL, **auditorías de software**).
+
+#### 2.2.3- Limitaciones
+
+- Puede tener una curva de aprendizaje **más pronunciada.**
+- La interfaz puede considerarse **menos moderna** que la de **Snipe-IT**
+
+**Snipe-IT es más especializado, se ocupa de el "que" tiene la empresa en cuanto a hardware y software.**
+
+**GLPI es más generalizado, se ocupa de "como" la empresa proporciona los servicios informáticos a sus usuarios.**
+
+## 3 - Decisión: GLPI
+
+### 3.1 - Motivos
+
+- Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto completo de **herramientas ITSM**, incluyendo **mesa de ayuda**, gestión de **incidencias, problemas y cambios.**
+- En definitiva una mayor capacidad de la aplicación de **crecer** y manejar más amplio volumen de **control de existencias**, o sea más detalle y vigilancia de todo.
+- GLPI cuenta con una **comunidad global** de usuarios y desarrolladores que contribuyen a su desarrollo y soporte,esto nos asegura que la herramienta esté en **constante evolución** y que haya **recursos disponibles** para resolver problemas y dudas.
+- GLPI es utilizado en todo el mundo, con una **fuerte presencia en Europa y sobre todo en América Latina** donde prácticamente es el dominador en ese mercado.
+- Su adaptabilidad a diferentes **idiomas y normativas** es lo que lo hace adecuado para **organizaciones internacionales** que buscan una solución de gestión de IT eficiente y flexible.
+
+## 4 - Escenario
 
 ![Escenario](Escenario.png)
 
-## 2 - Estructura Detallada del Escenario AWS con GLPI
+## 5 - Estructura Detallada del Escenario AWS con GLPI
 
 ### Diagrama de arquitectura
 
@@ -46,337 +124,13 @@
 | IOPS           | 100    | 500         | 1000+       |
 ```
 
-## 3 - Introducción del proyecto
+## 6 - Instalación y configuración de las herramientas a utilizar
 
-### 3.1 - Descripción del proyecto
+### 6.1 - AWS con Ubuntu Server 24.04
 
-- El presente proyecto tiene por objeto crear una **aplicación web de Código abierto** que permita llevar el **control** de los equipos informáticos de una organización (empresa particular o de mantenimiento, escuela, instituto, ministerios, agencias, etc...) y sobre todo mantener un **historial ordenado** de todo lo que ocurre con el **soporte técnico.**
+**La instancia de AWS será la MV en la nube que nos alojará las siguientes herramientas que necesitaremos en nuestro proyecto, manejando toda la lógica, el almacenamiento y la generación de contenido.**
 
-### 3.2 - Objetivos del proyecto
-
-- Tener un **inventario completo** de los dispositivos tecnológicos de la organización.
-- Gestionar **incidencias** o problemas técnicos de manera ordenada.
-- Crear **códigos QR** para gestionar puntualmente vía móvil esas incidencias o consultas.*
-- **Asignar tareas** a técnicos y hacer **seguimiento** de su resolución.
-- Obtener reportes útiles sobre el **estado del sistema** y los equipos.
-- Mejorar la **atención al usuario interno** de la empresa.
-
-## 4 - Análisis de opciones y requisitos vistos para considerar
-
-### 4.1 - Snipe-IT
-
-![SNIPE-IT](image.png)
-
-**Snipe-IT** es una **aplicación web de código abierto** diseñada para la **gestión de activos de TI.** Es una solución popular entre empresas y organizaciones que buscan una herramienta flexible y personalizable para rastrear y administrar sus activos de **hardware y software.**
-
-#### 4.1.1 - Enfoque
-
-- Principalmente una herramienta de gestión de activos de TI (**ITAM-gestión de activos de TI**).
-- Sobresale en el **seguimiento** de activos de hardware y software, **licencias** e información relacionada.
-
-#### 4.1.2 - Fortalezas
-
-- Interfaz **fácil** de usar.
-- Sólidas capacidades de seguimiento de activos.
-- Ideal para organizaciones que necesitan un **inventario detallado** de hardware y software.
-- Muy bueno en la gestión de licencias.
-- Muy bueno en el rastreo de los activos con **códigos de barras y códigos QR.**
-
-#### 4.1.3 - Limitaciones
-
-- Menos robusto en áreas como la mesa de ayuda y la gestión de servicios en comparación con **GLPI.**
-
-### 4.2 - GLPI ( Gestionnaire Libre de Parc Informatique)
-
-![GLPI](image-1.png)
-
-Un software **gratuito y open-source** para gestionar activos de TI (**hardware, software**).
-GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas** y **gestión de tareas** relacionadas con el **mantenimiento** y soporte de **sistemas informáticos**; o sea atender, ayudar, solucionar y rastrear problemas e incidencias (**tickets**).
-
-#### 4.2.1 - Enfoque
-
-- Una **suite integral** de gestión de servicios de TI (ITSM).
-- Incluye **gestión de activos**, **mesa de ayuda** y **funcionalidades** de mesa de servicio.
-
-#### 4.2.2 - Fortalezas
-
-- Centraliza inventarios, incidencias y recursos en una **plataforma web.**
-- **Multiplataforma + plugins** (flexible y escalable).
-- Fuertes herramientas para el **descubrimiento de redes.**
-- Cumplir normas (ITIL, **auditorías de software**).
-
-#### 4.2.3- Limitaciones
-
-- Puede tener una curva de aprendizaje **más pronunciada.**
-- La interfaz puede considerarse **menos moderna** que la de **Snipe-IT**
-
-**Snipe-IT es más especializado, se ocupa de el "que" tiene la empresa en cuanto a hardware y software.**
-
-**GLPI es más generalizado, se ocupa de "como" la empresa proporciona los servicios informáticos a sus usuarios.**
-
-## 5 - Decisión: GLPI
-
-### 5.1 - Motivos
-
-- Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto completo de **herramientas ITSM**, incluyendo **mesa de ayuda**, gestión de **incidencias, problemas y cambios.**
-- En definitiva una mayor capacidad de la aplicación de **crecer** y manejar más amplio volumen de **control de existencias**, o sea más detalle y vigilancia de todo.
-- GLPI cuenta con una **comunidad global** de usuarios y desarrolladores que contribuyen a su desarrollo y soporte,esto nos asegura que la herramienta esté en **constante evolución** y que haya **recursos disponibles** para resolver problemas y dudas.
-- GLPI es utilizado en todo el mundo, con una **fuerte presencia en Europa y sobre todo en América Latina** donde prácticamente es el dominador en ese mercado.
-- Su adaptabilidad a diferentes **idiomas y normativas** es lo que lo hace adecuado para **organizaciones internacionales** que buscan una solución de gestión de IT eficiente y flexible.
-
-## 6 - Herramientas
-  
-### 6.1 Parte servidor (backend)
-
-#### 6.1.1 - Ubuntu Server
-
-![ubuntu-SRV](image-6.png)
-
-**Sistema operativo que nos proporcionará la base para ejecutar los servicios**
-
-- Es una versión del sistema operativo Ubuntu diseñada específicamente para su uso en **servidores.**
-- **No incluye** una interfaz gráfica de usuario (GUI), lo que reduce el consumo de recursos y mejora el rendimiento. En su lugar, se administra principalmente a través de la **línea de comandos.**
-- Ofrece una amplia gama de software y herramientas para configurar diversos **servicios de servidor**, como servidores web (**Apache, Nginx**), servidores de bases de datos (**MySQL, Mariadb, PostgreSQL,...**) y servidores de archivos.
-- Ubuntu Server se caracteriza por su **estabilidad y seguridad**, lo que lo convierte en una opción confiable para entornos de producción.
-- Recibe **actualizaciones de seguridad** periódicas para proteger contra vulnerabilidades.
-- Como parte de la familia Ubuntu, Ubuntu Server es de **código abierto**, lo que significa que es **gratuito** y se puede modificar y distribuir libremente.*
-  - Usos comunes:
-    - Alojar **sitios web** y **aplicaciones web.**
-    - Servir **BBDD.**
-    - Administrar **redes y servicios de red.**
-    - Implementar **servicios en la nube.**
-    - **Servidores de archivos.**
-
-#### 6.1.2 - Apache
-
-![APACHE](image-2.png)
-
-**Será el servidor web que nos gestionará las solicitudes HTTP y nos proporcionará las páginas web.**
-
-- Apache es un software de **servidor web HTTP** de código **abierto.**
-- Esto significa que es responsable de recibir **solicitudes de los navegadores** web y enviar las **páginas web** correspondientes al usuario.
-- Es una pieza fundamental de la **infraestructura de Internet**, ya que alimenta una gran parte de los sitios web en línea.
-- Su **arquitectura modular** permite extender sus funcionalidades mediante la instalación de **módulos adicionales.** Esto lo hace muy flexible y adaptable a diferentes necesidades.
-- Funciona en una amplia variedad de **sistemas operativos**, incluyendo **Linux, Windows y macOS.**
-- Apache es conocido por su **fiabilidad y estabilidad**, lo que lo convierte en una opción popular para **sitios web de alto tráfico.**
-- Cuenta con una gran **comunidad de usuarios y desarrolladores** que proporcionan soporte y contribuyen a su desarrollo.
-- Apache es utilizado por muchos proveedores de **alojamiento web** para alojar sitios web de sus clientes.
-- Puede utilizarse como servidor de aplicaciones para alojar aplicaciones **web dinámicas.**
-- Apache también puede funcionar como un **servidor proxy**, actuando como intermediario entre los navegadores web y otros servidores.
-
-#### 6.1.3 - MariaDB
-
-![Mariadb](image-3.png)
-
-**Será la BBDD que nos almacenará los datos de GLPI.**
-
-- **Es un sistema de gestión de BBDD relacionales (RDBMS)** de código **abierto**, las cuales almacenan los datos en **tablas separadas** en lugar de poner todos los datos en un solo sitio.
-- MariaDB mantiene alta **compatibilidad con MySQL**, por lo que la mayoría de las aplicaciones que funcionan con MySQL pueden migrar sin cambios.
-- Usa el mismo **formato de archivos, protocolos y APIs** (como PHP, Python, Java, etc.).
-- Incluye **motores de almacenamiento** optimizados como Aria, XtraDB (en lugar de InnoDB) y ColumnStore para análisis de datos.
-- Soporte para **consultas paralelas** y **optimización avanzada.**
-- **Nuevas funcionalidades:**
-  - **JSON y GIS:** Soporte mejorado para datos JSON y geográficos.
-  - **Window Functions:** Funciones analíticas avanzadas (desde MariaDB 10.2).
-  - **Temporal Tables:** Tablas que registran cambios históricos.
-  - Incluye características como **encriptación** de tablas, **autenticación** con plugins externos (ej. PAM, LDAP) y **roles de usuarios.**
-  - Empresas como Google, Wikipedia, Red Hat, Ubuntu (es el RDBMS predeterminado en muchas distribuciones Linux) y Alibaba lo utilizan en producción.
-
-#### 6.1.4 - PHP
-
-![php](image-4.png)
-
-**Será el lenguaje de programación que ejecutará el código de GLPI y nos generará las páginas dinámicas.**
-
-- **PHP (Hypertext Preprocessor)** es un lenguaje de programación de código **abierto** especialmente diseñado para el desarrollo web y la creación de sitios dinámicos. Se ejecuta en el servidor **(backend)** y permite interactuar con **BBDD**, generar contenido **dinámico** y manejar sesiones de usuarios.
-- El código PHP se ejecuta en el servidor (como **Apache o Nginx**), generando **HTML** que se envía al navegador.
-- Similar a **C, Java o Perl**, con **tipado dinámico.**
-- Soporte **nativo** para MySQL/MariaDB, PostgreSQL, SQLite, MongoDB y más.
-- Funciona en Windows, Linux, macOS y es usado por **CMS** como WordPress, Drupal y Joomla.
-- Soporta **programación orientada a objetos** (POO) y tiene miles de librerías (**framework** como Laravel, Symfony).
-- Se utiliza para crear páginas web dinámicas (ej.: tiendas online, blogs, foros), desarrollar **APIs** (junto con **JSON o XML**),**automatizar** tareas del servidor (ej.: enviar emails, subir archivos), etc...
-
-#### 6.1.5 - GLPI
-
-![GLPI](image-1.png)
-
-**Será la aplicación detallada anteriormente que se instalará en el servidor y que nos gestionará los activos de TI con todos los servicios que nos ofrece.**
-
-#### 6.1.6 - AWS
-
-![AWS](image-5.png)
-
-**La instancia será la MV en la nube que nos alojará todo lo anterior.**
-
-- **AWS, o Amazon Web Services**, es una plataforma de servicios en la **nube** que ofrece una amplia gama de **herramientas y soluciones.** Empresas y desarrolladores usan AWS para **almacenar datos, alojar aplicaciones, crear infraestructura virtual** y mucho más.
-- **Computación:** Con Amazon EC2, podemos ejecutar **servidores** virtuales para nuestras aplicaciones.
-- **Almacenamiento:** Amazon S3  nos permite guardar grandes cantidades de datos con **alta disponibilidad y seguridad.**
-- **BBDD:** Podemos administrarlas con servicios como Amazon RDS.
-- **Inteligencia artificial:** AWS tiene herramientas para aprendizaje automático, análisis de datos y procesamiento de lenguaje natural.
-
-**En resumen, el servidor nos manejará toda la lógica, el almacenamiento y la generación de contenido.**
-
-### 6.2 Parte del cliente web (frontend)
-
-#### 6.2.1 - Google Chrome
-
-![Google Chrome](image-7.png)
-
-**Será el navegador WEB que nos interpretará y nos mostrará las páginas generadas por el servidor.**
-
-- Es un **software** que nos permite acceder a Internet y visualizar páginas web.
-- Que entre sus principales **funciones** se incluye:
-  - **Velocidad:** Chrome es conocido por su velocidad y eficiencia, lo que permite cargar páginas web rápidamente.
-  - **Simplicidad:** Tiene una interfaz de usuario sencilla y fácil de usar.
-  - **Seguridad:** Chrome incluye funciones de seguridad integradas para proteger a los usuarios de malware y sitios web peligrosos.
-  - **Sincronización:** Permite sincronizar marcadores, historial y contraseñas entre diferentes dispositivos.
-  - **Extensiones:** Ofrece una amplia variedad de extensiones que permiten personalizar y ampliar la funcionalidad del navegador.
-  - **Integración con servicios de Google:** Se integra perfectamente con otros servicios de Google, como la Búsqueda de Google, GMail y YouTube.
-  - **Multiplataforma:** Está disponible para múltiples sistemas operativos, incluyendo Windows, macOS, Linux, Android e iOS.
-
-#### 6.2.2 - La interfaz de GLPI
-
-![GLPI](image-1.png)
-
-**Es la que el usuario ve, maneja y toca todo lo relacionado con la experiencia de usuario.**
-
-- La interfaz de GLPI **realiza** lo siguiente:
-  - **Muestra la UI:** Renderiza menús, formularios y datos (HTML/CSS generados por PHP).
-  - **Gestiona interacciones:** Validaciones, clics y peticiones.
-  - **Se comunica con el backend:** Envía/recibe datos al servidor PHP.
-
-**En resumen el cliente: Interfaz visual + acciones del usuario.**
-
-### 6.3 - Recursos para la documentación
-
-#### 6.3.1 - Visual Studio Code (VS Code)
-
-![VS Code](image-8.png)
-
-**Editor de código fuente desarrollado por Microsoft, ligero, rápido y muy personalizable que utilizaremos para ajustar el documento del proyecto.**
-
-- **Características principales:**
-  - Sirve para **escribir código** en muchos lenguajes.
-  - **Gratis y de código abierto.**
-  - Funciona en **Windows, macOS y Linux.**
-  - Tiene **extensiones** para añadir funciones extra (por ejemplo, ayuda para depurar código, colorear la sintaxis, conectar con Git, etc.).
-  - **Autocompletado** inteligente con inteligencia artificial (como Copilot).
-  - Integración con **terminal, control de versiones (Git) y depuración.**
-  
-**VS Code nos ayuda en un rompecabezas (valga la expresión) a organizar nuestras piezas, nos da ideas de cómo unirlas y nos avisa si algo no encaja bien.**
-
-#### 6.3.2 - Markdown
-
-![Markdown](image-9.png)
-
-**Markdown es un lenguaje de marcado ligero que nos permite dar formato a texto plano de manera sencilla, donde los cambios de formato se ven inmediatamente, Markdown utiliza una sintaxis simple para indicar cómo debe formatearse el texto sin usar botones ni menús.**
-
-**Será el lenguaje que utilizaremos para describir el proyecto.**
-
-- **Características clave:**
-  - **Sencillez:**
-    - Su sintaxis es fácil de aprender y recordar, lo que permite escribir documentos formateados rápidamente.
-  - **Legibilidad:**
-    - Los archivos Markdown son legibles incluso en su forma de texto plano, sin necesidad de renderizarlos.
-  - **Portabilidad:**
-    - Los archivos Markdown se pueden abrir y editar en cualquier editor de texto, lo que los hace independientes de plataformas y software específicos.
-  - **Versatilidad:**
-    - Markdown se puede utilizar para crear una variedad de documentos, desde simples notas hasta documentación técnica y páginas web.
-  - **Compatibilidad:**
-    - Muchos sitios web y aplicaciones, como GitHub, Reddit y Slack, admiten Markdown.
-
-**Markdown es una forma fácil y rápida de escribir texto con formato (como títulos, negritas, listas o enlaces) usando solo el teclado, sin menús ni botones.**
-
-**6.3.3 - Tex Live.**
-
-![Tex Live](image-10.png)
-
-**TeX Live es un conjunto de programas para escribir y compilar informes en LaTeX que es además un sistema para crear documentos muy bien presentados.**
-
-**Será el compilador para generar nuestro documento PDF del proyecto.**
-
-- **Características:**
-  - **LaTeX** será el lenguaje especial que escribirá y transformará nuestro documento en uno mejor visualmente.
-  - **TeX Live** es la **caja de herramientas** que necesitamos para que LaTeX funcione en nuestro ordenador.
-
-**Nos incluye:**
-
-- **LuaLaTeX:** Es una variante de **LaTeX** que utiliza **LuaTeX** como su **motor de procesamiento** en lugar de pdfTeX o XeTeX.
-
-    Permite una mayor flexibilidad y personalización, ya que incluye el lenguaje de programación **Lua**, lo que permite a los usuarios extender las capacidades de LaTeX mediante scripts y configuraciones avanzadas.
-
-    Es especialmente útil para quienes necesitan funcionalidades adicionales como manipulación de **fuentes o gráficos personalizados**.
-
-**Tex Live es un sistema de Tipografía para Documentación PDF.**
-
-#### 6.3.4 - Pandoc
-
-![Pandoc](Image-36.png)
-
-**Pandoc es una herramienta de software libre y de código abierto que se utiliza para convertir documentos de un formato a otro. Se le conoce como el "convertidor universal de documentos" debido a su amplia capacidad para manejar una gran variedad de formatos de entrada y salida y por tanto será el conversor que utilizaré para trasformar el documento del proyecto de Markdown a PDF.**
-
-- **Extremadamente útil** para tareas como la **creación de libros electrónicos**, la **generación de informes**, la **conversión de documentos web** a otros formatos, y mucho más.
-- Es muy flexible y permite **personalizar** la salida de diversas maneras, incluyendo la **modificación de estilos**, la **inclusión de metadatos**, y la **manipulación de la estructura** del documento.
-- Muy útil para la creación de **documentos académicos**, ya que se integra con **gestores de referencias bibliográficas**.
-
-#### 6.3.5 - Eisvogel
-
-![Eisvogel](Image-37.png)
-
-**Herramienta que mejora la presentación de documentos convertidos desde markdown a pdf, por tanto será la plantilla que nos facilitará la mejora de calidad en la creación del documento final de nuestro proyecto.**
-
-- Es una **plantilla de LaTeX para Pandoc**, diseñada específicamente para crear documentos **PDF** con una apariencia **profesional y elegante**.
-- Muy popular para generar **informes, presentaciones** y otros **documentos técnicos** a partir de archivos **Markdown**.
-- Gran cantidad de opciones de **personalización**, incluyendo la posibilidad de cambiar los **colores**, las **fuentes** y el **diseño** del documento.
-- Facilita la creación de documentos LaTeX de **alta calidad** a partir de archivos Markdown, simplificando el proceso de **publicación**.
-
-### 6.4 - Publicación y Alojamiento de la Documentación en la Web
-
-**6.4.1 - MkDocs.**
-
-![MkDocs](image-11.png)
-
-**Es un generador rápido de páginas web estáticas orientado a la creación de documentación de proyectos.**
-
-**Será nuestro sitio HTML en donde se alojará nuestra documentación del proyecto.**
-
-- Los archivos fuente de documentación se escriben en **Markdown** y se configuran con un solo archivo de configuración **YAML**, que es un formato de serialización de datos legible por humanos inspirado en lenguajes como XML, C, Python o Perl.
-
-- Con **MkDocs** podemos crear sitios HTML estáticos que se pueden alojar en páginas **GitHub** o en cualquier otro lugar que elijamos. En nuestro caso lo haremos en **GitHub.**
-
-- Existen infinidad de **temas o plantillas** disponibles para MkDocs que podemos elegir de entre los integrados, seleccionar alguno de los que se citan en la wiki [MkDocs Themes](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes) o crear el nuestro propio con [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
-
-- Una de las grandes ventajas que nos ofrece MkDocs es la de obtener una **vista previa** de nuestro sitio mientras trabajamos. Esto se consigue mediante el **servidor de desarrollo** incorporado que incluso recargará y actualizará automáticamente nuestro navegador cada vez que guardemos los cambios.
-
-- MkDocs es fácil de **personalizar** por lo que permite obtener la documentación de nuestro proyecto tal como lo deseamos personalizando el tema y/o instalando algunos complementos
-
-**Combina simplicidad con flexibilidad, permitiéndonos personalizar el diseño con temas y complementos.**
-
-**6.4.2 - GitHub.**
-
-![GitHub](image-12.png)
-
-**GitHub es una plataforma en línea diseñada para el desarrollo y la colaboración de software. Es el lugar donde desarrolladores y equipos pueden almacenar, compartir y trabajar juntos en proyectos.**
-
-**En nuestro caso será la plataforma que alojará nuestro documento del proyecto, para una posterior visualización.**
-
-- Esto permite realizar un **seguimiento** de los cambios en el código a lo **largo del tiempo** y facilita la **colaboración** en proyectos, ya que varias personas pueden trabajar en el mismo código **simultáneamente.**
-
-- En GitHub, **podemos:**
-
-  - **Alojar repositorios:** Guardar tus proyectos de código en un lugar centralizado.
-
-  - **Colaborar:** Trabajar con otros desarrolladores, proponiendo y revisando cambios a través de "pull requests".
-
-  - **Control de versiones:** Ver el historial de cambios, quién los hizo y por qué.
-  - **Automatizar tareas:** Usar "GitHub Actions" para automatizar pruebas, despliegues y más.
-  - **Publicar sitios web:** Utilizar **GitHub Pages** para alojar sitios web estáticos directamente desde tus repositorios.
-
-**Es una herramienta que fomenta la transparencia, la organización y la colaboración.**
-
-## 7 - Instalación y configuración de las herramientas a utilizar
-
-### 7.1 - AWS con Ubuntu Server 24.04
+**Ubuntu-server será el sistema operativo que nos proporcionará la base para ejecutar los servicios.**
 
 ![AWS](image-5.png) ![ubuntu-SRV](image-6.png)
 
@@ -489,11 +243,13 @@ conectarnos a ella.
 
 ![alt text](image-31.png)
 
-### 7.2 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
+### 6.2 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP) y GLPI
 
-#### 7.2.1 - Instalación de Apache
+#### 6.2.1 - Instalación de Apache
 
 ![APACHE](image-2.png)
+
+**Será el servidor web que nos gestionará las solicitudes HTTP y nos proporcionará las páginas web.**
 
 - **Paso 1. Instalamos:**
 
@@ -552,9 +308,11 @@ conectarnos a ella.
     sudo systemctl restart apache2.service
     ```
 
-#### 7.2.2 - Instalación de PHP
+#### 6.2.2 - Instalación de PHP
 
 ![php](image-4.png)
+
+**Será el lenguaje de programación que ejecutará el código de GLPI y nos generará las páginas dinámicas.**
 
 - **Paso 1. Instalaremos los repositorios de php y actualizaremos.**
 
@@ -607,9 +365,11 @@ conectarnos a ella.
 sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,tidy,xmlrpc,pspell,gettext,mbstring,fpm,iconv,xml,xsl,bz2,Phar,zip,exif}
 ```
 
-#### 7.2.3 - Instalación de MariaDB
+#### 6.2.3 - Instalación de MariaDB
 
 ![Mariadb](image-3.png)
+
+**Será la BBDD que nos almacenará los datos de GLPI.**
 
 - **Paso 1.Instalamos mariadb-server y securizamos.**
 
@@ -640,9 +400,11 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
     sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
     ```
 
-#### Descarga e instalación de GLPI
+#### 6.2.4 - Descarga e instalación de GLPI
 
 ![GLPI](image-1.png)
+
+**Será la aplicación que se instalará en el servidor y que nos gestionará los activos de TI con todos los servicios que nos ofrece.**
 
 - **Paso 1. Procederemos desde su sitio oficial, la última versión para la fecha es la "10.0.18".**
 
@@ -727,17 +489,19 @@ En este momento ya tenemos instalados todos los componentes para ejecutar GLPI a
 
 Si todo ha ido bien tendremos el **asistente de configuración de GLPI**, el cual detallaremos más adelante en un apartado concreto.
 
-### 7.3 - Instalación automatizada de todo este proceso
+### 6.3 - Instalación automatizada de todo este proceso
 
-Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **7.2 y 7.3** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
+Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
 
 Puedes ver el script [aquí](./GLPI_script.md)
 
 [Descargar el archivo](./GLPI_script.sh)
 
-### 7.4 - Descarga e instalación de Visual Studio Code
+### 6.4 - Descarga e instalación de Visual Studio Code
 
 ![VS Code](image-8.png)
+
+**Editor de código fuente desarrollado por Microsoft, ligero, rápido y muy personalizable que utilizaremos para ajustar el documento del proyecto, nos ayudará a organizar nuestro contenido documentado, nos dará ideas de como unirlo y nos avisará si algo no encaja bien.**
 
 - **Paso 1. Desde la web oficial descargaremos el paquete que corresponda con nuestro SO.**
 
@@ -745,37 +509,42 @@ Puedes ver el script [aquí](./GLPI_script.md)
 
 - **Paso 2. Ejecutaremos el instalador "desde el directorio en el cual lo hemos descargado" y seguiremos las instrucciones de éste, lo cual veremos detalladamente en un apartado aparte para este cometido.**
 
-### 7.5 - Instalación de las extensiones en VScode para Markdown
+### 6.5 - Instalación de las extensiones en VScode para Markdown
 
 ![Markdown](image-9.png)
 
+**Markdown es un lenguaje de marcado ligero que nos permite \textcolor{red}{dar formato a texto plano de manera sencilla, donde los cambios de formato se ven inmediatamente}, Markdown utiliza una sintaxis simple para indicar cómo debe formatearse el texto sin usar botones ni menús.
+Será el lenguaje que utilizaremos para describir el proyecto que nos proporcionará una forma fácil y rápida de escribir texto con formato (como títulos, negritas, listas o enlaces) usando solo el teclado, sin menús ni botones.**
+
 - **Paso 1. Buscaremos e instalaremos las  extensiones desde la barra lateral izquierda, haciendo clic en el icono de Extensiones.**
 
-    ![VScode](image-33.png)
+![VScode](image-33.png)
 
 - **Paso 2. Instalaremos las extensiones esenciales para trabajar con markdown.**
 
-    - **Markdown All in One:**
+  - **Markdown All in One:**
 
-        ![All in One](image-34.png)
+  - Ofrece funciones como vista previa, atajos de teclado, autocompletado, lista de contenidos, y mucho más.
 
-        - Ofrece funciones como vista previa, atajos de teclado, autocompletado, lista de contenidos, y mucho más.
+  - Muy útil para quienes trabajan extensamente con documentos Markdown.
 
-        - Muy útil para quienes trabajan extensamente con documentos Markdown.
+  ![All in One](image-34.png)
 
-    - ***Markdown Preview Enhanced:***
-
-        ![Preview](image-35.png)
-
-        - Esta extensión amplía la vista previa estándar de Markdown de VS Code.
-
-        - Permite previsualizar diagramas, fórmulas matemáticas, archivos PDF, y otros elementos avanzados.
-
-        - Es ideal para documentos Markdown complejos.
+  - ***Markdown Preview Enhanced:***
   
-### 7.6 - Instalación de Tex Live
+  - Esta extensión amplía la vista previa estándar de Markdown de VS Code.
+
+  - Permite previsualizar diagramas, fórmulas matemáticas, archivos PDF, y otros elementos avanzados.
+
+  - Es ideal para documentos Markdown complejos.
+  
+  ![Preview](image-35.png)
+
+### 6.6 - Instalación de Tex Live
 
 ![Tex Live](image-10.png)
+
+**Es una distribución de software que incluye todo lo necesario para trabajar con documentos en TeX y LaTeX. Será el compilador para generar nuestro documento PDF del proyecto.**
 
 Instalaremos la distribución de la **versión completa** que contiene todas las herramientas, ya que necesitamos **lualatex** como **motor** de procesamiento.
 
@@ -784,17 +553,21 @@ sudo apt update
 sudo apt install texlive-full
 ```
 
-### 7.7 - Instalación de Pandoc
+### 6.7 - Instalación de Pandoc
 
 ![Pandoc](Image-36.png)
+
+**Es una herramienta de software libre y de código abierto que se utiliza para \textcolor{red}{convertir documentos de un formato a otro}. Se le conoce como el "convertidor universal de documentos" debido a su amplia capacidad para manejar una gran variedad de formatos de entrada y salida y por tanto será el conversor que utilizaré para trasformar el documento del proyecto de Markdown a PDF.**
 
 Es el **conversor** principal que transforma **Markdown en PDF.**
 
 `sudo apt install pandoc -y`
 
-### 7.8 - Instalación de la plantilla Eisvogel
+### 6.8 - Instalación de la plantilla Eisvogel
 
 ![Eisvogel](Image-37.png)
+
+**Herramienta que mejora la \textcolor{red}{presentación de documentos convertidos desde markdown a pdf}, por tanto será la plantilla que nos facilitará la mejora de calidad en la creación del documento final de nuestro proyecto.**
 
 - **Paso 1. Descargaremos la última versión de la plantilla desde web "SOURCEFORGE".**
 
@@ -831,23 +604,27 @@ Es el **conversor** principal que transforma **Markdown en PDF.**
       --toc-depth=4
     ```
 
-    - **from markdown**: el archivo está en formato Markdown.
+- **from markdown**: el archivo está en formato Markdown.
 
-    - **template eisvogel.latex**: usa la plantilla llamada eisvogel para que quede bonito.
-    - **pdf-engine=lualatex**: usa el motor LaTeX llamado lualatex para generar el PDF.
-    - **listings**: mejora cómo se ve el código (usa el paquete listings de LaTeX).
-    - **toc**: añade una tabla de contenido (índice).
-    - **toc-depth=4**: el índice puede mostrar hasta 4 niveles de títulos.
+- **template eisvogel.latex**: usa la plantilla llamada eisvogel para que quede bonito.
+- **pdf-engine=lualatex**: usa el motor LaTeX llamado lualatex para generar el PDF.
+- **listings**: mejora cómo se ve el código (usa el paquete listings de LaTeX).
+- **toc**: añade una tabla de contenido (índice).
+- **toc-depth=4**: el índice puede mostrar hasta 4 niveles de títulos.
 
-**Para configurar automáticamente de una manera más rápida, podemos utilizar el script.**
+**Para configurar automáticamente de una manera más rápida, podemos utilizar el script:**
 
 Puedes ver el script [aquí](./mdpdf%20.md)
 
 [Descargar el archivo](./mdpdf.sh)
 
-### 7.9 - Instalación de MkDocs
+### 6.9 - Instalación de MkDocs
 
 ![MkDocs](image-11.png)
+
+**Es un generador rápido de \textcolor{red}{páginas web estáticas} orientado a la creación de documentación de proyectos.
+Será nuestro sitio HTML en donde se alojará nuestra documentación del proyecto.
+Combina simplicidad con flexibilidad, permitiéndonos personalizar el diseño con temas y complementos.**
 
 - **Paso 1. Instalamos Python.**
 
@@ -898,21 +675,28 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 - **Paso 7 . Si queremos ver el sitio localmente.**
 
-      `mkdocs serve`
+    ```bash
+    mkdocs serve
+    ```
 
-      Abriremos nuestro navegador en <http://127.0.0.1:8000>
+  Abriremos nuestro navegador en <http://127.0.0.1:8000>
 
 - **Paso 8. Publicar con GitHub Pages (después de haberlo subido a GitHub)**
 
-      `mkdocs gh-deploy`
+    ```bash
+    mkdocs gh-deploy
+    ```
 
-      Esto nos generará una carpeta **site/** la cual sube al repositorio en una rama especial llamada **gh-pages**
+  Esto nos generará una carpeta **site/** la cual sube al repositorio en una rama especial llamada **gh-pages**
 
-      ![Con site](image-73.png)
+  ![Con site](image-73.png)
 
-### 7.10 - Instalación de Git
+### 6.10 - Instalación de Git
 
 ![GitHub](image-12.png)
+
+**Es una plataforma en línea diseñada para el \textcolor{red}{desarrollo y la colaboración de software}. Es el lugar donde desarrolladores y equipos pueden almacenar, compartir y trabajar juntos en proyectos.
+En nuestro caso será la plataforma que alojará nuestro documento del proyecto, para una posterior visualización.**
 
 - **Paso 1. Instalamos Git.**
 
@@ -952,7 +736,7 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 Cada vez que subamos cambios, nos pedirá **usuario y contraseña** (o **token** si usamos 2FA).
 
-## 8 - Asistente de configuración de GLPI
+## 7 - Asistente de configuración de GLPI
 
 - **Paso 1.** Si todo ha ido bien tendremos el asistente de configuración de GLPI, después de abrir ya un navegador contra nuestro GLPI, algo como **http://DIRECCION_IP del servidor**, lo primero, escogeremos el idioma a utilizar **& OK**.
 
@@ -996,9 +780,9 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
 ![Logout](image-55.png) ![Panel](image-56.png)
 
-## 9 - Documentación funcional de GLPI
+## 8 - Documentación funcional de GLPI
 
-### 9.1 - Crear usuarios
+### 8.1 - Crear usuarios
 
 **Un usuario es una persona que va a usar GLPI. Puede ser:**
 
@@ -1016,13 +800,42 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
 - Darle un **perfil** (rol):
 
-    - Por ejemplo: "Self-Service", "Técnico", "Administrador".
+  - Por ejemplo: "Self-Service", "Técnico", "Administrador".
 
     ![usuarios](image-57.png)
 
     ![alta](image-58.png)
 
-### 9.2 - Gestión de perfiles
+### 8.2 - Crear grupos
+
+**Crear grupos es una manera muy útil de organizar usuarios, asignar permisos más fácilmente, o estructurar equipos según proyectos, departamentos, etc.**
+
+- **1. Accedemos a GLPI**
+  - Iniciamos sesión con un usuario que tenga permisos de administrador.
+
+- **2. Vamos al menú de "Administración"**
+  - En el menú de la izquierda, hacemos clic en:
+    - **Administración > Grupos**
+
+- **3. Haz clic en el botón "Añadir" (o el símbolo de +).**
+
+  - Se abrirá un formulario para crear el grupo.
+
+- **4. Rellenaremos los datos del grupo.**
+
+  - Una vez rellenado todo, haremos clic en "Añadir" o "Guardar".
+
+![grupos](image-79.png)
+
+- **6. Asignamos usuarios al grupo.**
+
+  - Después de crearlo, dentro del grupo puedes ir a la pestaña **Usuarios** y pulsamos **"Añadir".**
+
+  - Elegiremos los usuarios que queremos agregar a ese grupo.
+
+![agregar](image-80.png)
+
+### 8.3 - Gestión de perfiles
 
 **Un perfil define lo que el usuario puede hacer y ver. Es como un “rol” o “permiso”.**
 
@@ -1047,7 +860,117 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 ![diagrama](image-61.png)
 
-### 9.3 - Generación de códigos QR
+### 8.4 - Gestión de GMail como nuestro servidor de correo
+
+**Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una \textcolor{red}{contraseña de aplicación} exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
+
+#### 8.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
+
+- **Antes de nada, necesitamos una cuenta de GMail que será usada para enviar los correos:**
+
+- **Crearemos una cuenta GMail** (si no tenemos una dedicada para GLPI, es recomendable que creemos una exclusiva).
+
+- **Entrar a GMail** y configuraremos lo siguiente:
+
+  - Abrimos GMail y hacemos clic en nuestra cuenta, arriba derecha. Después clic en **Gestionar tu cuenta de Google.**
+
+    ![Gestionar](image-75.png){ width=28% }
+
+  - Ahora clic en la sección **Seguridad** en la parte izquierda de la página.
+
+    ![Seguridad](image-76.png){ width=19% }
+
+  - En la parte media de la Página, en la sección **"Como inicias sesión en Google"**, **Verificación en dos pasos** (si no la tenemos ya), comprobaremos que lo tenemos **activado** para así poder crear la **contraseña de aplicación para GLPI.**
+
+    ![Verificación](image-77.png){ width=75% }
+
+  - En la barra superior de búsqueda teclearemos Contraseñas de aplicación.
+
+    ![búsqueda](image-81.png){ width=60% }
+
+  - Introducimos el nombre de la aplicación que en nuestro caso será **GLPI** y    pulsamos en **Crear.**
+
+    ![nombre](image-82.png){ width=45% }
+
+    ![passwd](image-83.png){ width=40% }
+
+  - Ahora ya hemos creado una nueva contraseña de aplicación exclusiva para enviar emails desde **GLPI**. Solamente para eso, **no sustituye** a tu contraseña de GMail.
+  - **Quitaremos** los espacios generados entre los tramos de la contraseña y la guardaremos en un block de notas para posteriormente utilizarla en la **configuración del email de GLPI.**
+
+#### 8.4.2 - Configurar la salida de correo (SMTP) en GLPI
+
+**Ahora vamos a decirle a GLPI cómo usar esa cuenta de GMail para enviar correos.**
+
+- Entraremos en **GLPI** como "Super-Admin".
+- Iremos a **Configuración > Notificaciones > Configuración de los seguimientos por correo.**
+
+- Rellenamos los datos y **guardamos:**
+
+  | Campo | Valor |
+  |:---|:---|
+  | Método de envío | SMTP+TLS |
+  | Servidor de correo SMTP | smtp.gmail.com |
+  | Puerto | 587 |
+  | Autenticación SMTP | Sí |
+  | Usuario SMTP | <tu_correo@gmail.com> |
+  | Contraseña SMTP | La contraseña de aplicación que creamos |
+  | De (email address) | <tu_correo@gmail.com> |
+  | De (nombre) | GLPI - Mantenimiento (o el nombre que queramos) |
+  
+  ![correo](image-78.png)
+
+#### 8.4.3 - Configurar las notificaciones para que avisen al grupo
+
+**Ahora vamos a configurar que cuando llegue una incidencia, se avise al grupo.**
+
+- Iremos a **Configuración > Notificaciones > Notificaciones.**
+
+- Buscaremos la notificación llamada **"Nueva petición"** (o "New Ticket").
+
+![búsqueda](image-84.png)
+
+- *Editamos esa notificación y guardamos.*
+
+![new ticket](image-85.png)
+
+- En **Destinatarios** (Recipients) nos aseguramos de que seleccionamos el **grupo que nos interesa** y **actualizamos-guardamos.**
+
+![Destinatarios](image-86.png)
+
+#### 8.4.4 - Automatizar las notificaciones
+
+- Iremos a **Configuración > Acciones automáticas.**
+
+- **Paso 1.** Buscaremos la acción **mailgate.**
+  - La editamos y la **desactivamos** para que **no** nos recupere cada vez que se genere una notificación todas los correos almacenados y creados anteriormente (Guardar).
+
+    ![desactivar](image-87.png)
+
+- **Paso 2.** Buscaremos las acciones **queuednotification** (Correos enviados a cola) y **queuednotificationclean** (Limpiar cola de notificaciones).
+  - Cada acción debe tener:
+    - **Modo de ejecución:** CLI
+    - **Estado:** Programada
+    - **Frecuencia:** el intervalo que desees (por ejemplo, cada 5 minutos, cada hora, etc.), aunque el cron que programaremos en el sistema marcará los intervalos reales de tiempo a ejecutar.
+
+      ![queuednotification](image-88.png)
+
+      ![queuednotificationclean](image-89.png)
+
+- **Paso 3.** Usaremos **CRON** agregando una entrada en el **crontab** del sistema.
+
+  ```bash
+  sudo crontab -e
+  ```
+
+- Añadiremos esto para que se ejecute cada **2 minutos:**
+
+  ```bash
+    */2 * * * * /usr/bin/php8.3 /var/www/glpi/front/cron.php &>/dev/null
+  ```
+
+El **front/cron.php, viene incluido con GLPI, es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas.
+
+### 8.5 - Generación de códigos QR
 
 Los **códigos QR** se generan para **almacenar y compartir información** de manera **rápida y accesible**.
 
@@ -1078,7 +1001,7 @@ Una vez posicionados en el registro de nuestro dispositivo-equipo, haremos un **
 
 - A continuación se nos abrirá un **destino dentro de nuestros directorios** para poder elegir una **ubicación o una estructura** que para tal motivo tengamos creada y **guardándolo** para después **imprimirlo.**
 
-### 9.4 - Crear peticiones (incidencias)
+### 8.6 - Crear peticiones (incidencias)
 
 Desde la **ficha del usuario** nos seleccionamos **Peticiones creadas >> "Nueva petición** para este elemento".
 
@@ -1090,9 +1013,9 @@ Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una
 
 ![panel](image-71.png)
 
-## 10 - Impresión de códigos QR y almacenamiento de éste en la BBDD
+## 9 - Impresión de códigos QR y almacenamiento de éste en la BBDD
 
-### 10.1 - Almacenamiento de la imagen QR del dispositivo-equipo en la ficha de éste
+### 9.1 - Almacenamiento de la imagen QR del dispositivo-equipo en la ficha de éste
 
 En la **ficha o registro del activo del elemento seleccionado**, escogemos en la **barra lateral izquierda** la pestaña **Documentos.**
 
@@ -1102,15 +1025,15 @@ Añadimos un **archivo nuevo**, en nuestro caso una imagen.
 
 ![Añadir-documento](image-64.png)
 
-### 10.2 - Impresión
+### 9.2 - Impresión
 
 Después de tener **almacenados en nuestra estructura de directorios creados para tal efecto los QR**, iremos seleccionando **uno a uno** y transportándolos a una hoja de texto **.odt o .docx** para ubicarlos en una **tabla** creada a tal efecto para su posterior **impresión en tamaño A4.**
 
 ![A4](image-67.png)
 
-## 11 - Migración de la aplicación GLPI desde AWS a Proxmox
+## 10 - Migración de la aplicación GLPI desde AWS a Proxmox
 
-### 11.1 - Detalle del proceso
+### 10.1 - Detalle del proceso
 
 - **Paso 1 - Hacer backup de la BBDD de GLPI (MariaDB) al $HOME.**
 
@@ -1161,7 +1084,7 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
     sudo chmod -R 755 /var/www/glpi
     ```
 
-### 11.2 - Proceso automatizado de los pasos 6 al 9
+### 10.2 - Proceso automatizado de los pasos 6 al 9
 
 Para configurar automáticamente los **pasos 6 al 9** de una manera más rápida, podemos utilizar el script.
 
