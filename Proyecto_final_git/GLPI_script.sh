@@ -160,6 +160,9 @@ dialog --title "Cargamos las zonas horarias del sistema" \
 clear
 sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
 
+#Actualizar campos de fecha y hora obsoletos en la BBDD
+sudo php /var/www/glpi/bin/console migration:timestamps -y
+
 #Aviso
 dialog --title "Cuando se inicialize la BBDD, por razones de seguridad, por favor elimine el archivo: \"install/install.php\"" \
        --msgbox "sudo rm -rf /var/www/glpi/install/install.php" 0 0
