@@ -753,7 +753,7 @@ Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una
 
 ### 6.6 - Instalación automatizada de todo este proceso
 
-Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
+Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2 y 6.3** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
 
 Puedes ver el script [aquí](./GLPI_script.md)
 
@@ -865,7 +865,7 @@ Es el **conversor** principal que transforma **Markdown en PDF.**
       --pdf-engine=lualatex \
       --listings \
       --toc \
-      --toc-depth=4
+      --toc-depth=5
     ```
 
 - **from markdown**: el archivo está en formato Markdown.
@@ -874,7 +874,7 @@ Es el **conversor** principal que transforma **Markdown en PDF.**
 - **pdf-engine=lualatex**: usa el motor LaTeX llamado lualatex para generar el PDF.
 - **listings**: mejora cómo se ve el código (usa el paquete listings de LaTeX).
 - **toc**: añade una tabla de contenido (índice).
-- **toc-depth=4**: el índice puede mostrar hasta 4 niveles de títulos.
+- **toc-depth=5**: el índice puede mostrar hasta 5 niveles de títulos.
 
 **Para configurar automáticamente de una manera más rápida, podemos utilizar el script:**
 
