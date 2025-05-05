@@ -563,6 +563,9 @@ dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&q
 clear
 sudo<span class="w"> </span>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
 
+<span class="c1">#Actualizar campos de fecha y hora obsoletos en la BBDD</span>
+sudo<span class="w"> </span>php<span class="w"> </span>/var/www/glpi/bin/console<span class="w"> </span>migration:timestamps<span class="w"> </span>-y
+
 <span class="c1">#Aviso</span>
 dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Cuando se inicialize la BBDD, por razones de seguridad, por favor elimine el archivo: \&quot;install/install.php\&quot;&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">       </span>--msgbox<span class="w"> </span><span class="s2">&quot;sudo rm -rf /var/www/glpi/install/install.php&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>

@@ -503,9 +503,9 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
 
     ![Verificar 1](image-48.png) ![Verificar 2](image-49.png)
 
-- **Paso 5.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BD **& Continuar**.
+- **Paso 5.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BBDD **& Continuar**.
 
-- **Paso 6.** Seleccionamos la BD que creamos anteriormente, llamada **glpi & Continuar**.
+- **Paso 6.** Seleccionamos la BBDD que creamos anteriormente, llamada **glpi & Continuar**.
 
     ![BBDD](image-47.png) ![glpi](image-50.png)
 
@@ -546,8 +546,6 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 - O simplemente alguien que reporta incidencias.
 
 **Opcional pero recomendable:**
-
-- Seleccionar la **entidad** a la que pertenece.
 
 - Darle un **perfil** (rol):
 

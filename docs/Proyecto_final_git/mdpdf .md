@@ -19,7 +19,7 @@ pandoc "$INPUT" -o "$OUTPUT" \
   --template eisvogel.latex \
   --pdf-engine=lualatex \
   --listings \
-  --toc --toc-depth=4
+  --toc --toc-depth=5
 
 # Mensaje de éxito
 echo "PDF generado: $OUTPUT"
