@@ -94,11 +94,11 @@ GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas*
 | Capa           | Componente   | Versión  | Función                     | Configuración Recomendada                     |
 |----------------|--------------|----------|-----------------------------|-----------------------------------------------|
 | Infraestructura| AWS EC2      | -        | Hosting de la solución      | t3.medium (2vCPU, 4GB RAM)                    |
-| SO             | Ubuntu Server| 22.04 LTS| Base del sistema            | Auto-updates habilitados                      |
+| SO             | Ubuntu Server| 24.04 LTS| Base del sistema            | Auto-updates habilitados                      |
 | Servidor Web   | Apache       | 2.4.x    | Servir contenido web        | Módulos: rewrite, ssl, headers                |
-| Lenguaje       | PHP          | 8.1      | Procesamiento backend       | Extensiones: mysqli, gd, xml, curl, zlib, intl|
+| Lenguaje       | PHP          | 8.3      | Procesamiento backend       | Extensiones: mysqli, gd, xml, curl, zlib, intl|
 | Base de Datos  | MariaDB      | 10.6+    | Almacenamiento de datos GLPI| InnoDB, utf8mb4_unicode_ci                    |
-| Aplicación     | GLPI         | 10.x     | Gestión de tickets IT       | Configuración optimizada para 50+ usuarios    |
+| Aplicación     | GLPI         | 10.0.18     | Gestión de tickets IT       | Configuración optimizada para 50+ usuarios    |
 ```
 
 ### Usuarios y Permisos
@@ -230,20 +230,20 @@ conectarnos a ella.
 
 - Cambiamos los permisos del archivo para que solo el propietario tenga permisos de lectura.
 
-```bash
+  ```bash
   sudo chmod 400 clave_aws.pem
-```
+  ```
 
 - Ejecutamos el comando que copiamos en el **paso 2** para conectarnos por SSH a la instancia EC2 desde un terminal de Linux.
 - El comando será parecido al este, pero el nombre DNS de la instancia será diferente.
 
-```bash
+  ```bash
   sudo ssh -i "clave_AWS.pem" ubuntu@ec2-34-239-105-173.compute-1.amazonaws.com
-```
+  ```
 
 ![alt text](image-31.png)
 
-### 6.2 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP) y GLPI
+### 6.2 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
 
 #### 6.2.1 - Instalación de Apache
 
@@ -400,7 +400,7 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
     sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
     ```
 
-#### 6.2.4 - Descarga e instalación de GLPI
+### 6.3 - Descarga e instalación de GLPI
 
 ![GLPI](image-1.png)
 
@@ -483,13 +483,277 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
     sudo chown www-data:www-data /var/www/glpi/pics/logos/logo-GLPI-250-black.png.bkp
     ```
 
-**HAY QUE TENER EN CUENTA QUE PARA QUE SE APLIQUE EN SU MOMENTO EL CAMBIO DE LOS LOGOS TENDREMOS QUE "ELIMINAR-BORRAR LOS DATOS DEL NAVEGADOR".**
+**Hay que tener en cuenta que para que se aplique en su momento el cambio de los "logos" tendremos que "ELIMINAR-BORRAR LOS DATOS DEL NAVEGADOR".**
 
-En este momento ya tenemos instalados todos los componentes para ejecutar GLPI abriendo un navegador contra nuestro GLPI, <<http://IP> de nuestro servidor
+**En este momento ya tenemos instalados todos los componentes para ejecutar GLPI abriendo un navegador contra nuestro GLPI, <<http://IP> de nuestro servidor.**
 
-Si todo ha ido bien tendremos el **asistente de configuración de GLPI**, el cual detallaremos más adelante en un apartado concreto.
+### 6.4 - Asistente de configuración de GLPI
 
-### 6.3 - Instalación automatizada de todo este proceso
+- **Paso 1.** Si todo ha ido bien tendremos el asistente de configuración de GLPI, después de abrir ya un navegador contra nuestro GLPI, algo como **http://DIRECCION_IP del servidor**, lo primero, escogeremos el idioma a utilizar **& OK**.
+
+- **Paso 2.** Leemos y aceptamos los términos de la licencia de GLPI & **Continuar**.
+
+    ![Idioma](image-44.png) ![Licencia](image-45.png)
+
+- **Paso 3.** Pulsamos en **Instalar** ya que estamos instalándolo por primera vez.
+
+    ![Instalación](image-46.png)
+
+- **Paso 4.** Verificamos que cumplimos todos los requisitos y están todos correctos.
+
+    ![Verificar 1](image-48.png) ![Verificar 2](image-49.png)
+
+- **Paso 5.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BD **& Continuar**.
+
+- **Paso 6.** Seleccionamos la BD que creamos anteriormente, llamada **glpi & Continuar**.
+
+    ![BBDD](image-47.png) ![glpi](image-50.png)
+
+- **Paso 7.** Si conectó e inicializó la BBDD, pulsamos en **Continuar**.
+
+- **Paso 8.** Podemos voluntariamente si queremos enviar las métricas de uso para que la comunidad de GLPI pueda mejorar el producto, en mi caso como son pruebas **desactivaré & Continuar**.
+
+    ![alt text](image-51.png) ![Enviar](image-52.png)
+
+    ![Continuar](image-53.png) ![Terminado](image-54.png)
+
+**Nos indica que existen unas cuentas de usuario ya predefinidas con distintos roles, desactivaremos en un futuro las cuentas y cambiaremos su contraseña. Estas cuentas serían:**
+
+- **Administrador:** glpi-glpi
+
+- **Técnico:** tech-tech
+
+- **Cuenta sólo lectura:** post-only-postonly
+
+- **Cuenta normal:** normal-normal
+
+Inicialmente **Acceso y Contraseña** serán **glpi**
+
+![Logout](image-55.png) ![Panel](image-56.png)
+
+### 6.5 - Documentación funcional de GLPI
+
+#### 6.5.1 - Crear usuarios
+
+**Un usuario es una persona que va a usar GLPI. Puede ser:**
+
+- Un técnico de soporte.
+
+- Un administrativo que genera tickets.
+
+- Un responsable que autoriza compras.
+
+- O simplemente alguien que reporta incidencias.
+
+**Opcional pero recomendable:**
+
+- Seleccionar la **entidad** a la que pertenece.
+
+- Darle un **perfil** (rol):
+
+  - Por ejemplo: "Self-Service", "Técnico", "Administrador".
+
+    ![usuarios](image-57.png)
+
+    ![alta](image-58.png)
+
+#### 6.5.2 - Crear grupos
+
+**Crear grupos es una manera muy útil de organizar usuarios, asignar permisos más fácilmente, o estructurar equipos según proyectos, departamentos, etc.**
+
+- **Accedemos a GLPI**
+  - Iniciamos sesión con un usuario que tenga permisos de administrador.
+
+- **Vamos al menú de "Administración"**
+  - En el menú de la izquierda, hacemos clic en:
+    - **Administración > Grupos**
+
+- **Hacemos clic en el botón "Añadir" (o el símbolo de +).**
+
+  - Se abrirá un formulario para crear el grupo.
+
+- **Rellenaremos los datos del grupo.**
+
+  - Una vez rellenado todo, haremos clic en "Añadir" o "Guardar".
+
+![grupos](image-79.png)
+
+- **Asignamos usuarios al grupo.**
+
+  - Después de crearlo, dentro del grupo puedes ir a la pestaña **Usuarios** y pulsamos **"Añadir".**
+
+  - Elegiremos los usuarios que queremos agregar a ese grupo.
+
+![agregar](image-80.png)
+
+#### 6.5.3 - Gestión de perfiles
+
+**Un perfil define lo que el usuario puede hacer y ver. Es como un “rol” o “permiso”.**
+
+Algunos ejemplos que vienen por defecto:
+
+- **Self-Service:** Solo reporta tickets y ve los suyos.
+- **Technician:** Ve y gestiona tickets asignados.
+- **Supervisor:** Ve todos los tickets de su grupo.
+- **Admin:** Tiene acceso completo.
+- **Read-Only:** Solo puede ver, no tocar nada.
+
+Podemos crear **perfiles personalizados,** por ejemplo:
+
+- *Un perfil que solo puede ver inventario.*
+- *Otro que solo puede aprobar compras, etc...*
+
+![perfiles](image-59.png)
+
+- Le asignamos dentro de cada **apartado** los **permisos** que deseamos para cada perfil o como hemos dicho anteriormente **creamos** un perfil con **permisos personalizados.**
+
+![permisos](image-60.png)
+
+#### 6.5.4 - Gestión de GMail como nuestro servidor de correo
+
+**Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una \textcolor{red}{contraseña de aplicación} exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
+
+##### 6.5.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
+
+- **Antes de nada, necesitamos una cuenta de GMail que será usada para enviar los correos:**
+
+- **Crearemos una cuenta GMail** (si no tenemos una dedicada para GLPI, es recomendable que creemos una exclusiva).
+
+- **Entrar a GMail** y configuraremos lo siguiente:
+
+  - Abrimos GMail y hacemos clic en nuestra cuenta, arriba derecha. Después clic en **Gestionar tu cuenta de Google.**
+
+    ![Gestionar](image-75.png)
+
+  - Ahora clic en la sección **Seguridad** en la parte izquierda de la página.
+
+    ![Seguridad](image-76.png)
+
+  - En la parte media de la Página, en la sección **"Como inicias sesión en Google"**, **Verificación en dos pasos** (si no la tenemos ya), comprobaremos que lo tenemos **activado** para así poder crear la **contraseña de aplicación para GLPI.**
+
+    ![Verificación](image-77.png)
+
+  - En la barra superior de búsqueda teclearemos Contraseñas de aplicación.
+
+    ![búsqueda](image-81.png)
+
+  - Introducimos el nombre de la aplicación que en nuestro caso será **GLPI** y    pulsamos en **Crear.**
+
+    ![nombre](image-82.png)
+
+    ![passwd](image-83.png)
+
+  - Ahora ya hemos creado una nueva contraseña de aplicación exclusiva para enviar emails desde **GLPI**. Solamente para eso, **no sustituye** a tu contraseña de GMail.
+  - **Quitaremos** los espacios generados entre los tramos de la contraseña y la guardaremos en un block de notas para posteriormente utilizarla en la **configuración del email de GLPI.**
+
+##### 6.5.4.2 - Configurar la salida de correo (SMTP) en GLPI
+
+**Ahora vamos a decirle a GLPI cómo usar esa cuenta de GMail para enviar correos.**
+
+- Entraremos en **GLPI** como "Super-Admin".
+- Iremos a **Configuración > Notificaciones > Configuración de los seguimientos por correo.**
+
+- Rellenamos los datos y **guardamos:**
+
+  ![tabla](image-7.png)
+
+  ![correo](image-78.png)
+
+##### 6.5.4.3 - Configurar las notificaciones para que avisen al grupo
+
+**Ahora vamos a configurar que cuando llegue una incidencia, se avise al grupo.**
+
+- Iremos a **Configuración > Notificaciones > Notificaciones.**
+
+- Buscaremos la notificación llamada **"Nueva petición"** (o "New Ticket").
+
+![búsqueda](image-84.png)
+
+- *Editamos esa notificación y guardamos.*
+
+![new ticket](image-85.png)
+
+- En **Destinatarios** (Recipients) nos aseguramos de que seleccionamos el **grupo que nos interesa** y **actualizamos-guardamos.**
+
+![Destinatarios](image-86.png)
+
+##### 6.5.4.4. - Automatizar las notificaciones
+
+- Iremos a **Configuración > Acciones automáticas.**
+
+- **Paso 1.** Buscaremos la acción **mailgate.**
+  - La editamos y la **desactivamos** para que **no** nos recupere cada vez que se genere una notificación todas los correos almacenados y creados anteriormente (Guardar).
+
+    ![desactivar](image-87.png)
+
+- **Paso 2.** Buscaremos las acciones **queuednotification** (Correos enviados a cola) y **queuednotificationclean** (Limpiar cola de notificaciones).
+  - Cada acción debe tener:
+    - **Modo de ejecución:** CLI
+    - **Estado:** Programada
+    - **Frecuencia:** el intervalo que desees (por ejemplo, cada 5 minutos, cada hora, etc.), aunque el cron que programaremos en el sistema marcará los intervalos reales de tiempo a ejecutar.
+
+      ![queuednotification](image-88.png)
+
+      ![queuednotificationclean](image-89.png)
+
+- **Paso 3.** Usaremos **CRON** agregando una entrada en el **crontab** del sistema.
+
+  ```bash
+  sudo crontab -e
+  ```
+
+- Añadiremos esto para que se ejecute cada **2 minutos:**
+
+  ```bash
+    */2 * * * * /usr/bin/php8.3 /var/www/glpi/front/cron.php &>/dev/null
+  ```
+
+El **front/cron.php, viene incluido con GLPI, es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas.
+
+#### 6.5.5 - Generación de códigos QR
+
+Los **códigos QR** se generan para **almacenar y compartir información** de manera **rápida y accesible**.
+
+Su uso es muy amplio y en nuestro proyecto **incluirá:**
+
+- **Enlace al sitio web:** Nos facilitará el acceso a las páginas específicas sin necesidad de escribir la URL.
+
+- **Información de los equipos:** Nos proporcionará detalles adicionales de cada equipo.
+
+- **Fichero de Imagen.png:** Para guardar en la ficha del equipo inventariado y para adjuntar a fichero de texto para su posterior impresion y etiquetado de este.
+
+En nuestro proyecto añadiremos una **extensión** a nuestro navegador **Google-Chrome** desde la **Web Store** de éste, en nuestro caso será:
+
+![ext.QR](image-62.png) ![alt text](image-65.png)
+
+- **Características principales:**
+
+- Genera códigos QR a partir de texto libre y URLs al instante.
+- Genera un código QR para tu página actual con un solo clic.
+- Personalización de color y tamaño.
+- Opción para descargar el código QR como una imagen (PNG/SVG/Código SVG).
+
+Una vez posicionados en el registro de nuestro dispositivo-equipo, haremos un **click** en la **barra superior** del navegador en el **icono** de nuestra extension.
+
+- Se nos abrirá la imagen de un código **QR** para poderlo descargar y guardar.
+
+![QR](image-66.png)
+
+- A continuación se nos abrirá un **destino dentro de nuestros directorios** para poder elegir una **ubicación o una estructura** que para tal motivo tengamos creada y **guardándolo** para después **imprimirlo.**
+
+#### 6.5.6 - Crear peticiones (incidencias)
+
+Desde la **ficha del usuario** nos seleccionamos **Peticiones creadas >> "Nueva petición** para este elemento".
+
+![Peticiones](image-69.png)
+
+![Nueva-petición](image-70.png)
+
+Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una vez añadida se nos plasmará en el **panel** central.
+
+![panel](image-71.png)
+
+### 6.6 - Instalación automatizada de todo este proceso
 
 Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
 
@@ -497,7 +761,7 @@ Puedes ver el script [aquí](./GLPI_script.md)
 
 [Descargar el archivo](./GLPI_script.sh)
 
-### 6.4 - Descarga e instalación de Visual Studio Code
+### 6.7 - Descarga e instalación de Visual Studio Code
 
 ![VS Code](image-8.png)
 
@@ -509,11 +773,11 @@ Puedes ver el script [aquí](./GLPI_script.md)
 
 - **Paso 2. Ejecutaremos el instalador "desde el directorio en el cual lo hemos descargado" y seguiremos las instrucciones de éste, lo cual veremos detalladamente en un apartado aparte para este cometido.**
 
-### 6.5 - Instalación de las extensiones en VScode para Markdown
+### 6.8 - Instalación de las extensiones en VScode para Markdown
 
 ![Markdown](image-9.png)
 
-**Markdown es un lenguaje de marcado ligero que nos permite \textcolor{red}{dar formato a texto plano de manera sencilla, donde los cambios de formato se ven inmediatamente}, Markdown utiliza una sintaxis simple para indicar cómo debe formatearse el texto sin usar botones ni menús.
+**Markdown es un lenguaje de marcado ligero que nos permite dar formato a texto plano de manera sencilla, donde los cambios de formato se ven inmediatamente, Markdown utiliza una sintaxis simple para indicar cómo debe formatearse el texto sin usar botones ni menús.
 Será el lenguaje que utilizaremos para describir el proyecto que nos proporcionará una forma fácil y rápida de escribir texto con formato (como títulos, negritas, listas o enlaces) usando solo el teclado, sin menús ni botones.**
 
 - **Paso 1. Buscaremos e instalaremos las  extensiones desde la barra lateral izquierda, haciendo clic en el icono de Extensiones.**
@@ -540,11 +804,12 @@ Será el lenguaje que utilizaremos para describir el proyecto que nos proporcion
   
   ![Preview](image-35.png)
 
-### 6.6 - Instalación de Tex Live
+### 6.9 - Instalación de Tex Live
 
 ![Tex Live](image-10.png)
 
-**Es una distribución de software que incluye todo lo necesario para trabajar con documentos en TeX y LaTeX. Será el compilador para generar nuestro documento PDF del proyecto.**
+**Es una distribución de software que incluye todo lo necesario para trabajar con documentos en TeX y LaTeX.
+Será el compilador para generar nuestro documento PDF del proyecto.**
 
 Instalaremos la distribución de la **versión completa** que contiene todas las herramientas, ya que necesitamos **lualatex** como **motor** de procesamiento.
 
@@ -553,21 +818,22 @@ sudo apt update
 sudo apt install texlive-full
 ```
 
-### 6.7 - Instalación de Pandoc
+### 6.10 - Instalación de Pandoc
 
 ![Pandoc](Image-36.png)
 
-**Es una herramienta de software libre y de código abierto que se utiliza para \textcolor{red}{convertir documentos de un formato a otro}. Se le conoce como el "convertidor universal de documentos" debido a su amplia capacidad para manejar una gran variedad de formatos de entrada y salida y por tanto será el conversor que utilizaré para trasformar el documento del proyecto de Markdown a PDF.**
+**Es una herramienta de software libre y de código abierto que se utiliza para convertir documentos de un formato a otro.
+Se le conoce como el "convertidor universal de documentos" debido a su amplia capacidad para manejar una gran variedad de formatos de entrada y salida y por tanto será el conversor que utilizaré para trasformar el documento del proyecto de Markdown a PDF.**
 
 Es el **conversor** principal que transforma **Markdown en PDF.**
 
 `sudo apt install pandoc -y`
 
-### 6.8 - Instalación de la plantilla Eisvogel
+### 6.11 - Instalación de la plantilla Eisvogel
 
 ![Eisvogel](Image-37.png)
 
-**Herramienta que mejora la \textcolor{red}{presentación de documentos convertidos desde markdown a pdf}, por tanto será la plantilla que nos facilitará la mejora de calidad en la creación del documento final de nuestro proyecto.**
+**Herramienta que mejora la presentación de documentos convertidos desde markdown a pdf, por tanto será la plantilla que nos facilitará la mejora de calidad en la creación del documento final de nuestro proyecto.**
 
 - **Paso 1. Descargaremos la última versión de la plantilla desde web "SOURCEFORGE".**
 
@@ -618,11 +884,11 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 [Descargar el archivo](./mdpdf.sh)
 
-### 6.9 - Instalación de MkDocs
+### 6.12 - Instalación de MkDocs
 
 ![MkDocs](image-11.png)
 
-**Es un generador rápido de \textcolor{red}{páginas web estáticas} orientado a la creación de documentación de proyectos.
+**Es un generador rápido de páginas web estáticas orientado a la creación de documentación de proyectos.
 Será nuestro sitio HTML en donde se alojará nuestra documentación del proyecto.
 Combina simplicidad con flexibilidad, permitiéndonos personalizar el diseño con temas y complementos.**
 
@@ -691,11 +957,11 @@ Combina simplicidad con flexibilidad, permitiéndonos personalizar el diseño co
 
   ![Con site](image-73.png)
 
-### 6.10 - Instalación de Git
+### 6.13 - Instalación de Git
 
 ![GitHub](image-12.png)
 
-**Es una plataforma en línea diseñada para el \textcolor{red}{desarrollo y la colaboración de software}. Es el lugar donde desarrolladores y equipos pueden almacenar, compartir y trabajar juntos en proyectos.
+**Es una plataforma en línea diseñada para el desarrollo y la colaboración de software. Es el lugar donde desarrolladores y equipos pueden almacenar, compartir y trabajar juntos en proyectos.
 En nuestro caso será la plataforma que alojará nuestro documento del proyecto, para una posterior visualización.**
 
 - **Paso 1. Instalamos Git.**
@@ -736,286 +1002,9 @@ En nuestro caso será la plataforma que alojará nuestro documento del proyecto,
 
 Cada vez que subamos cambios, nos pedirá **usuario y contraseña** (o **token** si usamos 2FA).
 
-## 7 - Asistente de configuración de GLPI
+## 7 - Impresión de códigos QR y almacenamiento de éste en la BBDD
 
-- **Paso 1.** Si todo ha ido bien tendremos el asistente de configuración de GLPI, después de abrir ya un navegador contra nuestro GLPI, algo como **http://DIRECCION_IP del servidor**, lo primero, escogeremos el idioma a utilizar **& OK**.
-
-- **Paso 2.** Leemos y aceptamos los términos de la licencia de GLPI & **Continuar**.
-
-    ![Idioma](image-44.png) ![Licencia](image-45.png)
-
-- **Paso 3.** Pulsamos en **Instalar** ya que estamos instalándolo por primera vez.
-
-    ![Instalación](image-46.png)
-
-- **Paso 4.** Verificamos que cumplimos todos los requisitos y están todos correctos.
-
-    ![Verificar 1](image-48.png) ![Verificar 2](image-49.png)
-
-- **Paso 5.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BD **& Continuar**.
-
-- **Paso 6.** Seleccionamos la BD que creamos anteriormente, llamada **glpi & Continuar**.
-
-    ![BBDD](image-47.png) ![glpi](image-50.png)
-
-- **Paso 7.** Si conectó e inicializó la BBDD, pulsamos en **Continuar**.
-
-- **Paso 8.** Podemos voluntariamente si queremos enviar las métricas de uso para que la comunidad de GLPI pueda mejorar el producto, en mi caso como son pruebas **desactivaré & Continuar**.
-
-    ![alt text](image-51.png) ![Enviar](image-52.png)
-
-    ![Continuar](image-53.png) ![Terminado](image-54.png)
-
-**Nos indica que existen unas cuentas de usuario ya predefinidas con distintos roles, desactivaremos en un futuro las cuentas y cambiaremos su contraseña. Estas cuentas serían:**
-
-- **Administrador:** glpi-glpi
-
-- **Técnico:** tech-tech
-
-- **Cuenta sólo lectura:** post-only-postonly
-
-- **Cuenta normal:** normal-normal
-
-Inicialmente **Acceso y Contraseña** serán **glpi**
-
-![Logout](image-55.png) ![Panel](image-56.png)
-
-## 8 - Documentación funcional de GLPI
-
-### 8.1 - Crear usuarios
-
-**Un usuario es una persona que va a usar GLPI. Puede ser:**
-
-- Un técnico de soporte.
-
-- Un administrativo que genera tickets.
-
-- Un responsable que autoriza compras.
-
-- O simplemente alguien que reporta incidencias.
-
-**Opcional pero recomendable:**
-
-- Seleccionar la **entidad** a la que pertenece.
-
-- Darle un **perfil** (rol):
-
-  - Por ejemplo: "Self-Service", "Técnico", "Administrador".
-
-    ![usuarios](image-57.png)
-
-    ![alta](image-58.png)
-
-### 8.2 - Crear grupos
-
-**Crear grupos es una manera muy útil de organizar usuarios, asignar permisos más fácilmente, o estructurar equipos según proyectos, departamentos, etc.**
-
-- **1. Accedemos a GLPI**
-  - Iniciamos sesión con un usuario que tenga permisos de administrador.
-
-- **2. Vamos al menú de "Administración"**
-  - En el menú de la izquierda, hacemos clic en:
-    - **Administración > Grupos**
-
-- **3. Haz clic en el botón "Añadir" (o el símbolo de +).**
-
-  - Se abrirá un formulario para crear el grupo.
-
-- **4. Rellenaremos los datos del grupo.**
-
-  - Una vez rellenado todo, haremos clic en "Añadir" o "Guardar".
-
-![grupos](image-79.png)
-
-- **6. Asignamos usuarios al grupo.**
-
-  - Después de crearlo, dentro del grupo puedes ir a la pestaña **Usuarios** y pulsamos **"Añadir".**
-
-  - Elegiremos los usuarios que queremos agregar a ese grupo.
-
-![agregar](image-80.png)
-
-### 8.3 - Gestión de perfiles
-
-**Un perfil define lo que el usuario puede hacer y ver. Es como un “rol” o “permiso”.**
-
-Algunos ejemplos que vienen por defecto:
-
-- **Self-Service:** Solo reporta tickets y ve los suyos.
-- **Technician:** Ve y gestiona tickets asignados.
-- **Supervisor:** Ve todos los tickets de su grupo.
-- **Admin:** Tiene acceso completo.
-- **Read-Only:** Solo puede ver, no tocar nada.
-
-Podemos crear **perfiles personalizados,** por ejemplo:
-
-- *Un perfil que solo puede ver inventario.*
-- *Otro que solo puede aprobar compras, etc...*
-
-![perfiles](image-59.png)
-
-- *Le asignamos dentro de cada **apartado** los **permisos** que deseamos para cada perfil o como hemos dicho anteriormente **creamos** un perfil con **permisos personalizados.**
-
-![permisos](image-60.png)
-
-![diagrama](image-61.png)
-
-### 8.4 - Gestión de GMail como nuestro servidor de correo
-
-**Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una \textcolor{red}{contraseña de aplicación} exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
-
-#### 8.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
-
-- **Antes de nada, necesitamos una cuenta de GMail que será usada para enviar los correos:**
-
-- **Crearemos una cuenta GMail** (si no tenemos una dedicada para GLPI, es recomendable que creemos una exclusiva).
-
-- **Entrar a GMail** y configuraremos lo siguiente:
-
-  - Abrimos GMail y hacemos clic en nuestra cuenta, arriba derecha. Después clic en **Gestionar tu cuenta de Google.**
-
-    ![Gestionar](image-75.png)
-
-  - Ahora clic en la sección **Seguridad** en la parte izquierda de la página.
-
-    ![Seguridad](image-76.png)
-
-  - En la parte media de la Página, en la sección **"Como inicias sesión en Google"**, **Verificación en dos pasos** (si no la tenemos ya), comprobaremos que lo tenemos **activado** para así poder crear la **contraseña de aplicación para GLPI.**
-
-    ![Verificación](image-77.png)
-
-  - En la barra superior de búsqueda teclearemos Contraseñas de aplicación.
-
-    ![búsqueda](image-81.png)
-
-  - Introducimos el nombre de la aplicación que en nuestro caso será **GLPI** y    pulsamos en **Crear.**
-
-    ![nombre](image-82.png)
-
-    ![passwd](image-83.png)
-
-  - Ahora ya hemos creado una nueva contraseña de aplicación exclusiva para enviar emails desde **GLPI**. Solamente para eso, **no sustituye** a tu contraseña de GMail.
-  - **Quitaremos** los espacios generados entre los tramos de la contraseña y la guardaremos en un block de notas para posteriormente utilizarla en la **configuración del email de GLPI.**
-
-#### 8.4.2 - Configurar la salida de correo (SMTP) en GLPI
-
-**Ahora vamos a decirle a GLPI cómo usar esa cuenta de GMail para enviar correos.**
-
-- Entraremos en **GLPI** como "Super-Admin".
-- Iremos a **Configuración > Notificaciones > Configuración de los seguimientos por correo.**
-
-- Rellenamos los datos y **guardamos:**
-
-  | Campo | Valor |
-  |:---|:---|
-  | Método de envío | SMTP+TLS |
-  | Servidor de correo SMTP | smtp.gmail.com |
-  | Puerto | 587 |
-  | Autenticación SMTP | Sí |
-  | Usuario SMTP | <tu_correo@gmail.com> |
-  | Contraseña SMTP | La contraseña de aplicación que creamos |
-  | De (email address) | <tu_correo@gmail.com> |
-  | De (nombre) | GLPI - Mantenimiento (o el nombre que queramos) |
-  
-  ![correo](image-78.png)
-
-#### 8.4.3 - Configurar las notificaciones para que avisen al grupo
-
-**Ahora vamos a configurar que cuando llegue una incidencia, se avise al grupo.**
-
-- Iremos a **Configuración > Notificaciones > Notificaciones.**
-
-- Buscaremos la notificación llamada **"Nueva petición"** (o "New Ticket").
-
-![búsqueda](image-84.png)
-
-- *Editamos esa notificación y guardamos.*
-
-![new ticket](image-85.png)
-
-- En **Destinatarios** (Recipients) nos aseguramos de que seleccionamos el **grupo que nos interesa** y **actualizamos-guardamos.**
-
-![Destinatarios](image-86.png)
-
-#### 8.4.4 - Automatizar las notificaciones
-
-- Iremos a **Configuración > Acciones automáticas.**
-
-- **Paso 1.** Buscaremos la acción **mailgate.**
-  - La editamos y la **desactivamos** para que **no** nos recupere cada vez que se genere una notificación todas los correos almacenados y creados anteriormente (Guardar).
-
-    ![desactivar](image-87.png)
-
-- **Paso 2.** Buscaremos las acciones **queuednotification** (Correos enviados a cola) y **queuednotificationclean** (Limpiar cola de notificaciones).
-  - Cada acción debe tener:
-    - **Modo de ejecución:** CLI
-    - **Estado:** Programada
-    - **Frecuencia:** el intervalo que desees (por ejemplo, cada 5 minutos, cada hora, etc.), aunque el cron que programaremos en el sistema marcará los intervalos reales de tiempo a ejecutar.
-
-      ![queuednotification](image-88.png)
-
-      ![queuednotificationclean](image-89.png)
-
-- **Paso 3.** Usaremos **CRON** agregando una entrada en el **crontab** del sistema.
-
-  ```bash
-  sudo crontab -e
-  ```
-
-- Añadiremos esto para que se ejecute cada **2 minutos:**
-
-  ```bash
-    */2 * * * * /usr/bin/php8.3 /var/www/glpi/front/cron.php &>/dev/null
-  ```
-
-El **front/cron.php, viene incluido con GLPI, es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas.
-
-### 8.5 - Generación de códigos QR
-
-Los **códigos QR** se generan para **almacenar y compartir información** de manera **rápida y accesible**.
-
-Su uso es muy amplio y en nuestro proyecto **incluirá:**
-
-- **Enlace al sitio web:** Nos facilitará el acceso a las páginas específicas sin necesidad de escribir la URL.
-
-- **Información de los equipos:** Nos proporcionará detalles adicionales de cada equipo.
-
-- **Fichero de Imagen.png:** Para guardar en la ficha del equipo inventariado y para adjuntar a fichero de texto para su posterior impresion y etiquetado de este.
-
-En nuestro proyecto añadiremos una **extensión** a nuestro navegador **Google-Chrome** desde la **Web Store** de éste, en nuestro caso será:
-
-![ext.QR](image-62.png) ![alt text](image-65.png)
-
-- **Características principales:**
-
-- Genera códigos QR a partir de texto libre y URLs al instante.
-- Genera un código QR para tu página actual con un solo clic.
-- Personalización de color y tamaño.
-- Opción para descargar el código QR como una imagen (PNG/SVG/Código SVG).
-
-Una vez posicionados en el registro de nuestro dispositivo-equipo, haremos un **click** en la **barra superior** del navegador en el **icono** de nuestra extension.
-
-- Se nos abrirá la imagen de un código **QR** para poderlo descargar y guardar.
-
-![QR](image-66.png)
-
-- A continuación se nos abrirá un **destino dentro de nuestros directorios** para poder elegir una **ubicación o una estructura** que para tal motivo tengamos creada y **guardándolo** para después **imprimirlo.**
-
-### 8.6 - Crear peticiones (incidencias)
-
-Desde la **ficha del usuario** nos seleccionamos **Peticiones creadas >> "Nueva petición** para este elemento".
-
-![Peticiones](image-69.png)
-
-![Nueva-petición](image-70.png)
-
-Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una vez añadida se nos plasmará en el **panel** central.
-
-![panel](image-71.png)
-
-## 9 - Impresión de códigos QR y almacenamiento de éste en la BBDD
-
-### 9.1 - Almacenamiento de la imagen QR del dispositivo-equipo en la ficha de éste
+### 7.1 - Almacenamiento de la imagen QR del dispositivo-equipo en la ficha de éste
 
 En la **ficha o registro del activo del elemento seleccionado**, escogemos en la **barra lateral izquierda** la pestaña **Documentos.**
 
@@ -1025,15 +1014,15 @@ Añadimos un **archivo nuevo**, en nuestro caso una imagen.
 
 ![Añadir-documento](image-64.png)
 
-### 9.2 - Impresión
+### 7.2 - Impresión
 
 Después de tener **almacenados en nuestra estructura de directorios creados para tal efecto los QR**, iremos seleccionando **uno a uno** y transportándolos a una hoja de texto **.odt o .docx** para ubicarlos en una **tabla** creada a tal efecto para su posterior **impresión en tamaño A4.**
 
 ![A4](image-67.png)
 
-## 10 - Migración de la aplicación GLPI desde AWS a Proxmox
+## 8 - Migración de la aplicación GLPI desde AWS a Proxmox
 
-### 10.1 - Detalle del proceso
+### 8.1 - Detalle del proceso
 
 - **Paso 1 - Hacer backup de la BBDD de GLPI (MariaDB) al $HOME.**
 
@@ -1058,7 +1047,7 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
     `sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./`
 
-- **Paso 6 - Ejecutar todo el punto 7.2 que detallamos anteriormente**
+- **Paso 6 - Ejecutar todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente**
 
     Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
 
@@ -1084,7 +1073,7 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
     sudo chmod -R 755 /var/www/glpi
     ```
 
-### 10.2 - Proceso automatizado de los pasos 6 al 9
+### 8.2 - Proceso automatizado de los pasos 6 al 9
 
 Para configurar automáticamente los **pasos 6 al 9** de una manera más rápida, podemos utilizar el script.
 
