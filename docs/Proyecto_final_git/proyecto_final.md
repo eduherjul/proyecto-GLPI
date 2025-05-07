@@ -1080,3 +1080,91 @@ Puedes ver el script [aquí](./AWSGLPI_script.md)
 [Descargar el archivo](./AWSGLPI_script.sh)
 
 - **Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI**
+
+## 9 - Script backup en local
+
+- **Definimos las variables que vamos a necesitar.**
+- **Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.**)
+- **Hacemos un backup de la BBDD.**
+- **Hacemos un backup de los archivos de GLPI.**
+- **Eliminamos backups antiguos (más de 15 días).**
+- **Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.**
+- **Damos permisos de ejecución al script.**
+- **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
+
+Puedes ver el script [aquí](./glpi_backuplocal.md)
+
+[Descargar el archivo](./glpi_backuplocal.sh)
+
+- **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
+
+  ```bash
+  echo "Mensaje" | logger -t "mi_script"
+  ```
+
+- **Luego cuando se termine de ejecutar el script revisamos con:**
+
+  ```bash
+  journalctl -t "mi_script"
+  ```
+
+- **Ejecutamos:**
+
+  ```bash
+  sudo crontab -e
+  ```
+
+- **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
+
+  ```bash
+  0 4 * * 0 /home/yo/glpi_backuplocal.sh
+  ```
+
+## 10 - ( Recomendado) Script backup en local y en remoto
+
+- Crear el **directorio remoto** de backups (/home/usuario_remoto/backups_glpi).
+- Genera un par de **claves SSH (pública y privada) de tipo RSA** para el usuario **root** (por el sudo).
+
+### 1. Generar clave RSA
+
+```bash
+sudo ssh-keygen -t rsa
+```
+
+### 2. Copiar clave pública al servidor remoto
+
+```bash
+sudo ssh-copy-id usuario_remoto@IP_Address_remota
+```
+
+Copia la **clave pública** (id_rsa.pub) del usuario local **(en este caso, root)** al archivo ~/.ssh/authorized_keys del **usuario remoto.**
+
+Si el script se ejecuta con **sudo crontab -e, debes usar las claves de root** (como se muestra arriba).
+Si usas **crontab -e** (sin sudo), genera las claves **sin sudo** y usa /home/usuario/.ssh/.
+
+### 3. Verificamos el acceso sin contraseña
+
+```bash
+sudo ssh tu_usuario@ip_remota
+```
+
+Esto permite que el **servidor local** (como **root**) acceda al remoto **sin contraseña.**
+
+- **Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.**
+- **Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:**
+
+  - **lastDB** será el último backup de la **BBDD.**
+
+  - **lastGLPI** será el último backup de los archivos de **GLPI.**
+
+  - *Los envía al servidor remoto por **SCP.**
+- ***Eliminamos backups antiguos (más de 15 días).***
+- **Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.**
+- **Damos permisos de ejecución al script.**
+- **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
+
+Puedes ver el script [aquí](./glpi_backupdual.md)
+
+[Descargar el archivo](./glpi_backupdual.sh)
+
+**Realizaremos los mismos procesos para los mensajes a syslog y para el cron del sistema que en el anterior script.**
