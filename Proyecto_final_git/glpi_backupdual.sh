@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # -------------------- CONFIGURACIÓN --------------------
-usuariodb="edu"
-passdb="123"
-backupDir="/home/yo/glpi_backups"
+usuariodb="usuario-BBDD"
+passdb="password"
+backupDir="/home/usuario_local/glpi_backups"
 fecha=$(date +'%Y-%m-%d_%H-%M-%S')
 
 # Configuración del servidor remoto, disco externo,...
-remoteUser="yo"
-remoteHost="192.168.10.137"
-remoteDir="/home/yo/backups_glpi"
+remoteUser="usuario_remoto"
+remoteHost="Ejem:192.168.10.137"
+remoteDir="/home/usuario_remoto/backups_glpi"
 
 # ------------------------------------------------------
 
