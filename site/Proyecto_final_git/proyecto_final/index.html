@@ -980,6 +980,57 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#9-script-backup-en-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      9 - Script backup en local
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-recomendado-script-backup-en-local-y-en-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      10 - ( Recomendado) Script backup en local y en remoto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10 - ( Recomendado) Script backup en local y en remoto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generar-clave-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generar clave RSA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-copiar-clave-publica-al-servidor-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Copiar clave pública al servidor remoto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verificamos-el-acceso-sin-contrasena" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verificamos el acceso sin contraseña
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1585,6 +1636,57 @@
   <a href="#82-proceso-automatizado-de-los-pasos-6-al-9" class="md-nav__link">
     <span class="md-ellipsis">
       8.2 - Proceso automatizado de los pasos 6 al 9
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-script-backup-en-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      9 - Script backup en local
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-recomendado-script-backup-en-local-y-en-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      10 - ( Recomendado) Script backup en local y en remoto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10 - ( Recomendado) Script backup en local y en remoto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-generar-clave-rsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Generar clave RSA
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-copiar-clave-publica-al-servidor-remoto" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Copiar clave pública al servidor remoto
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-verificamos-el-acceso-sin-contrasena" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verificamos el acceso sin contraseña
     </span>
   </a>
   
@@ -2588,6 +2690,79 @@ sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </sp
 <ul>
 <li><strong>Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI</strong></li>
 </ul>
+<h2 id="9-script-backup-en-local">9 - Script backup en local</h2>
+<ul>
+<li><strong>Definimos las variables que vamos a necesitar.</strong></li>
+<li><strong>Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.</strong>)</li>
+<li><strong>Hacemos un backup de la BBDD.</strong></li>
+<li><strong>Hacemos un backup de los archivos de GLPI.</strong></li>
+<li><strong>Eliminamos backups antiguos (más de 15 días).</strong></li>
+<li><strong>Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.</strong></li>
+<li><strong>Damos permisos de ejecución al script.</strong></li>
+<li><strong>Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.</strong></li>
+</ul>
+<p>Puedes ver el script <a href="../glpi_backuplocal/">aquí</a></p>
+<p><a href="../glpi_backuplocal.sh">Descargar el archivo</a></p>
+<ul>
+<li><strong>Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mensaje&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;mi_script&quot;</span>
+</code></pre></div>
+<ul>
+<li><strong>Luego cuando se termine de ejecutar el script revisamos con:</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>journalctl<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;mi_script&quot;</span>
+</code></pre></div>
+<ul>
+<li><strong>Ejecutamos:</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>crontab<span class="w"> </span>-e
+</code></pre></div>
+<ul>
+<li><strong>Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>/home/yo/glpi_backuplocal.sh
+</code></pre></div>
+<h2 id="10-recomendado-script-backup-en-local-y-en-remoto">10 - ( Recomendado) Script backup en local y en remoto</h2>
+<ul>
+<li>Crear el <strong>directorio remoto</strong> de backups (/home/usuario_remoto/backups_glpi).</li>
+<li>Genera un par de <strong>claves SSH (pública y privada) de tipo RSA</strong> para el usuario <strong>root</strong> (por el sudo).</li>
+</ul>
+<h3 id="1-generar-clave-rsa">1. Generar clave RSA</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa
+</code></pre></div>
+<h3 id="2-copiar-clave-publica-al-servidor-remoto">2. Copiar clave pública al servidor remoto</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>usuario_remoto@IP_Address_remota
+</code></pre></div>
+<p>Copia la <strong>clave pública</strong> (id_rsa.pub) del usuario local <strong>(en este caso, root)</strong> al archivo ~/.ssh/authorized_keys del <strong>usuario remoto.</strong></p>
+<p>Si el script se ejecuta con <strong>sudo crontab -e, debes usar las claves de root</strong> (como se muestra arriba).
+Si usas <strong>crontab -e</strong> (sin sudo), genera las claves <strong>sin sudo</strong> y usa /home/usuario/.ssh/.</p>
+<h3 id="3-verificamos-el-acceso-sin-contrasena">3. Verificamos el acceso sin contraseña</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh<span class="w"> </span>tu_usuario@ip_remota
+</code></pre></div>
+<p>Esto permite que el <strong>servidor local</strong> (como <strong>root</strong>) acceda al remoto <strong>sin contraseña.</strong></p>
+<ul>
+<li><strong>Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.</strong></li>
+<li>
+<p><strong>Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:</strong></p>
+</li>
+<li>
+<p><strong>lastDB</strong> será el último backup de la <strong>BBDD.</strong></p>
+</li>
+<li>
+<p><strong>lastGLPI</strong> será el último backup de los archivos de <strong>GLPI.</strong></p>
+</li>
+<li>
+<p><em>Los envía al servidor remoto por **SCP.*</em></p>
+</li>
+<li><strong><em>Eliminamos backups antiguos (más de 15 días).</em></strong></li>
+<li><strong>Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.</strong></li>
+<li><strong>Damos permisos de ejecución al script.</strong></li>
+<li><strong>Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.</strong></li>
+</ul>
+<p>Puedes ver el script <a href="../glpi_backupdual/">aquí</a></p>
+<p><a href="../glpi_backupdual.sh">Descargar el archivo</a></p>
+<p><strong>Realizaremos los mismos procesos para los mensajes a syslog y para el cron del sistema que en el anterior script.</strong></p>
 
 
 

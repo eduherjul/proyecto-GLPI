@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # -------------------- CONFIGURACIÓN --------------------
-usuariodb="usuario-BBDD"
-passdb="pasword"
-backupDir="/home/usuario_local/glpi_backups"
+usuariodb="edu"
+passdb="123"
+backupDir="/home/yo/glpi_backups"
 fecha=$(date +'%Y-%m-%d_%H-%M-%S')
 # ------------------------------------------------------
 
