@@ -1064,7 +1064,7 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
 ### 8.1 - Detalle del proceso
 
-- **Paso 1 - Hacer backup de la BBDD de GLPI (MariaDB) al $HOME.**
+- **Paso 1 - Hacer backup y comprimir la BBDD de GLPI (MariaDB) al $HOME.**
 
     ```mysql
     mysqldump -u root -p glpi > $HOME/glpi_backup.sql
