@@ -2666,7 +2666,7 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <h3 id="81-detalle-del-proceso">8.1 - Detalle del proceso</h3>
 <ul>
 <li>
-<p><strong>Paso 1 - Hacer backup de la BBDD de GLPI (MariaDB) al $HOME.</strong></p>
+<p><strong>Paso 1 - Hacer backup y comprimir la BBDD de GLPI (MariaDB) al $HOME.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">glpi</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">$HOME</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
 <span class="n">gzip</span><span class="w"> </span><span class="n">$HOME</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
 </code></pre></div>
