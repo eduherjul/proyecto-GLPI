@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Ejecutaremos el script AWSGLPI_script.sh
+#Ejecutaremos el script AWS_SRV-Ubuntu_script.sh
 
 # Instalamos la pila LAMP (apache2-mariadb-php) sin GLPI
 
@@ -80,7 +80,7 @@ version_php=$(dialog --title "Poner los 2 dígitos de la última version de php 
 #Llamo a la funcion:
 acabar
 
-#Instalamos la última versión de php, reiniciamos
+#Instalamos la versión de php, reiniciamos
 clear
 sudo apt install php"$version_php" php"$version_php"-cli php"$version_php"-common libapache2-mod-php"$version_php" libapache2-mod-fcgid php"$version_php"-fpm -y
 sudo systemctl restart apache2.service
@@ -141,15 +141,15 @@ dialog --title "Cargamos las zonas horarias del sistema" \
 clear
 sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
 
-#Restauramos la BBDD
+#Descomprimimos y restauramos la BBDD
 echo "Restauramos la BBDD glpi"
+gunzip -f "$HOME"/glpi_backup.sql.gz
 mysql -u "$nomuser" -p glpi < "$HOME"/glpi_backup.sql
 
 # Descomprimimos los archivos de glpi
 # Como el archivo descomprimido ya incluye la estructura var/www/
 # Usamos, --strip-components=2 elimina los 2 primeros niveles de directorio (var/ y www/) al descomprimir.
 sudo tar --strip-components=2 -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
-sudo tar -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
 sudo rm -rf "$HOME"/glpi_files.tar.gz
 sudo rm -rf /var/www/html/index.html
 

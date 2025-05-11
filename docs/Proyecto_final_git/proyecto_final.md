@@ -256,33 +256,34 @@ conectarnos a ella.
 - **Paso 4.** Iniciamos la instalación.
   - Selecciona **"Install Proxmox VE"** en el menú que aparece.
 
-    ![proxmox](image-90.png){ width=50% }
+    ![proxmox](image-90.png)
 
 - **Paso 5.** Aceptar licencia y disco de instalación.
 
-  ![disco](image-91.png){ width=50% }
+  ![disco](image-91.png)
 
 - **Paso 6.** Configurar región y teclado .
 
-  ![región-teclado](image-92.png){ width=50% }
+  ![región-teclado](image-92.png)
 
 - **Paso 7.** Crear contraseña de root y correo electrónico.
 
-  ![passwd-mail](image-93.png){ width=50% }
+  ![passwd-mail](image-93.png)
 
 - **Paso 8.** Configurar red.
 
-  ![red](image-94.png){ width=50% }
+  ![red](image-94.png)
 
 - **Paso 9.** Finalizar instalación y reiniciar.
   - Cuando terminemos, **retiramos el USB y reiniciamos.**
   
-    ![fin](image-95.png){ width=50% }![instalación](image-96.png){ width=50% }
+    ![fin](image-95.png)
+    ![instalación](image-96.png)
 
 - **Paso 10.** Accedemos a la interfaz web (después del reinicio.
   - Abre un navegador y entramos en: `https://[IP-del-servidor]:8006`.
 
-    ![alt text](image-97.png){ width=75% }
+    ![alt text](image-97.png)
 
 ### 6.3 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
 

@@ -18,7 +18,7 @@
     
     
       
-        <title>AWSGLPI script - Edu-mkdocs</title>
+        <title>AWS SRV Ubuntu script - Edu-mkdocs</title>
       
     
     
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AWSGLPI script
+              AWS SRV Ubuntu script
             
           </span>
         </div>
@@ -399,11 +399,11 @@
 
 
 
-  <h1>AWSGLPI script</h1>
+  <h1>AWS SRV Ubuntu script</h1>
 
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c1">#Ejecutaremos el script AWSGLPI_script.sh</span>
+<span class="c1">#Ejecutaremos el script AWS_SRV-Ubuntu_script.sh</span>
 
 <span class="c1"># Instalamos la pila LAMP (apache2-mariadb-php) sin GLPI</span>
 
@@ -483,7 +483,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </
 <span class="c1">#Llamo a la funcion:</span>
 acabar
 
-<span class="c1">#Instalamos la última versión de php, reiniciamos</span>
+<span class="c1">#Instalamos la versión de php, reiniciamos</span>
 clear
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>php<span class="s2">&quot;</span><span class="nv">$version_php</span><span class="s2">&quot;</span><span class="w"> </span>php<span class="s2">&quot;</span><span class="nv">$version_php</span><span class="s2">&quot;</span>-cli<span class="w"> </span>php<span class="s2">&quot;</span><span class="nv">$version_php</span><span class="s2">&quot;</span>-common<span class="w"> </span>libapache2-mod-php<span class="s2">&quot;</span><span class="nv">$version_php</span><span class="s2">&quot;</span><span class="w"> </span>libapache2-mod-fcgid<span class="w"> </span>php<span class="s2">&quot;</span><span class="nv">$version_php</span><span class="s2">&quot;</span>-fpm<span class="w"> </span>-y
 sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>apache2.service
@@ -544,15 +544,15 @@ dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&q
 clear
 sudo<span class="w"> </span>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
 
-<span class="c1">#Restauramos la BBDD</span>
+<span class="c1">#Descomprimimos y restauramos la BBDD</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restauramos la BBDD glpi&quot;</span>
+gunzip<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql.gz
 mysql<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nomuser</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql
 
 <span class="c1"># Descomprimimos los archivos de glpi</span>
 <span class="c1"># Como el archivo descomprimido ya incluye la estructura var/www/</span>
 <span class="c1"># Usamos, --strip-components=2 elimina los 2 primeros niveles de directorio (var/ y www/) al descomprimir.</span>
 sudo<span class="w"> </span>tar<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">2</span><span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz<span class="w"> </span>-C<span class="w"> </span>/var/www/
-sudo<span class="w"> </span>tar<span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz<span class="w"> </span>-C<span class="w"> </span>/var/www/
 sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz
 sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/www/html/index.html
 
