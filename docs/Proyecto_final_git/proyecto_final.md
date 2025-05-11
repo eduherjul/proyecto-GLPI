@@ -795,7 +795,7 @@ Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una
 
 ### 6.7 - Instalación automatizada de todo este proceso
 
-Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2 y 6.3** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
+Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.3 y 6.4** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
 
 Puedes ver el script [aquí](./GLPI_script.md)
 
