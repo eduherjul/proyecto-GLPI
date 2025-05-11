@@ -429,7 +429,7 @@ gzip<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_B
 <span class="nv">GLPI_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="nv">$fecha</span><span class="s2">.tar.gz&quot;</span>
 tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>-C<span class="w"> </span>/var/www/glpi<span class="w"> </span>.
 
-<span class="c1"># 3. Identificar últimos backups (usando mapfile + ls como solicitaste)</span>
+<span class="c1"># 3. Identificar últimos backups (usando mapfile + ls)</span>
 mapfile<span class="w"> </span>-t<span class="w"> </span>db_files<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>/*.sql.gz<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="o">)</span>
 mapfile<span class="w"> </span>-t<span class="w"> </span>glpi_files<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>/glpi_files_*.tar.gz<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="o">)</span>
 
