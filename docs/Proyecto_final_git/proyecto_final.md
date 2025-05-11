@@ -243,9 +243,50 @@ conectarnos a ella.
 
 ![alt text](image-31.png)
 
-### 6.2 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
+### 6.2 - (Instalación definitiva ) Proxmox con Ubuntu Server 24.04
 
-#### 6.2.1 - Instalación de Apache
+#### 6.2.1 - Instalación de Proxmox
+
+- **Paso 1.** Descargar la ISO de Proxmox VE.
+  - Desde la web oficial: <https://www.proxmox.com/en/downloads>
+- **Paso 2.** Crear un USB booteable.
+  - Usaremos herramientas como **Rufus** (Windows) o **balenaEtcher** (Linux/macOS).
+- **Paso 3.** Arrancar desde el USB.
+  - Encendemos el servidor o PC y entramos en la **BIOS/UEFI** para arrancar desde el USB.
+- **Paso 4.** Iniciamos la instalación.
+  - Selecciona **"Install Proxmox VE"** en el menú que aparece.
+
+    ![proxmox](image-90.png){ width=50% }
+
+- **Paso 5.** Aceptar licencia y disco de instalación.
+
+  ![disco](image-91.png){ width=50% }
+
+- **Paso 6.** Configurar región y teclado .
+
+  ![región-teclado](image-92.png){ width=50% }
+
+- **Paso 7.** Crear contraseña de root y correo electrónico.
+
+  ![passwd-mail](image-93.png){ width=50% }
+
+- **Paso 8.** Configurar red.
+
+  ![red](image-94.png){ width=50% }
+
+- **Paso 9.** Finalizar instalación y reiniciar.
+  - Cuando terminemos, **retiramos el USB y reiniciamos.**
+  
+    ![fin](image-95.png){ width=50% }![instalación](image-96.png){ width=50% }
+
+- **Paso 10.** Accedemos a la interfaz web (después del reinicio.
+  - Abre un navegador y entramos en: `https://[IP-del-servidor]:8006`.
+
+    ![alt text](image-97.png){ width=75% }
+
+### 6.3 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
+
+#### 6.3.1 - Instalación de Apache
 
 ![APACHE](image-2.png)
 
@@ -308,7 +349,7 @@ conectarnos a ella.
     sudo systemctl restart apache2.service
     ```
 
-#### 6.2.2 - Instalación de PHP
+#### 6.3.2 - Instalación de PHP
 
 ![php](image-4.png)
 
@@ -365,7 +406,7 @@ conectarnos a ella.
 sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,tidy,xmlrpc,pspell,gettext,mbstring,fpm,iconv,xml,xsl,bz2,Phar,zip,exif}
 ```
 
-#### 6.2.3 - Instalación de MariaDB
+#### 6.3.3 - Instalación de MariaDB
 
 ![Mariadb](image-3.png)
 
@@ -400,7 +441,7 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
     sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
     ```
 
-### 6.3 - Descarga e instalación de GLPI
+### 6.4 - Descarga e instalación de GLPI
 
 ![GLPI](image-1.png)
 
@@ -487,7 +528,7 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
 
 **En este momento ya tenemos instalados todos los componentes para ejecutar GLPI abriendo un navegador contra nuestro GLPI, <<http://IP> de nuestro servidor.**
 
-### 6.4 - Asistente de configuración de GLPI
+### 6.5 - Asistente de configuración de GLPI
 
 - **Paso 1.** Si todo ha ido bien tendremos el asistente de configuración de GLPI, después de abrir ya un navegador contra nuestro GLPI, algo como **http://DIRECCION_IP del servidor**, lo primero, escogeremos el idioma a utilizar **& OK**.
 
@@ -531,9 +572,9 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
 ![Logout](image-55.png) ![Panel](image-56.png)
 
-### 6.5 - Documentación funcional de GLPI
+### 6.6 - Documentación funcional de GLPI
 
-#### 6.5.1 - Crear usuarios
+#### 6.6.1 - Crear usuarios
 
 **Un usuario es una persona que va a usar GLPI. Puede ser:**
 
@@ -555,7 +596,7 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
     ![alta](image-58.png)
 
-#### 6.5.2 - Crear grupos
+#### 6.6.2 - Crear grupos
 
 **Crear grupos es una manera muy útil de organizar usuarios, asignar permisos más fácilmente, o estructurar equipos según proyectos, departamentos, etc.**
 
@@ -584,7 +625,7 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
 ![agregar](image-80.png)
 
-#### 6.5.3 - Gestión de perfiles
+#### 6.6.3 - Gestión de perfiles
 
 **Un perfil define lo que el usuario puede hacer y ver. Es como un “rol” o “permiso”.**
 
@@ -607,11 +648,11 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 ![permisos](image-60.png)
 
-#### 6.5.4 - Gestión de GMail como nuestro servidor de correo
+#### 6.6.4 - Gestión de GMail como nuestro servidor de correo
 
 **Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una \textcolor{red}{contraseña de aplicación} exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
 
-##### 6.5.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
+##### 6.6.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
 
 - **Antes de nada, necesitamos una cuenta de GMail que será usada para enviar los correos:**
 
@@ -644,7 +685,7 @@ Podemos crear **perfiles personalizados,** por ejemplo:
   - Ahora ya hemos creado una nueva contraseña de aplicación exclusiva para enviar emails desde **GLPI**. Solamente para eso, **no sustituye** a tu contraseña de GMail.
   - **Quitaremos** los espacios generados entre los tramos de la contraseña y la guardaremos en un block de notas para posteriormente utilizarla en la **configuración del email de GLPI.**
 
-##### 6.5.4.2 - Configurar la salida de correo (SMTP) en GLPI
+##### 6.6.4.2 - Configurar la salida de correo (SMTP) en GLPI
 
 **Ahora vamos a decirle a GLPI cómo usar esa cuenta de GMail para enviar correos.**
 
@@ -657,7 +698,7 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
   ![correo](image-78.png)
 
-##### 6.5.4.3 - Configurar las notificaciones para que avisen al grupo
+##### 6.6.4.3 - Configurar las notificaciones para que avisen al grupo
 
 **Ahora vamos a configurar que cuando llegue una incidencia, se avise al grupo.**
 
@@ -675,7 +716,7 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 ![Destinatarios](image-86.png)
 
-##### 6.5.4.4. - Automatizar las notificaciones
+##### 6.6.4.4. - Automatizar las notificaciones
 
 - Iremos a **Configuración > Acciones automáticas.**
 
@@ -708,7 +749,7 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 El **front/cron.php, viene incluido con GLPI, es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas.
 
-#### 6.5.5 - Generación de códigos QR
+#### 6.6.5 - Generación de códigos QR
 
 Los **códigos QR** se generan para **almacenar y compartir información** de manera **rápida y accesible**.
 
@@ -739,7 +780,7 @@ Una vez posicionados en el registro de nuestro dispositivo-equipo, haremos un **
 
 - A continuación se nos abrirá un **destino dentro de nuestros directorios** para poder elegir una **ubicación o una estructura** que para tal motivo tengamos creada y **guardándolo** para después **imprimirlo.**
 
-#### 6.5.6 - Crear peticiones (incidencias)
+#### 6.6.6 - Crear peticiones (incidencias)
 
 Desde la **ficha del usuario** nos seleccionamos **Peticiones creadas >> "Nueva petición** para este elemento".
 
@@ -751,7 +792,7 @@ Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una
 
 ![panel](image-71.png)
 
-### 6.6 - Instalación automatizada de todo este proceso
+### 6.7 - Instalación automatizada de todo este proceso
 
 Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.2 y 6.3** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
 
@@ -759,7 +800,7 @@ Puedes ver el script [aquí](./GLPI_script.md)
 
 [Descargar el archivo](./GLPI_script.sh)
 
-### 6.7 - Descarga e instalación de Visual Studio Code
+### 6.8 - Descarga e instalación de Visual Studio Code
 
 ![VS Code](image-8.png)
 
@@ -771,7 +812,7 @@ Puedes ver el script [aquí](./GLPI_script.md)
 
 - **Paso 2. Ejecutaremos el instalador "desde el directorio en el cual lo hemos descargado" y seguiremos las instrucciones de éste, lo cual veremos detalladamente en un apartado aparte para este cometido.**
 
-### 6.8 - Instalación de las extensiones en VScode para Markdown
+### 6.9 - Instalación de las extensiones en VScode para Markdown
 
 ![Markdown](image-9.png)
 
@@ -802,7 +843,7 @@ Será el lenguaje que utilizaremos para describir el proyecto que nos proporcion
   
   ![Preview](image-35.png)
 
-### 6.9 - Instalación de Tex Live
+### 6.10 - Instalación de Tex Live
 
 ![Tex Live](image-10.png)
 
@@ -816,7 +857,7 @@ sudo apt update
 sudo apt install texlive-full
 ```
 
-### 6.10 - Instalación de Pandoc
+### 6.11 - Instalación de Pandoc
 
 ![Pandoc](Image-36.png)
 
@@ -827,7 +868,7 @@ Es el **conversor** principal que transforma **Markdown en PDF.**
 
 `sudo apt install pandoc -y`
 
-### 6.11 - Instalación de la plantilla Eisvogel
+### 6.12 - Instalación de la plantilla Eisvogel
 
 ![Eisvogel](Image-37.png)
 
@@ -882,7 +923,7 @@ Puedes ver el script [aquí](./mdpdf%20.md)
 
 [Descargar el archivo](./mdpdf.sh)
 
-### 6.12 - Instalación de MkDocs
+### 6.13 - Instalación de MkDocs
 
 ![MkDocs](image-11.png)
 
@@ -955,7 +996,7 @@ Combina simplicidad con flexibilidad, permitiéndonos personalizar el diseño co
 
   ![Con site](image-73.png)
 
-### 6.13 - Instalación de Git
+### 6.14 - Instalación de Git
 
 ![GitHub](image-12.png)
 
@@ -1024,18 +1065,24 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
 - **Paso 1 - Hacer backup de la BBDD de GLPI (MariaDB) al $HOME.**
 
-    `mysqldump -u root -p glpi > $HOME/glpi_backup.sql`
+    ```mysql
+    mysqldump -u root -p glpi > $HOME/glpi_backup.sql
+    gzip $HOME/glpi_backup.sql
+
+    ```
 
 - **Paso 2 - Comprimir los archivos de GLPI.**
 
-    `sudo tar -czvf $HOME/glpi_files.tar.gz /var/www/glpi`
+    ```bash
+    sudo tar -czvf $HOME/glpi_files.tar.gz /var/www/glpi
+    ```
 
 - **Paso 3 - Copiar los archivos desde el \$HOME de AWS al directorio (Ejem:$HOME) donde se encuentra la clave_AWS.pem del HOST.**
 
     Esta operación la haremos desde el **HOST.**
 
     ```bash
-    scp -i $HOME/clave_WS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/ubuntu/glpi_backup.sql ./
+    scp -i $HOME/clave_WS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/ubuntu/glpi_backup.sql.gz ./
     scp -i $HOME/clave_AWS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/$HOME/glpi_files.tar.gz ./
     ```
 
@@ -1043,15 +1090,20 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
 - **Paso 5 - Copiamos los archivos desde el \$HOME del HOST al $HOME de Ubuntu Server.**
 
-    `sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./`
+    ```bash
+    sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
+    ```
 
-- **Paso 6 - Ejecutar todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente**
+- **Paso 6 - Ejecutar todo el contenido e instalación del punto 6.2 que detallamos anteriormente**
 
     Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
 
 - **Paso 7 - Restauramos la BBDD.**
 
-    `mysql -u <user> -p glpi < "$HOME"/glpi_backup.sql`
+    ```bash
+    gunzip -f "$HOME"/glpi_backup.sql.gz
+    mysql -u <user> -p<passwd> glpi < "$HOME"/glpi_backup.sql
+    ```
 
 - **Paso 8 - Descomprimimos los archivos de glpi.**
 
@@ -1059,7 +1111,6 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
     ```bash
     sudo tar --strip-components=2 -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
-    sudo tar -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
     sudo rm -rf "$HOME"/glpi_files.tar.gz
     sudo rm -rf /var/www/html/index.html
     ```
@@ -1075,96 +1126,143 @@ Después de tener **almacenados en nuestra estructura de directorios creados par
 
 Para configurar automáticamente los **pasos 6 al 9** de una manera más rápida, podemos utilizar el script.
 
-Puedes ver el script [aquí](./AWSGLPI_script.md)
+Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
-[Descargar el archivo](./AWSGLPI_script.sh)
+[Descargar el archivo](./AWS_SRV-Ubuntu_script.sh)
 
 - **Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI**
 
-## 9 - Script backup en local
+## 9 - Script backup en local y en remoto
 
 - **Definimos las variables que vamos a necesitar.**
+
+  ```bash
+  usuariodb="edu"
+  passdb="123"
+  backupDir="/home/yo/glpi_backups"
+  fecha=$(date +'%Y-%m-%d_%H-%M-%S')
+
+  # Configuración del servidor remoto, disco externo,...
+  remoteUser="yo"
+  remoteHost="192.168.10.137"
+  remoteDir="/home/yo/backups_glpi"
+  ```
+
 - **Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.**)
+
+  ```bash
+  mkdir -p "$backupDir"
+  ```
+
 - **Hacemos un backup de la BBDD.**
+
+  ```bash
+  DB_BACKUP="$backupDir/glpi_db_$fecha.sql"
+  mysqldump --user="$usuariodb" --password="$passdb" glpi > "$DB_BACKUP"
+  gzip "$DB_BACKUP"
+  DB_BACKUP="$DB_BACKUP.gz"  # Actualizamos nombre tras comprimir
+  ```
+
 - **Hacemos un backup de los archivos de GLPI.**
+
+  ```bash
+  GLPI_BACKUP="$backupDir/glpi_files_$fecha.tar.gz"
+  sudo tar -czvf "$GLPI_BACKUP" /var/www/glpi
+  ```
+
 - **Eliminamos backups antiguos (más de 15 días).**
-- **Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.**
+
+  ```bash
+  find "$backupDir" -type f -mtime +15 -delete
+  ```
+
 - **Damos permisos de ejecución al script.**
-- **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
-
-Puedes ver el script [aquí](./glpi_backuplocal.md)
-
-[Descargar el archivo](./glpi_backuplocal.sh)
-
-- **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
 
   ```bash
-  echo "Mensaje" | logger -t "mi_script"
+  sudo chmod +x glpi_backupdual.sh
   ```
-
-- **Luego cuando se termine de ejecutar el script revisamos con:**
-
-  ```bash
-  journalctl -t "mi_script"
-  ```
-
-- **Ejecutamos:**
-
-  ```bash
-  sudo crontab -e
-  ```
-
-- **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
-
-  ```bash
-  0 4 * * 0 /home/yo/glpi_backuplocal.sh
-  ```
-
-## 10 - ( Recomendado) Script backup en local y en remoto
 
 - Crear el **directorio remoto** de backups (/home/usuario_remoto/backups_glpi).
-- Genera un par de **claves SSH (pública y privada) de tipo RSA** para el usuario **root** (por el sudo).
 
-### 1. Generar clave RSA
+  ```bash
+  mkdir /home/usuario_remoto/backups_glpi
+  ```
 
-```bash
-sudo ssh-keygen -t rsa
-```
+- **Generar clave RSA.**
 
-### 2. Copiar clave pública al servidor remoto
+  ```bash
+  sudo ssh-keygen -t rsa
+  ```
 
-```bash
-sudo ssh-copy-id usuario_remoto@IP_Address_remota
-```
+- **Copiar clave pública al servidor remoto.**
 
-Copia la **clave pública** (id_rsa.pub) del usuario local **(en este caso, root)** al archivo ~/.ssh/authorized_keys del **usuario remoto.**
+  ```bash
+  sudo ssh-copy-id usuario_remoto@IP_Address_remota
+  ```
 
-Si el script se ejecuta con **sudo crontab -e, debes usar las claves de root** (como se muestra arriba).
-Si usas **crontab -e** (sin sudo), genera las claves **sin sudo** y usa /home/usuario/.ssh/.
+  - Copia la **clave pública** (id_rsa.pub) del usuario local **(en este caso, root)** al archivo ~/.ssh/authorized_keys del **usuario remoto.**
 
-### 3. Verificamos el acceso sin contraseña
+Si el script se ejecuta **con sudo crontab -e, debes usar las claves de root** (como se muestra arriba).
+Si usas **crontab -e** (sin sudo), genera las claves **sin sudo** y usa **/home/yo/.ssh/**.
 
-```bash
-sudo ssh tu_usuario@ip_remota
-```
+- **Verificamos el acceso sin contraseña.**
 
-Esto permite que el **servidor local** (como **root**) acceda al remoto **sin contraseña.**
+  ```bash
+  sudo ssh tu_usuario@ip_remota
+  ```
 
-- **Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.**
-- **Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:**
+  - Esto permite que el **servidor local** (como **root**) acceda al remoto **sin contraseña.**
 
-  - **lastDB** será el último backup de la **BBDD.**
+  - **Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.**
+  - **Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:**
 
-  - **lastGLPI** será el último backup de los archivos de **GLPI.**
+    - **lastDB** será el último backup de la **BBDD.**
 
-  - *Los envía al servidor remoto por **SCP.**
-- ***Eliminamos backups antiguos (más de 15 días).***
-- **Mandamos un mensaje al registro del sistema (syslog) para dejar constancia de que el backup se ejecuta correctamente.**
-- **Damos permisos de ejecución al script.**
-- **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
+    - **lastGLPI** será el último backup de los archivos de **GLPI.**
+
+  - Los envía al servidor remoto por **SCP.**
+  - **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
+
+  - **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
+
+    ```bash
+    echo "Mensaje" | logger -t "mi_script"proyecto_final.md
+    ```
+
+  - **Luego cuando se termine de ejecutar el script revisamos con:**
+
+    ```bash
+    journalctl -t "mi_script"
+    ```
+
+  - **Ejecutamos:**
+
+    ```bash
+    sudo crontab -e
+    ```
+
+  - **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
+
+    ```bash
+    0 4 * * 0 /home/yo/glpi_backupdual.sh
+    ```
+
+Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script.
 
 Puedes ver el script [aquí](./glpi_backupdual.md)
 
 [Descargar el archivo](./glpi_backupdual.sh)
 
-**Realizaremos los mismos procesos para los mensajes a syslog y para el cron del sistema que en el anterior script.**
+## 10 - Script para restaurar en local y remoto
+
+- **Introducimos las variables que vamos a necesitar (origen=local-remoto).**
+- **Preguntamos que ficheros queremos restaurar (BBDD-GLPI-LOS DOS).**
+- **Preguntamos si los ficheros (BBDD y GLPI) ya existen y si lo queremos sobrescribir.**
+- **Vaciamos la BBDD y la restauramos.**
+- **Restauramos los ficheros de GLPI.**
+
+Para configurar automáticamente este proceso de **RESTAURACIÓN** de una manera más rápida, podemos utilizar el script.
+
+Puedes ver el script [aquí](./restaurardual_glpi.md)
+
+[Descargar el archivo](./restaurardual_glpi.sh)
