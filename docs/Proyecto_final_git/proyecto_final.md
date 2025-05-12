@@ -78,51 +78,21 @@ GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas*
 - GLPI es utilizado en todo el mundo, con una **fuerte presencia en Europa y sobre todo en América Latina** donde prácticamente es el dominador en ese mercado.
 - Su adaptabilidad a diferentes **idiomas y normativas** es lo que lo hace adecuado para **organizaciones internacionales** que buscan una solución de gestión de IT eficiente y flexible.
 
-## 4 - Escenario
+## 4 - Escenario con AWS
 
 ![Escenario](Escenario.png)
 
-## 5 - Estructura Detallada del Escenario AWS con GLPI
-
-### Diagrama de arquitectura
+### 4.1 - Diagrama de arquitectura
 
 ![Arquitectura](image-13.png)
 
-### Tabla de componentes
+## 5 - Escenario definitivo con Proxmox
 
-```bash
-| Capa           | Componente   | Versión  | Función                     | Configuración Recomendada                     |
-|----------------|--------------|----------|-----------------------------|-----------------------------------------------|
-| Infraestructura| AWS EC2      | -        | Hosting de la solución      | t3.medium (2vCPU, 4GB RAM)                    |
-| SO             | Ubuntu Server| 24.04 LTS| Base del sistema            | Auto-updates habilitados                      |
-| Servidor Web   | Apache       | 2.4.x    | Servir contenido web        | Módulos: rewrite, ssl, headers                |
-| Lenguaje       | PHP          | 8.3      | Procesamiento backend       | Extensiones: mysqli, gd, xml, curl, zlib, intl|
-| Base de Datos  | MariaDB      | 10.6+    | Almacenamiento de datos GLPI| InnoDB, utf8mb4_unicode_ci                    |
-| Aplicación     | GLPI         | 10.0.18     | Gestión de tickets IT       | Configuración optimizada para 50+ usuarios    |
-```
+![Escenario-Proxmox](image-110.png)
 
-### Usuarios y Permisos
+### 5.1 Diagrama de arquitectura
 
-```bash
-| Usuario     | Grupo    | Directorios        | Permisos |
-|-------------|----------|--------------------|----------|
-| www-data    | www-data | /var/www/html/glpi | 750      |
-| mysql       | mysql    | /var/lib/mysql     | 700      |
-| root        | root     | /etc/glpi          | 600      |
-```
-
-### Especificaciones Técnicas Recomendadas
-
-**Requerimientos de Hardware.**
-
-```bash
-| Componente     | Mínimo | Recomendado | Producción  |
-|----------------|--------|-------------|-------------|
-| vCPUs          | 1      | 2           | 4+          |
-| RAM            | 2GB    | 4GB         | 8GB+        |
-| Almacenamiento | 20GB   | 50GB        | 100GB+ (SSD)|
-| IOPS           | 100    | 500         | 1000+       |
-```
+![Arquitectura-Proxmox](image-109.png)
 
 ## 6 - Instalación y configuración de las herramientas a utilizar
 
@@ -284,6 +254,64 @@ conectarnos a ella.
   - Abre un navegador y entramos en: `https://[IP-del-servidor]:8006`.
 
     ![alt text](image-97.png)
+
+#### 6.2.2 - Creación de la MV Ubuntu Server en Proxmox
+
+- ***Paso 1.*** *Cargar ISO a Proxmox VE una vez hemos accedido a la interfaz web.*
+
+  ![ISO](image-61.png)
+
+- ***Paso 2.*** *Esto abrirá la ventana emergente de carga. Seleccionaremos **Imagen ISO.**
+Desde el menú desplegable de contenido, seleccionaremos el archivo ISO que deseamos cargar.
+Haremos clic en el botón **Upload** para cargar el archivo **ISO.***
+
+  ![upload](image-63.png) ![process](image-64.png)
+
+- ***Paso 3.*** *Crearemos la MV una vez cargado el archivo ISO.*
+
+  ![Create MV](image-98.png)
+
+- ***Paso 4.*** *En la pestaña **General** asignaremos un nombre a la MV.*
+  
+  ![nombre](image-99.png)
+
+- ***Paso 5.*** *En la pestaña **OS** elegimos la imagen ISO que hemos subido.*
+  
+  ![OS](image-100.png)
+
+- ***Paso 6.*** *En la pestaña **System** dejaremos la configuración **predeterminada.***
+
+  ![System](image-101.png)
+
+- ***Paso 7.*** *En la pestaña **Disk** seleccionaremos el **disco** de almacenamiento y el **tamaño** del disco de la MV.*  
+
+  ![Disk](image-102.png)
+
+- ***Paso 8.*** *En la pestaña **CPU** seleccionaremos el número de **núcleos** de CPU que deseamos asignar a la MV.*
+
+  ![cores](image-103.png)
+
+- ***Paso 9.*** *En la pestaña **Memory** asignaremos la cantidad de **RAM** para la MV.*
+  - *Como estamos realizando pruebas en **VirtualBox** con **2 niveles de virtualización** asignaremos más cores y RAM para que pueda funcionar.*
+
+  ![RAM](image-104.png)
+
+- ***Paso 10.*** *En la pestaña **Network** dejaremos la configuración **predeterminada.***
+
+  ![Network](image-105.png)
+
+- ***Paso 11.*** *En la pestaña **Confirm** revisaremos la configuración de la MV y finalizaremos.*
+
+  ![Finish](image-106.png)
+
+- ***Paso 12.*** *Instalaremos el **SO** en la **MV.***
+
+  ![Start](image-107.png)
+
+- ***Paso 13.*** *Se abrirá una consola virtual que usaremos para instalar el **SO** que queramos, siguiendo las instrucciones del instalador.*
+
+  ![Bienvenido](image-108.png)
+
 
 ### 6.3 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
 
