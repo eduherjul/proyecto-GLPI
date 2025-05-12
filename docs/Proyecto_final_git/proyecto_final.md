@@ -257,61 +257,60 @@ conectarnos a ella.
 
 #### 6.2.2 - Creación de la MV Ubuntu Server en Proxmox
 
-- ***Paso 1.*** *Cargar ISO a Proxmox VE una vez hemos accedido a la interfaz web.*
+- **Paso 1.** Cargar ISO a Proxmox VE una vez hemos accedido a la interfaz web.
 
   ![ISO](image-61.png)
 
-- ***Paso 2.*** *Esto abrirá la ventana emergente de carga. Seleccionaremos **Imagen ISO.**
+- **Paso 2.** Esto abrirá la ventana emergente de carga. Seleccionaremos **Imagen ISO.**
 Desde el menú desplegable de contenido, seleccionaremos el archivo ISO que deseamos cargar.
-Haremos clic en el botón **Upload** para cargar el archivo **ISO.***
+Haremos clic en el botón **Upload** para cargar el archivo **ISO.**
 
   ![upload](image-63.png) ![process](image-64.png)
 
-- ***Paso 3.*** *Crearemos la MV una vez cargado el archivo ISO.*
+- **Paso 3.** Crearemos la MV una vez cargado el archivo ISO.
 
   ![Create MV](image-98.png)
 
-- ***Paso 4.*** *En la pestaña **General** asignaremos un nombre a la MV.*
+- **Paso 4.** En la pestaña **General** asignaremos un nombre a la MV.
   
   ![nombre](image-99.png)
 
-- ***Paso 5.*** *En la pestaña **OS** elegimos la imagen ISO que hemos subido.*
+- **Paso 5.** En la pestaña **OS** elegimos la imagen ISO que hemos subido.
   
   ![OS](image-100.png)
 
-- ***Paso 6.*** *En la pestaña **System** dejaremos la configuración **predeterminada.***
+- **Paso 6.** En la pestaña **System** dejaremos la configuración **predeterminada.**
 
   ![System](image-101.png)
 
-- ***Paso 7.*** *En la pestaña **Disk** seleccionaremos el **disco** de almacenamiento y el **tamaño** del disco de la MV.*  
+- **Paso 7.** En la pestaña **Disk** seleccionaremos el **disco** de almacenamiento y el **tamaño** del disco de la MV.  
 
   ![Disk](image-102.png)
 
-- ***Paso 8.*** *En la pestaña **CPU** seleccionaremos el número de **núcleos** de CPU que deseamos asignar a la MV.*
+- **Paso 8.** En la pestaña **CPU** seleccionaremos el número de **núcleos** de CPU que deseamos asignar a la MV.
 
   ![cores](image-103.png)
 
-- ***Paso 9.*** *En la pestaña **Memory** asignaremos la cantidad de **RAM** para la MV.*
-  - *Como estamos realizando pruebas en **VirtualBox** con **2 niveles de virtualización** asignaremos más cores y RAM para que pueda funcionar.*
+- **Paso 9.** En la pestaña **Memory** asignaremos la cantidad de **RAM** para la MV.
+  - Como estamos realizando pruebas en **VirtualBox** con **2 niveles de virtualización** asignaremos más cores y RAM para que pueda funcionar.
 
   ![RAM](image-104.png)
 
-- ***Paso 10.*** *En la pestaña **Network** dejaremos la configuración **predeterminada.***
+- **Paso 10.** En la pestaña **Network** dejaremos la configuración **predeterminada.**
 
   ![Network](image-105.png)
 
-- ***Paso 11.*** *En la pestaña **Confirm** revisaremos la configuración de la MV y finalizaremos.*
+- **Paso 11.** En la pestaña **Confirm** revisaremos la configuración de la MV y finalizaremos.
 
   ![Finish](image-106.png)
 
-- ***Paso 12.*** *Instalaremos el **SO** en la **MV.***
+- **Paso 12.** Instalaremos el **SO** en la **MV.**
 
   ![Start](image-107.png)
 
-- ***Paso 13.*** *Se abrirá una consola virtual que usaremos para instalar el **SO** que queramos, siguiendo las instrucciones del instalador.*
+- **Paso 13.** Se abrirá una consola virtual que usaremos para instalar el **SO** que queramos, siguiendo las instrucciones del instalador.
 
   ![Bienvenido](image-108.png)
-
 
 ### 6.3 - Creación de la pila LAMP (Linux, Apache, MariaDB y PHP)
 
