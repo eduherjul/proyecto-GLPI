@@ -26,7 +26,7 @@ DB_BACKUP="$DB_BACKUP.gz"  # Actualizamos nombre tras comprimir
 GLPI_BACKUP="$backupDir/glpi_files_$fecha.tar.gz"
 tar -czvf "$GLPI_BACKUP" -C /var/www/glpi .
 
-# 3. Identificar últimos backups (usando mapfile + ls como solicitaste)
+# 3. Identificar últimos backups (usando mapfile + ls)
 mapfile -t db_files < <(ls -t "$backupDir"/*.sql.gz 2>/dev/null)
 mapfile -t glpi_files < <(ls -t "$backupDir"/glpi_files_*.tar.gz 2>/dev/null)
 

@@ -1042,19 +1042,9 @@ En nuestro caso será la plataforma que alojará nuestro documento del proyecto,
 
 Cada vez que subamos cambios, nos pedirá **usuario y contraseña** (o **token** si usamos 2FA).
 
-## 7 - Impresión de códigos QR y almacenamiento de éste en la BBDD
+## 7 - Impresión de códigos QR
 
-### 7.1 - Almacenamiento de la imagen QR del dispositivo-equipo en la ficha de éste
-
-En la **ficha o registro del activo del elemento seleccionado**, escogemos en la **barra lateral izquierda** la pestaña **Documentos.**
-
-![Documentos](image-63.png)
-
-Añadimos un **archivo nuevo**, en nuestro caso una imagen.
-
-![Añadir-documento](image-64.png)
-
-### 7.2 - Impresión
+Este componente es el que utilizaremos para crear una **tabla de 4x5 en formato A4** que nos permitirá ubicar **20 códigos QR generados en nuestra aplicación de GLPI** que se imprimirán para poder etiquetar e identificar nuestro inventario de IT-Information Technology.
 
 Después de tener **almacenados en nuestra estructura de directorios creados para tal efecto los QR**, iremos seleccionando **uno a uno** y transportándolos a una hoja de texto **.odt o .docx** para ubicarlos en una **tabla** creada a tal efecto para su posterior **impresión en tamaño A4.**
 
