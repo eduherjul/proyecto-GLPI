@@ -2700,43 +2700,43 @@ sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </sp
 </ul>
 <h2 id="9-script-backup-en-local">9 - Script backup en local</h2>
 <ul>
-<li><strong>Definimos las variables que vamos a necesitar.</strong></li>
-</ul>
+<li>
+<p><strong>Definimos las variables que vamos a necesitar.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nv">usuariodb</span><span class="o">=</span><span class="s2">&quot;edu&quot;</span>
 <span class="nv">passdb</span><span class="o">=</span><span class="s2">&quot;123&quot;</span>
 <span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/glpi_backups&quot;</span>
 <span class="nv">fecha</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s1">&#39;%Y-%m-%d_%H-%M-%S&#39;</span><span class="k">)</span>
 </code></pre></div>
-<ul>
-<li><strong>Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.</strong>)</li>
-</ul>
+</li>
+<li>
+<p><strong>Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.</strong>)</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>
 </code></pre></div>
-<ul>
-<li><strong>Hacemos un backup de la BBDD.</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Hacemos un backup de la BBDD.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_db_</span><span class="nv">$fecha</span><span class="s2">.sql&quot;</span>
 mysqldump<span class="w"> </span>--user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$usuariodb</span><span class="s2">&quot;</span><span class="w"> </span>--password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$passdb</span><span class="s2">&quot;</span><span class="w"> </span>glpi<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
 gzip<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
 <span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">.gz&quot;</span><span class="w">  </span><span class="c1"># Actualizamos nombre tras comprimir</span>
 </code></pre></div>
-<ul>
-<li><strong>Hacemos un backup de los archivos de GLPI.</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Hacemos un backup de los archivos de GLPI.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nv">GLPI_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="nv">$fecha</span><span class="s2">.tar.gz&quot;</span>
 sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>/var/www/glpi
 </code></pre></div>
-<ul>
-<li><strong>Eliminamos backups antiguos (más de 15 días).</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Eliminamos backups antiguos (más de 15 días).</strong></p>
 <div class="highlight"><pre><span></span><code>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+15<span class="w"> </span>-delete
 </code></pre></div>
-<ul>
-<li><strong>Damos permisos de ejecución al script.</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Damos permisos de ejecución al script.</strong></p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>glpi_backupdual.sh
 </code></pre></div>
-<ul>
+</li>
 <li>
 <p><strong>Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mensaje&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;mi_script&quot;</span>proyecto_final.md
@@ -2749,15 +2749,15 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 </li>
 <li>
 <p><strong>Ejecutamos:</strong></p>
-</li>
-</ul>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>crontab<span class="w"> </span>-e
 </code></pre></div>
-<ul>
-<li><strong>Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>/home/yo/glpi_backupdual.sh
 </code></pre></div>
+</li>
+</ul>
 <p>Para configurar automáticamente este proceso de <strong>BACKUP</strong> de una manera más rápida, podemos utilizar el script.</p>
 <p>Puedes ver el script <a href="../glpi_backuplocal/">aquí</a></p>
 <p><a href="../glpi_backuplocal.sh">Descargar el archivo</a></p>
