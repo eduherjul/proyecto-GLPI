@@ -18,7 +18,7 @@
     
     
       
-        <title>Glpi backupdual - Edu-mkdocs</title>
+        <title>Glpi backuplocal - Edu-mkdocs</title>
       
     
     
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Glpi backupdual
+              Glpi backuplocal
             
           </span>
         </div>
@@ -399,70 +399,37 @@
 
 
 
-  <h1>Glpi backupdual</h1>
+  <h1>Glpi backuplocal</h1>
 
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c1"># -------------------- CONFIGURACIÓN --------------------</span>
-<span class="nv">usuariodb</span><span class="o">=</span><span class="s2">&quot;usuario-BBDD&quot;</span>
-<span class="nv">passdb</span><span class="o">=</span><span class="s2">&quot;password&quot;</span>
-<span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/usuario_local/glpi_backups&quot;</span>
+<span class="c1">#*********Script para hacer un backup en local******************</span>
+
+<span class="c1"># -------------------- CONFIGURACIÓN CAMBIAR LOS DATOS DEL USUARIO PERTINENTE--------------------</span>
+<span class="nv">usuariodb</span><span class="o">=</span><span class="s2">&quot;edu&quot;</span>
+<span class="nv">passdb</span><span class="o">=</span><span class="s2">&quot;123&quot;</span>
+<span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/glpi_backups&quot;</span>
 <span class="nv">fecha</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s1">&#39;%Y-%m-%d_%H-%M-%S&#39;</span><span class="k">)</span>
-
-<span class="c1"># Configuración del servidor remoto, disco externo,...</span>
-<span class="nv">remoteUser</span><span class="o">=</span><span class="s2">&quot;usuario_remoto&quot;</span>
-<span class="nv">remoteHost</span><span class="o">=</span><span class="s2">&quot;Ejem:192.168.10.137&quot;</span>
-<span class="nv">remoteDir</span><span class="o">=</span><span class="s2">&quot;/home/usuario_remoto/backups_glpi&quot;</span>
-
 <span class="c1"># ------------------------------------------------------</span>
 
-<span class="c1"># Crear carpeta local si no existe</span>
+<span class="c1"># Crear carpeta si no existe</span>
 mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>
 
-<span class="c1"># 1. Backup de la BBDD</span>
+<span class="c1"># 1. Backup de la base de datos</span>
 <span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_db_</span><span class="nv">$fecha</span><span class="s2">.sql&quot;</span>
 mysqldump<span class="w"> </span>--user<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$usuariodb</span><span class="s2">&quot;</span><span class="w"> </span>--password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$passdb</span><span class="s2">&quot;</span><span class="w"> </span>glpi<span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
 gzip<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
-<span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">.gz&quot;</span><span class="w">  </span><span class="c1"># Actualizamos nombre tras comprimir</span>
 
 <span class="c1"># 2. Backup de los archivos GLPI</span>
 <span class="nv">GLPI_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="nv">$fecha</span><span class="s2">.tar.gz&quot;</span>
-tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>-C<span class="w"> </span>/var/www/glpi<span class="w"> </span>.
+sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>/var/www/glpi
 
-<span class="c1"># 3. Identificar últimos backups (usando mapfile + ls)</span>
-mapfile<span class="w"> </span>-t<span class="w"> </span>db_files<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>/*.sql.gz<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="o">)</span>
-mapfile<span class="w"> </span>-t<span class="w"> </span>glpi_files<span class="w"> </span>&lt;<span class="w"> </span>&lt;<span class="o">(</span>ls<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>/glpi_files_*.tar.gz<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="o">)</span>
-
-<span class="c1"># Verificar que se encontraron archivos</span>
-<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${#</span><span class="nv">db_files</span><span class="p">[@]</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fi</span>
-
-<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="si">${#</span><span class="nv">glpi_files</span><span class="p">[@]</span><span class="si">}</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
-<span class="k">fi</span>
-
-<span class="nv">lastDB</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">db_files</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nv">lastGLPI</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">glpi_files</span><span class="p">[0]</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<span class="c1"># 4. Copiar al servidor remoto vía SCP</span>
-scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$lastDB</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$remoteUser</span><span class="s2">@</span><span class="nv">$remoteHost</span><span class="s2">:</span><span class="nv">$remoteDir</span><span class="s2">&quot;</span>
-
-scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$lastGLPI</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$remoteUser</span><span class="s2">@</span><span class="nv">$remoteHost</span><span class="s2">:</span><span class="nv">$remoteDir</span><span class="s2">&quot;</span>
-
-<span class="c1"># 5. Borrar backups antiguos locales de más de 15 días</span>
+<span class="c1"># 3. Borrar backups antiguos de más de 15 días</span>
 find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+15<span class="w"> </span>-delete
 
-<span class="c1"># 5. Registrar en el log del sistema</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copia local y remota realizada correctamente&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span>glpi_backupdual.sh
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copia local realizada correctamente&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span>glpi_backuplocal.sh
 
 <span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
-
-<span class="c1">#Crear clave publica rsa para el copiado</span>
-<span class="c1">#sudo ssh-keygen -t rsa</span>
-
-<span class="c1">#Copiar llave a servidor remoto:</span>
-<span class="c1">#sudo ssh-copy-id remote_username@remote_IP_Address</span>
 </code></pre></div>
 
 
