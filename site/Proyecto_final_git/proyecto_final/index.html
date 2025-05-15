@@ -978,18 +978,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-script-backup-en-local-y-en-remoto" class="md-nav__link">
+  <a href="#9-script-backup-en-local" class="md-nav__link">
     <span class="md-ellipsis">
-      9 - Script backup en local y en remoto
+      9 - Script backup en local
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-script-para-restaurar-en-local-y-remoto" class="md-nav__link">
+  <a href="#10-script-para-restaurar-en-local" class="md-nav__link">
     <span class="md-ellipsis">
-      10 - Script para restaurar en local y remoto
+      10 - Script para restaurar en local
     </span>
   </a>
   
@@ -1608,18 +1608,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-script-backup-en-local-y-en-remoto" class="md-nav__link">
+  <a href="#9-script-backup-en-local" class="md-nav__link">
     <span class="md-ellipsis">
-      9 - Script backup en local y en remoto
+      9 - Script backup en local
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#10-script-para-restaurar-en-local-y-remoto" class="md-nav__link">
+  <a href="#10-script-para-restaurar-en-local" class="md-nav__link">
     <span class="md-ellipsis">
-      10 - Script para restaurar en local y remoto
+      10 - Script para restaurar en local
     </span>
   </a>
   
@@ -2633,8 +2633,9 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </ul>
 <p>Cada vez que subamos cambios, nos pedirá <strong>usuario y contraseña</strong> (o <strong>token</strong> si usamos 2FA).</p>
 <h2 id="7-impresion-de-codigos-qr">7 - Impresión de códigos QR</h2>
-<p>Este componente es el que utilizaremos para crear una <strong>tabla de 4x5 en formato A4</strong> que nos permitirá ubicar <strong>20 códigos QR generados en nuestra aplicación de GLPI</strong> que se imprimirán para poder etiquetar e identificar nuestro inventario de IT-Information Technology.</p>
-<p>Después de tener <strong>almacenados en nuestra estructura de directorios creados para tal efecto los QR</strong>, iremos seleccionando <strong>uno a uno</strong> y transportándolos a una hoja de texto <strong>.odt o .docx</strong> para ubicarlos en una <strong>tabla</strong> creada a tal efecto para su posterior <strong>impresión en tamaño A4.</strong></p>
+<p>Componente es el que utilizaremos para crear una <strong>tabla de 5x5</strong> que nos permitirá ubicar <strong>25 códigos QR generados con nuestra extensión de Google</strong> para poder etiquetar e identificar nuestro inventario.</p>
+<p><strong>Almacenados en nuestros directorios</strong>, iremos seleccionando <strong>uno a uno</strong> y arrastrándolos a una hoja de texto <strong>.odt o .docx</strong> para ponerlos en una <strong>tabla</strong> para su <strong>impresión (PDF) en tamaño A4.</strong></p>
+<p>Incluiremos en la parte <strong>inferior</strong> del código QR el nombre del dispositivo.</p>
 <p><img alt="A4" src="../image-67.png" /></p>
 <h2 id="8-migracion-de-la-aplicacion-glpi-desde-aws-a-proxmox">8 - Migración de la aplicación GLPI desde AWS a Proxmox</h2>
 <h3 id="81-detalle-del-proceso">8.1 - Detalle del proceso</h3>
@@ -2697,7 +2698,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </sp
 <ul>
 <li><strong>Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI</strong></li>
 </ul>
-<h2 id="9-script-backup-en-local-y-en-remoto">9 - Script backup en local y en remoto</h2>
+<h2 id="9-script-backup-en-local">9 - Script backup en local</h2>
 <ul>
 <li><strong>Definimos las variables que vamos a necesitar.</strong></li>
 </ul>
@@ -2705,11 +2706,6 @@ sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </sp
 <span class="nv">passdb</span><span class="o">=</span><span class="s2">&quot;123&quot;</span>
 <span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/glpi_backups&quot;</span>
 <span class="nv">fecha</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+<span class="s1">&#39;%Y-%m-%d_%H-%M-%S&#39;</span><span class="k">)</span>
-
-<span class="c1"># Configuración del servidor remoto, disco externo,...</span>
-<span class="nv">remoteUser</span><span class="o">=</span><span class="s2">&quot;yo&quot;</span>
-<span class="nv">remoteHost</span><span class="o">=</span><span class="s2">&quot;192.168.10.137&quot;</span>
-<span class="nv">remoteDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/backups_glpi&quot;</span>
 </code></pre></div>
 <ul>
 <li><strong>Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.</strong>)</li>
@@ -2741,54 +2737,6 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>glpi_backupdual.sh
 </code></pre></div>
 <ul>
-<li>Crear el <strong>directorio remoto</strong> de backups (/home/usuario_remoto/backups_glpi).</li>
-</ul>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>/home/usuario_remoto/backups_glpi
-</code></pre></div>
-<ul>
-<li><strong>Generar clave RSA.</strong></li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa
-</code></pre></div>
-<ul>
-<li><strong>Copiar clave pública al servidor remoto.</strong></li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh-copy-id<span class="w"> </span>usuario_remoto@IP_Address_remota
-</code></pre></div>
-<ul>
-<li>Copia la <strong>clave pública</strong> (id_rsa.pub) del usuario local <strong>(en este caso, root)</strong> al archivo ~/.ssh/authorized_keys del <strong>usuario remoto.</strong></li>
-</ul>
-<p>Si el script se ejecuta <strong>con sudo crontab -e, debes usar las claves de root</strong> (como se muestra arriba).
-Si usas <strong>crontab -e</strong> (sin sudo), genera las claves <strong>sin sudo</strong> y usa <strong>/home/yo/.ssh/</strong>.</p>
-<ul>
-<li><strong>Verificamos el acceso sin contraseña.</strong></li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ssh<span class="w"> </span>tu_usuario@ip_remota
-</code></pre></div>
-<ul>
-<li>
-<p>Esto permite que el <strong>servidor local</strong> (como <strong>root</strong>) acceda al remoto <strong>sin contraseña.</strong></p>
-</li>
-<li>
-<p><strong>Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.</strong></p>
-</li>
-<li>
-<p><strong>Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:</strong></p>
-<ul>
-<li>
-<p><strong>lastDB</strong> será el último backup de la <strong>BBDD.</strong></p>
-</li>
-<li>
-<p><strong>lastGLPI</strong> será el último backup de los archivos de <strong>GLPI.</strong></p>
-</li>
-</ul>
-</li>
-<li>
-<p>Los envía al servidor remoto por <strong>SCP.</strong></p>
-</li>
-<li>
-<p><strong>Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.</strong></p>
-</li>
 <li>
 <p><strong>Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Mensaje&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;mi_script&quot;</span>proyecto_final.md
@@ -2801,29 +2749,28 @@ Si usas <strong>crontab -e</strong> (sin sudo), genera las claves <strong>sin su
 </li>
 <li>
 <p><strong>Ejecutamos:</strong></p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>crontab<span class="w"> </span>-e
-</code></pre></div>
-</li>
-<li>
-<p><strong>Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:</strong></p>
-<div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>/home/yo/glpi_backupdual.sh
-</code></pre></div>
 </li>
 </ul>
-<p>Para configurar automáticamente este proceso de <strong>BACKUP</strong> de una manera más rápida, podemos utilizar el script.</p>
-<p>Puedes ver el script <a href="../glpi_backupdual/">aquí</a></p>
-<p><a href="../glpi_backupdual.sh">Descargar el archivo</a></p>
-<h2 id="10-script-para-restaurar-en-local-y-remoto">10 - Script para restaurar en local y remoto</h2>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>crontab<span class="w"> </span>-e
+</code></pre></div>
 <ul>
-<li><strong>Introducimos las variables que vamos a necesitar (origen=local-remoto).</strong></li>
+<li><strong>Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:</strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>/home/yo/glpi_backupdual.sh
+</code></pre></div>
+<p>Para configurar automáticamente este proceso de <strong>BACKUP</strong> de una manera más rápida, podemos utilizar el script.</p>
+<p>Puedes ver el script <a href="../glpi_backuplocal/">aquí</a></p>
+<p><a href="../glpi_backuplocal.sh">Descargar el archivo</a></p>
+<h2 id="10-script-para-restaurar-en-local">10 - Script para restaurar en local</h2>
+<ul>
 <li><strong>Preguntamos que ficheros queremos restaurar (BBDD-GLPI-LOS DOS).</strong></li>
 <li><strong>Preguntamos si los ficheros (BBDD y GLPI) ya existen y si lo queremos sobrescribir.</strong></li>
 <li><strong>Vaciamos la BBDD y la restauramos.</strong></li>
 <li><strong>Restauramos los ficheros de GLPI.</strong></li>
 </ul>
 <p>Para configurar automáticamente este proceso de <strong>RESTAURACIÓN</strong> de una manera más rápida, podemos utilizar el script.</p>
-<p>Puedes ver el script <a href="../restaurardual_glpi/">aquí</a></p>
-<p><a href="../restaurardual_glpi.sh">Descargar el archivo</a></p>
+<p>Puedes ver el script <a href="../restaurarlocal_glpi/">aquí</a></p>
+<p><a href="../restaurarlocal_glpi.sh">Descargar el archivo</a></p>
 
 
 

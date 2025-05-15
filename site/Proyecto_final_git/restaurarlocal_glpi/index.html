@@ -18,7 +18,7 @@
     
     
       
-        <title>Restaurardual glpi - Edu-mkdocs</title>
+        <title>Restaurarlocal glpi - Edu-mkdocs</title>
       
     
     
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Restaurardual glpi
+              Restaurarlocal glpi
             
           </span>
         </div>
@@ -399,17 +399,20 @@
 
 
 
-  <h1>Restaurardual glpi</h1>
+  <h1>Restaurarlocal glpi</h1>
 
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="c1"># -------------------- INSTALACIÓN DEPENDENCIAS --------------------</span>
+<span class="c1">#Script para la restauración de glpi desde un backup local</span>
+
+<span class="c1">#Instalación de dialog</span>
 sudo<span class="w"> </span>apt<span class="w"> </span>update
 sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>dialog<span class="w"> </span>-y
 
-<span class="c1"># -------------------- FUNCIONES GENERALES --------------------</span>
+<span class="c1">#Función para capturar el código de retorno del diálogo</span>
 <span class="k">function</span><span class="w"> </span>acabar<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="nv">exit_status</span><span class="o">=</span><span class="nv">$?</span>
+<span class="w">  </span><span class="c1"># Verificar si se seleccionó &quot;Cancelar&quot;</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$exit_status</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">    </span>clear
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Operación cancelada&quot;</span>
@@ -417,86 +420,14 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
 <span class="w">  </span><span class="k">fi</span>
 <span class="o">}</span>
 
+<span class="c1">#Función cancelar (acabar)</span>
 <span class="k">function</span><span class="w"> </span>cancelar<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span>clear
 <span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Operación cancelada&quot;</span>
 <span class="w">  </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
 <span class="o">}</span>
 
-<span class="c1"># -------------------- CONFIGURACIÓN --------------------</span>
-<span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/glpi_backups&quot;</span>
-<span class="nv">glpiDir</span><span class="o">=</span><span class="s2">&quot;/var/www/glpi&quot;</span>
-
-<span class="nv">usuariodb</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Usuario de la BBDD&quot;</span><span class="w"> </span>--stdout<span class="w"> </span>--inputbox<span class="w"> </span><span class="s2">&quot;Nombre&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
-acabar
-
-<span class="nv">passdb</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Contraseña del usuario de la BBDD de GLPI&quot;</span><span class="w"> </span>--stdout<span class="w"> </span>--inputbox<span class="w"> </span><span class="s2">&quot;Password&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">50</span><span class="k">)</span>
-acabar
-
-<span class="c1"># -------------------- ORIGEN DEL BACKUP --------------------</span>
-<span class="nv">origen</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Origen del backup&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--menu<span class="w"> </span><span class="s2">&quot;¿Desde dónde deseas restaurar los backups?&quot;</span><span class="w"> </span><span class="m">15</span><span class="w"> </span><span class="m">60</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="m">1</span><span class="w"> </span><span class="s2">&quot;Local&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="s2">&quot;Remoto&quot;</span><span class="k">)</span>
-
-acabar
-
-<span class="nv">fecha</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Introduce la fecha del backup (formato: YYYY-MM-DD_HH-MM-SS):&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;(ejemplo:2025-03-26_16-06-01)&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
-acabar
-
-<span class="c1"># -------------------- RUTAS --------------------</span>
-<span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_db_</span><span class="si">${</span><span class="nv">fecha</span><span class="si">}</span><span class="s2">.sql.gz&quot;</span>
-<span class="nv">FILES_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="si">${</span><span class="nv">fecha</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
-
-<span class="c1"># -------------------- SI ES REMOTO, DESCARGAR --------------------</span>
-<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$origen</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;2&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">  </span><span class="nv">remoteUser</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Usuario SSH remoto&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;Usuario SSH&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
-<span class="w">  </span>acabar
-
-<span class="w">  </span><span class="nv">remoteHost</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Host remoto&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;IP del servidor remoto&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
-<span class="w">  </span>acabar
-
-<span class="w">  </span><span class="nv">remoteDir</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Ruta remota de backups&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;Ruta remota (ejem: /home/yo/backups_glpi)&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
-<span class="w">  </span>acabar
-
-<span class="w">  </span><span class="c1"># Crear carpeta local si no existe</span>
-<span class="w">  </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span>
-
-<span class="w">  </span><span class="c1"># Verificación y confirmación antes de sobrescribir BBDD</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Archivo ya existe&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--yesno<span class="w"> </span><span class="s2">&quot;El archivo </span><span class="nv">$DB_BACKUP</span><span class="s2"> ya existe en local. ¿Deseas sobrescribir?&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="w">    </span><span class="nv">ans</span><span class="o">=</span><span class="nv">$?</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$ans</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span>clear
-<span class="w">    </span><span class="c1"># Descargar el archivo desde el servidor remoto</span>
-<span class="w">    </span>scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$remoteUser</span><span class="s2">@</span><span class="nv">$remoteHost</span><span class="s2">:</span><span class="nv">$remoteDir</span><span class="s2">/glpi_db_</span><span class="si">${</span><span class="nv">fecha</span><span class="si">}</span><span class="s2">.sql.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
-<span class="w">    </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">fi</span>
-
-<span class="w">  </span><span class="c1"># Verificación y confirmación antes de sobrescribir archivos GLPI</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FILES_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Archivo ya existe&quot;</span><span class="w"> </span><span class="se">\</span>
-<span class="w">      </span>--yesno<span class="w"> </span><span class="s2">&quot;El archivo </span><span class="nv">$FILES_BACKUP</span><span class="s2"> ya existe en local. ¿Deseas sobrescribir?&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
-<span class="w">    </span><span class="nv">ans</span><span class="o">=</span><span class="nv">$?</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$ans</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">    </span>clear
-<span class="w">    </span><span class="c1"># Descargar el archivo desde el servidor remoto</span>
-<span class="w">    </span>scp<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$remoteUser</span><span class="s2">@</span><span class="nv">$remoteHost</span><span class="s2">:</span><span class="nv">$remoteDir</span><span class="s2">/glpi_files_</span><span class="si">${</span><span class="nv">fecha</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FILES_BACKUP</span><span class="s2">&quot;</span><span class="w">  </span>
-<span class="w">    </span><span class="k">fi</span>
-<span class="w">  </span><span class="k">fi</span>
-<span class="k">fi</span>
-
-<span class="c1"># -------------------- FUNCIONES DE RESTAURACIÓN --------------------</span>
+<span class="c1"># Función para vaciar la base de datos</span>
 vaciar_bbdd<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Vaciando BBDD existente...&quot;</span>
 <span class="w">    </span><span class="nv">tablas</span><span class="o">=</span><span class="k">$(</span>mysql<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuariodb</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="s2">&quot;</span><span class="nv">$passdb</span><span class="s2">&quot;</span><span class="w"> </span>-D<span class="w"> </span>glpi<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;SHOW TABLES;&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Tables_in<span class="k">)</span>
@@ -506,30 +437,77 @@ vaciar_bbdd<span class="o">()</span><span class="w"> </span><span class="o">{</s
 <span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;BBDD vaciada.&quot;</span>
 <span class="o">}</span>
 
+<span class="c1"># Función restaurar la BBDD</span>
 restaurar_bbdd<span class="o">()</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span>vaciar_bbdd
-<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restaurando la BBDD&quot;</span>
-<span class="w">    </span>gunzip<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restaurando BBDD&quot;</span>
+<span class="w">    </span>gunzip<span class="w"> </span>-kf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_BACKUP</span><span class="s2">&quot;</span>
 <span class="w">    </span><span class="nv">SQL_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DB_BACKUP</span><span class="p">%.gz</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="w">    </span>mysql<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$usuariodb</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="s2">&quot;</span><span class="nv">$passdb</span><span class="s2">&quot;</span><span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$SQL_FILE</span><span class="s2">&quot;</span>
-
+<span class="w">    </span><span class="c1">#Aviso</span>
 <span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Base de Datos&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">           </span>--msgbox<span class="w"> </span><span class="s2">&quot;Restauración realizada correctamente&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
 <span class="o">}</span>
 
+<span class="c1"># Función restaurar archivos GLPI</span>
 restaurar_ficheros<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="c1">#Deteniendo Apache</span>
 <span class="w">    </span>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
-<span class="w">    </span>tar<span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FILES_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$glpiDir</span><span class="s2">&quot;</span>
-<span class="w">    </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
 
+<span class="w">    </span><span class="c1">#Restaurando archivos en $glpiDir</span>
+<span class="w">    </span>tar<span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$FILES_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$glpiDir</span><span class="s2">&quot;</span>
+
+<span class="w">    </span>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+<span class="w">    </span><span class="c1">#Aviso</span>
 <span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Archivos GLPI&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">           </span>--msgbox<span class="w"> </span><span class="s2">&quot;Restauración realizada correctamente&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
 <span class="o">}</span>
 
-<span class="c1"># -------------------- MENÚ PRINCIPAL --------------------</span>
+<span class="c1">#Actualizamos el sistema</span>
+dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Actualización del sistema update-upgrade&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--yesno<span class="w"> </span><span class="s2">&quot;¿Actualizamos?&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+<span class="nv">ans</span><span class="o">=</span><span class="nv">$?</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$ans</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span>clear
+<span class="w">  </span>sudo<span class="w"> </span>apt<span class="w"> </span>dist-upgrade<span class="w"> </span>-y<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>autoremove<span class="w"> </span>-y
+<span class="k">fi</span>
+
+<span class="c1"># -------------------- CONFIGURACIÓN --------------------</span>
+<span class="nv">usuariodb</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Usuario de la BBDD&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;Nombre&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span><span class="k">)</span>
+<span class="c1">#Llamo a la funcion:</span>
+acabar
+
+<span class="nv">passdb</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Contraseña del usuario de la BBDD de GLPI&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--inputbox<span class="w"> </span><span class="s2">&quot;Password&quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">50</span><span class="k">)</span>
+<span class="c1">#Llamo a la función:</span>
+acabar
+clear
+
+<span class="nv">backupDir</span><span class="o">=</span><span class="s2">&quot;/home/yo/glpi_backups&quot;</span>
+<span class="nv">glpiDir</span><span class="o">=</span><span class="s2">&quot;/var/www/glpi&quot;</span>
+<span class="c1"># ------------------------------------------------------</span>
+<span class="nv">fecha</span><span class="o">=</span><span class="k">$(</span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;Introduce la fecha del backup a restaurar (formato: YYYY-MM-DD_HH-MM-SS):&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--backtitle<span class="w"> </span><span class="s2">&quot;Utilizar las flechas de dirección para seleccionar la fecha del backup a elegir, sin extensión (ejemplo:2025-03-26_16-06-01)&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--stdout<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--fselect<span class="w"> </span>/home/yo//glpi_backups/<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="m">120</span><span class="k">)</span><span class="w"> </span><span class="c1">#Cambiar el nombre del usuario que este en vigor</span>
+<span class="c1">#Llamo a la funcion:</span>
+acabar
+clear
+
+<span class="c1"># Rutas de los backups</span>
+<span class="nv">solofecha</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$fecha</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="nv">DB_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_db_</span><span class="si">${</span><span class="nv">solofecha</span><span class="si">}</span><span class="s2">.sql.gz&quot;</span>
+<span class="nv">FILES_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="si">${</span><span class="nv">solofecha</span><span class="si">}</span><span class="s2">.tar.gz&quot;</span>
+
+<span class="c1">#Preguntamos la opción que queremos ejecutar</span>
 <span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nv">respuesta</span><span class="o">=</span><span class="k">$(</span>
-<span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;MENU: Ficheros a restaurar&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;MENU:&quot;</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--stdout<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>--menu<span class="w"> </span><span class="s2">&quot;Opciones:\n&quot;</span><span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="m">75</span><span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="se">\</span>
 <span class="w">      </span><span class="m">1</span><span class="w"> </span><span class="s2">&quot;SOLO LA BBDD&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -539,12 +517,32 @@ restaurar_ficheros<span class="o">()</span><span class="w"> </span><span class="
 <span class="w">  </span><span class="k">)</span>
 
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$respuesta</span><span class="w"> </span><span class="k">in</span>
-<span class="w">    </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>clear<span class="p">;</span><span class="w"> </span>restaurar_bbdd<span class="w"> </span><span class="p">;;</span>
-<span class="w">    </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>clear<span class="p">;</span><span class="w"> </span>restaurar_ficheros<span class="w"> </span><span class="p">;;</span>
-<span class="w">    </span><span class="m">3</span><span class="o">)</span><span class="w"> </span>clear<span class="p">;</span><span class="w"> </span>restaurar_bbdd<span class="p">;</span><span class="w"> </span>restaurar_ficheros<span class="w"> </span><span class="p">;;</span>
-<span class="w">    </span><span class="m">4</span><span class="o">)</span><span class="w"> </span>clear<span class="p">;</span><span class="w"> </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">;;</span>
-<span class="w">    </span>*<span class="o">)</span><span class="w"> </span>cancelar<span class="w"> </span><span class="p">;;</span>
-<span class="w">  </span><span class="k">esac</span>
+
+<span class="w">    </span><span class="m">1</span><span class="o">)</span><span class="w"> </span><span class="c1">#Opción restaurar DDBB</span>
+<span class="w">        </span>clear
+<span class="w">        </span>restaurar_bbdd
+<span class="w">        </span><span class="p">;;</span>
+
+<span class="w">    </span><span class="m">2</span><span class="o">)</span><span class="w"> </span><span class="c1">#Opción restaurar ficheros</span>
+<span class="w">        </span>clear
+<span class="w">        </span>restaurar_ficheros
+<span class="w">        </span><span class="p">;;</span>
+<span class="w">    </span><span class="m">3</span><span class="o">)</span><span class="w"> </span><span class="c1">#Opción restaurar ambos</span>
+<span class="w">        </span>clear
+<span class="w">        </span>restaurar_bbdd
+<span class="w">        </span>restaurar_ficheros
+<span class="w">        </span><span class="p">;;</span>
+
+<span class="w">    </span><span class="m">4</span><span class="o">)</span><span class="w"> </span><span class="c1">#Finalizando el menu</span>
+<span class="w">    </span>clear
+<span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
+<span class="w">    </span><span class="p">;;</span>
+
+<span class="w">    </span>*<span class="o">)</span><span class="w"> </span><span class="c1">#Cancelar la operación</span>
+<span class="w">        </span><span class="c1">#Llamo a la función cancelar</span>
+<span class="w">        </span>cancelar
+<span class="w">        </span><span class="p">;;</span>
+<span class="k">esac</span>
 <span class="k">done</span>
 </code></pre></div>
 

@@ -1156,46 +1156,46 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
 - **Definimos las variables que vamos a necesitar.**
 
-  ```bash
-  usuariodb="edu"
-  passdb="123"
-  backupDir="/home/yo/glpi_backups"
-  fecha=$(date +'%Y-%m-%d_%H-%M-%S')
-  ```
+    ```bash
+    usuariodb="edu"
+    passdb="123"
+    backupDir="/home/yo/glpi_backups"
+    fecha=$(date +'%Y-%m-%d_%H-%M-%S')
+    ```
 
 - **Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.**)
 
-  ```bash
-  mkdir -p "$backupDir"
-  ```
+    ```bash
+    mkdir -p "$backupDir"
+    ```
 
 - **Hacemos un backup de la BBDD.**
 
-  ```bash
-  DB_BACKUP="$backupDir/glpi_db_$fecha.sql"
-  mysqldump --user="$usuariodb" --password="$passdb" glpi > "$DB_BACKUP"
-  gzip "$DB_BACKUP"
-  DB_BACKUP="$DB_BACKUP.gz"  # Actualizamos nombre tras comprimir
-  ```
+    ```bash
+    DB_BACKUP="$backupDir/glpi_db_$fecha.sql"
+    mysqldump --user="$usuariodb" --password="$passdb" glpi > "$DB_BACKUP"
+    gzip "$DB_BACKUP"
+    DB_BACKUP="$DB_BACKUP.gz"  # Actualizamos nombre tras comprimir
+    ```
 
 - **Hacemos un backup de los archivos de GLPI.**
 
-  ```bash
-  GLPI_BACKUP="$backupDir/glpi_files_$fecha.tar.gz"
-  sudo tar -czvf "$GLPI_BACKUP" /var/www/glpi
-  ```
+    ```bash
+    GLPI_BACKUP="$backupDir/glpi_files_$fecha.tar.gz"
+    sudo tar -czvf "$GLPI_BACKUP" /var/www/glpi
+    ```
 
 - **Eliminamos backups antiguos (más de 15 días).**
 
-  ```bash
-  find "$backupDir" -type f -mtime +15 -delete
-  ```
+    ```bash
+    find "$backupDir" -type f -mtime +15 -delete
+    ```
 
 - **Damos permisos de ejecución al script.**
 
-  ```bash
-  sudo chmod +x glpi_backupdual.sh
-  ```
+    ```bash
+    sudo chmod +x glpi_backupdual.sh
+    ```
 
 - **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
 
@@ -1211,15 +1211,15 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
 - **Ejecutamos:**
 
-  ```bash
-  sudo crontab -e
-  ```
+    ```bash
+    sudo crontab -e
+    ```
 
 - **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
 
-  ```bash
-  0 4 * * 0 /home/yo/glpi_backupdual.sh
-  ```
+    ```bash
+    0 4 * * 0 /home/yo/glpi_backupdual.sh
+    ```
 
 Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script.
 
