@@ -1071,9 +1071,11 @@ Cada vez que subamos cambios, nos pedirá **usuario y contraseña** (o **token**
 
 ## 7 - Impresión de códigos QR
 
-Este componente es el que utilizaremos para crear una **tabla de 4x5 en formato A4** que nos permitirá ubicar **20 códigos QR generados en nuestra aplicación de GLPI** que se imprimirán para poder etiquetar e identificar nuestro inventario de IT-Information Technology.
+Componente es el que utilizaremos para crear una **tabla de 5x5** que nos permitirá ubicar **25 códigos QR generados con nuestra extensión de Google** para poder etiquetar e identificar nuestro inventario.
 
-Después de tener **almacenados en nuestra estructura de directorios creados para tal efecto los QR**, iremos seleccionando **uno a uno** y transportándolos a una hoja de texto **.odt o .docx** para ubicarlos en una **tabla** creada a tal efecto para su posterior **impresión en tamaño A4.**
+**Almacenados en nuestros directorios**, iremos seleccionando **uno a uno** y arrastrándolos a una hoja de texto **.odt o .docx** para ponerlos en una **tabla** para su **impresión (PDF) en tamaño A4.**
+
+Incluiremos en la parte **inferior** del código QR el nombre del dispositivo.
 
 ![A4](image-67.png)
 
@@ -1150,7 +1152,7 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
 - **Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI**
 
-## 9 - Script backup en local y en remoto
+## 9 - Script backup en local
 
 - **Definimos las variables que vamos a necesitar.**
 
@@ -1159,11 +1161,6 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
   passdb="123"
   backupDir="/home/yo/glpi_backups"
   fecha=$(date +'%Y-%m-%d_%H-%M-%S')
-
-  # Configuración del servidor remoto, disco externo,...
-  remoteUser="yo"
-  remoteHost="192.168.10.137"
-  remoteDir="/home/yo/backups_glpi"
   ```
 
 - **Creamos la carpeta de backup si no existe (-p evita errores si ya está creada.**)
@@ -1200,80 +1197,38 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
   sudo chmod +x glpi_backupdual.sh
   ```
 
-- Crear el **directorio remoto** de backups (/home/usuario_remoto/backups_glpi).
-
-  ```bash
-  mkdir /home/usuario_remoto/backups_glpi
-  ```
-
-- **Generar clave RSA.**
-
-  ```bash
-  sudo ssh-keygen -t rsa
-  ```
-
-- **Copiar clave pública al servidor remoto.**
-
-  ```bash
-  sudo ssh-copy-id usuario_remoto@IP_Address_remota
-  ```
-
-  - Copia la **clave pública** (id_rsa.pub) del usuario local **(en este caso, root)** al archivo ~/.ssh/authorized_keys del **usuario remoto.**
-
-Si el script se ejecuta **con sudo crontab -e, debes usar las claves de root** (como se muestra arriba).
-Si usas **crontab -e** (sin sudo), genera las claves **sin sudo** y usa **/home/yo/.ssh/**.
-
-- **Verificamos el acceso sin contraseña.**
-
-  ```bash
-  sudo ssh tu_usuario@ip_remota
-  ```
-
-  - Esto permite que el **servidor local** (como **root**) acceda al remoto **sin contraseña.**
-
-  - **Además de hacer la copia local, envía esos archivos de backup a un servidor remoto usando scp.**
-  - **Lista los archivos del backup local ordenados por fecha, se queda con el más reciente:**
-
-    - **lastDB** será el último backup de la **BBDD.**
-
-    - **lastGLPI** será el último backup de los archivos de **GLPI.**
-
-  - Los envía al servidor remoto por **SCP.**
-  - **Lo ejecutamos desde el cron del sistema como root en el crontab (sudo crontab -e) para no tener problemas de permisos en algunos directorios en los backups.**
-
-  - **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
+- **Usamos en el script "logger" para enviar un mensaje al syslog confirmando la correcta ejecución.**
 
     ```bash
     echo "Mensaje" | logger -t "mi_script"proyecto_final.md
     ```
 
-  - **Luego cuando se termine de ejecutar el script revisamos con:**
+- **Luego cuando se termine de ejecutar el script revisamos con:**
 
     ```bash
     journalctl -t "mi_script"
     ```
 
-  - **Ejecutamos:**
+- **Ejecutamos:**
 
-    ```bash
-    sudo crontab -e
-    ```
+  ```bash
+  sudo crontab -e
+  ```
 
-  - **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
+- **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
 
-    ```bash
-    0 4 * * 0 /home/yo/glpi_backupdual.sh
-    ```
+  ```bash
+  0 4 * * 0 /home/yo/glpi_backupdual.sh
+  ```
 
 Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script.
 
-Puedes ver el script [aquí](./glpi_backupdual.md)
+Puedes ver el script [aquí](./glpi_backuplocal.md)
 
-[Descargar el archivo](./glpi_backupdual.sh)
+[Descargar el archivo](./glpi_backuplocal.sh)
 
-## 10 - Script para restaurar en local y remoto
+## 10 - Script para restaurar en local
 
-- **Introducimos las variables que vamos a necesitar (origen=local-remoto).**
 - **Preguntamos que ficheros queremos restaurar (BBDD-GLPI-LOS DOS).**
 - **Preguntamos si los ficheros (BBDD y GLPI) ya existen y si lo queremos sobrescribir.**
 - **Vaciamos la BBDD y la restauramos.**
@@ -1281,6 +1236,6 @@ Puedes ver el script [aquí](./glpi_backupdual.md)
 
 Para configurar automáticamente este proceso de **RESTAURACIÓN** de una manera más rápida, podemos utilizar el script.
 
-Puedes ver el script [aquí](./restaurardual_glpi.md)
+Puedes ver el script [aquí](./restaurarlocal_glpi.md)
 
-[Descargar el archivo](./restaurardual_glpi.sh)
+[Descargar el archivo](./restaurarlocal_glpi.sh)
