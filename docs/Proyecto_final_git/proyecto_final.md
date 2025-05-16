@@ -1347,6 +1347,6 @@ Por tanto me impidió la configuración de backups automatizados y gestionados a
 
 ## 12 - Página de Github
 
-### 12.1 - Enlace
+### 12.1 - Enlace Proyecto final GLPI
 
 <https://eduherjul.github.io/proyecto-GLPI/>

@@ -995,6 +995,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#11-problemas-y-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      11 - Problemas y soluciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-pagina-de-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      12 - Página de Github
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12 - Página de Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-enlace" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 - Enlace
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1622,6 +1655,39 @@
       10 - Script para restaurar en local
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-problemas-y-soluciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      11 - Problemas y soluciones
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-pagina-de-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      12 - Página de Github
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12 - Página de Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-enlace" class="md-nav__link">
+    <span class="md-ellipsis">
+      12.1 - Enlace
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2771,6 +2837,107 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 <p>Para configurar automáticamente este proceso de <strong>RESTAURACIÓN</strong> de una manera más rápida, podemos utilizar el script.</p>
 <p>Puedes ver el script <a href="../restaurarlocal_glpi/">aquí</a></p>
 <p><a href="../restaurarlocal_glpi.sh">Descargar el archivo</a></p>
+<h2 id="11-problemas-y-soluciones">11 - Problemas y soluciones</h2>
+<p><strong>Problema 1:</strong></p>
+<ul>
+<li>La instalación <strong>manual</strong> de todo el entorno de GLPI me daba errores humanos muchas veces.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Olvidar un paso, escribir mal un comando, falta de una extensión o dependencia, etc..., trae problemas en la instalación.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Lo fusioné todo en un script que me ofrece una forma mucho más <strong>rápida y eficiente</strong> para realizar la instalación en comparación con el proceso manual.</li>
+</ul>
+<hr />
+<p><strong>Problema 2:</strong></p>
+<ul>
+<li>Al instalar <strong>PHP8.4</strong> en su última versión no funcionaba la aplicación GLPI.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>La documentación oficial de GLPI restringe un rango de versiones <strong>(7.4-8.3)</strong> de PHP para la última versión de GLPI.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Hice constar en la descarga de PHP <strong>una versión dentro de este rango</strong>, en mi caso <strong>(8.3).</strong></li>
+</ul>
+<hr />
+<p><strong>Problema 3:</strong></p>
+<ul>
+<li>Durante la configuración de GLPI, la pestaña de selección de <strong>zonas horarias</strong> no se desplegaba correctamente, mostrando una <strong>lista vacía</strong> al intentar asignar husos horarios.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Permisos insuficientes.</li>
+<li>La BBDD no tenía cargadas las definiciones de <strong>zonas horarias.</strong></li>
+<li>Existían formatos de fecha/hora incompatibles en la BBDD de GLPI.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Cargue datos de <strong>zonas horarias</strong> en MariaDB.</li>
+<li>Otorgué <strong>permisos al usuario</strong> de GLPI.</li>
+<li>Actualicé campos <strong>obsoletos</strong> en la BBDD.</li>
+</ul>
+<hr />
+<p><strong>Problema 4:</strong></p>
+<ul>
+<li>Durante la configuración del servidor de correo en GLPI, el uso de <strong>Postfix</strong> presentó múltiples complicaciones (fallos en el envío, configuración compleja de DNS, problemas de relay, etc.).</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li><em><strong>Complejidad</strong> de Postfix, posibles conflictos con <strong>firewalls</strong> y errores de <strong>autenticación o permisos</strong> en el relay.</em></li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li><em><strong>Gmail</strong> como alternativa usando <strong>smtp.gmail.com</strong> (puerto 587 con TLS), credenciales con <strong>contraseña de aplicación</strong> y protección <strong>anti-spam</strong> integrada, con lo que tener una alta <strong>disponibilidad y robustez</strong> evitando caídas o problemas de entrega de correo.</em></li>
+</ul>
+<hr />
+<p><strong>Problema 5:</strong></p>
+<ul>
+<li>Al implementar notificaciones automáticas en GLPI, el sistema estaba recuperando y reenviando <strong>todos los correos antiguos</strong> cada vez que se generaba una nueva notificación.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>La acción automática <strong>mailgate</strong> está configurada para procesar todos los correos <strong>almacenados en la cola de notificaciones,</strong> incluyendo los históricos, en lugar de limitarse a los nuevos.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li><strong>Desactivé</strong> el reprocesamiento automático de correos antiguos.</li>
+</ul>
+<hr />
+<p><strong>Problema 6:</strong></p>
+<ul>
+<li>Las notificaciones por correo en GLPI no se enviaban inmediatamente, sino que se <strong>acumulaban</strong> en la cola.</li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Por defecto, GLPI <strong>no ejecuta automáticamente el procesamiento y limpieza de la cola de notificaciones,</strong> requiriendo una <strong>configuración manual</strong> y su integración con el <strong>programador de tareas (cron)</strong> del sistema.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Configuré las <strong>acciones Automáticas</strong> en GLP.</li>
+<li>Active el modo de ejecución <strong>CLI</strong> (para permitir su ejecución desde el cron).</li>
+<li>Programé el <strong>front/cron.php, que viene incluido con GLPI, que es un script PHP oficial</strong> que GLPI trae para gestionar las acciones automáticas y periódicamente.</li>
+</ul>
+<hr />
+<p><strong>Problema 7:</strong></p>
+<ul>
+<li>Al intentar configurar el plugin de <strong>BorgBase</strong> para realizar backups de GLPI directamente a un <strong>repositorio remoto</strong> de BorgBase, me encontré después de configurar los parámetros requeridos, la incapacidad del plugin para comunicarse correctamente con la API de BorgBase.
+Por tanto me impidió la configuración de backups automatizados y gestionados a través de la interfaz de GLPI utilizando <strong>BorgBase.</strong></li>
+</ul>
+<p><strong>Causa:</strong></p>
+<ul>
+<li>Configuración incorrecta del plugin.</li>
+</ul>
+<p><strong>Solución:</strong></p>
+<ul>
+<li>Debido a estas dificultades para establecer una conexión confiable y funcional con el repositorio de BorgBase a través del plugin, implementé un <strong>script</strong> que gestiona tanto el backup de la <strong>BBDD como los ficheros,</strong> programando la ejecución mediante <strong>cron</strong> y al ejecutarse con <strong>sudo</strong> nos permite tener los permisos necesarios para acceder a todos los <strong>ficheros de GLPI</strong></li>
+</ul>
+<h2 id="12-pagina-de-github">12 - Página de Github</h2>
+<h3 id="121-enlace">12.1 - Enlace</h3>
+<p><a href="https://eduherjul.github.io/proyecto-GLPI/">https://eduherjul.github.io/proyecto-GLPI/</a></p>
 
 
 
