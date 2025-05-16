@@ -1239,3 +1239,114 @@ Para configurar automáticamente este proceso de **RESTAURACIÓN** de una manera
 Puedes ver el script [aquí](./restaurarlocal_glpi.md)
 
 [Descargar el archivo](./restaurarlocal_glpi.sh)
+
+## 11 - Problemas y soluciones
+
+**Problema 1:**
+
+- La instalación **manual** de todo el entorno de GLPI me daba errores humanos muchas veces.
+
+**Causa:**
+
+- Olvidar un paso, escribir mal un comando, falta de una extensión o dependencia, etc..., trae problemas en la instalación.
+
+**Solución:**
+
+- Lo fusioné todo en un script que me ofrece una forma mucho más **rápida y eficiente** para realizar la instalación en comparación con el proceso manual.
+
+---
+
+**Problema 2:**
+
+- Al instalar **PHP8.4** en su última versión no funcionaba la aplicación GLPI.
+
+**Causa:**
+
+- La documentación oficial de GLPI restringe un rango de versiones **(7.4-8.3)** de PHP para la última versión de GLPI.
+
+**Solución:**
+
+- Hice constar en la descarga de PHP **una versión dentro de este rango**, en mi caso **(8.3).**
+
+---
+
+**Problema 3:**
+
+- Durante la configuración de GLPI, la pestaña de selección de **zonas horarias** no se desplegaba correctamente, mostrando una **lista vacía** al intentar asignar husos horarios.
+
+**Causa:**
+
+- Permisos insuficientes.
+- La BBDD no tenía cargadas las definiciones de **zonas horarias.**
+- Existían formatos de fecha/hora incompatibles en la BBDD de GLPI.
+
+**Solución:**
+
+- Cargue datos de **zonas horarias** en MariaDB.
+- Otorgué **permisos al usuario** de GLPI.
+- Actualicé campos **obsoletos** en la BBDD.
+
+---
+
+**Problema 4:**
+
+- Durante la configuración del servidor de correo en GLPI, el uso de **Postfix** presentó múltiples complicaciones (fallos en el envío, configuración compleja de DNS, problemas de relay, etc.).
+
+**Causa:**
+
+- ***Complejidad** de Postfix, posibles conflictos con **firewalls** y errores de **autenticación o permisos** en el relay.*
+
+**Solución:**
+
+- ***Gmail** como alternativa usando **smtp.gmail.com** (puerto 587 con TLS), credenciales con **contraseña de aplicación** y protección **anti-spam** integrada, con lo que tener una alta **disponibilidad y robustez** evitando caídas o problemas de entrega de correo.*
+
+---
+
+**Problema 5:**
+
+- Al implementar notificaciones automáticas en GLPI, el sistema estaba recuperando y reenviando **todos los correos antiguos** cada vez que se generaba una nueva notificación.
+
+**Causa:**
+
+- La acción automática **mailgate** está configurada para procesar todos los correos **almacenados en la cola de notificaciones,** incluyendo los históricos, en lugar de limitarse a los nuevos.
+
+**Solución:**
+
+- **Desactivé** el reprocesamiento automático de correos antiguos.
+
+---
+
+**Problema 6:**
+
+- Las notificaciones por correo en GLPI no se enviaban inmediatamente, sino que se **acumulaban** en la cola.
+
+**Causa:**
+
+- Por defecto, GLPI **no ejecuta automáticamente el procesamiento y limpieza de la cola de notificaciones,** requiriendo una **configuración manual** y su integración con el **programador de tareas (cron)** del sistema.
+
+**Solución:**
+
+- Configuré las **acciones Automáticas** en GLP.
+- Active el modo de ejecución **CLI** (para permitir su ejecución desde el cron).
+- Programé el **front/cron.php, que viene incluido con GLPI, que es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas y periódicamente.
+
+---
+
+**Problema 7:**
+
+- Al intentar configurar el plugin de **BorgBase** para realizar backups de GLPI directamente a un **repositorio remoto** de BorgBase, me encontré después de configurar los parámetros requeridos, la incapacidad del plugin para comunicarse correctamente con la API de BorgBase.
+Por tanto me impidió la configuración de backups automatizados y gestionados a través de la interfaz de GLPI utilizando **BorgBase.**
+
+**Causa:**
+
+- Configuración incorrecta del plugin.
+
+**Solución:**
+
+- Debido a estas dificultades para establecer una conexión confiable y funcional con el repositorio de BorgBase a través del plugin, implementé un **script** que gestiona tanto el backup de la **BBDD como los ficheros,** programando la ejecución mediante **cron** y al ejecutarse con **sudo** nos permite tener los permisos necesarios para acceder a todos los **ficheros de GLPI**
+
+## 12 - Página de Github
+
+### 12.1 - Enlace
+
+<https://eduherjul.github.io/proyecto-GLPI/>
