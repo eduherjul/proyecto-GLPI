@@ -543,24 +543,6 @@ dialog<span class="w"> </span>--title<span class="w"> </span><span class="s2">&q
 <span class="w">  </span>--msgbox<span class="w"> </span><span class="s2">&quot;Introducimos la contraseña de root &quot;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
 clear
 sudo<span class="w"> </span>mysql_tzinfo_to_sql<span class="w"> </span>/usr/share/zoneinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p<span class="w"> </span>mysql
-
-<span class="c1">#Descomprimimos y restauramos la BBDD</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restauramos la BBDD glpi&quot;</span>
-gunzip<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql.gz
-mysql<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$nomuser</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql
-
-<span class="c1"># Descomprimimos los archivos de glpi</span>
-<span class="c1"># Como el archivo descomprimido ya incluye la estructura var/www/</span>
-<span class="c1"># Usamos, --strip-components=2 elimina los 2 primeros niveles de directorio (var/ y www/) al descomprimir.</span>
-sudo<span class="w"> </span>tar<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">2</span><span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz<span class="w"> </span>-C<span class="w"> </span>/var/www/
-sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz
-sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/www/html/index.html
-
-<span class="c1"># Dar permisos</span>
-sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/glpi
-sudo<span class="w"> </span>chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">755</span><span class="w"> </span>/var/www/glpi
-
-clear
 <span class="nb">exit</span><span class="w"> </span><span class="m">0</span>
 </code></pre></div>
 

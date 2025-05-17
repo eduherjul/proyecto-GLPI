@@ -1086,20 +1086,20 @@ Incluiremos en la parte **inferior** del código QR el nombre del dispositivo.
 
 ### 8.1 - Detalle del proceso
 
-#### Paso 1 - Hacer backup y comprimir la BBDD de GLPI (MariaDB) al $HOME
+**Paso 1 -** Hacer **backup y comprimir la BBDD de GLPI** (MariaDB) al **$HOME.**
 
 ```mysql
 mysqldump -u root -p glpi > $HOME/glpi_backup.sql
 gzip $HOME/glpi_backup.sql
 ```
 
-#### Paso 2 - Comprimir los archivos de GLPI
+**Paso 2 -** **Comprimir los archivos** de GLPI.
 
 ```bash
 sudo tar -czvf $HOME/glpi_files.tar.gz /var/www/glpi
 ```
 
-#### Paso 3 - Copiar los archivos desde el \$HOME de AWS al directorio (Ejem:$HOME) donde se encuentra la clave_AWS.pem del HOST
+**Paso 3 -** **Copiar** los archivos desde el **\$HOME de AWS** al directorio (Ejem:$HOME) donde se encuentra la **clave_AWS.pem del HOST.**
 
 Esta operación la haremos desde el **HOST.**
 
@@ -1108,11 +1108,11 @@ scp -i $HOME/clave_WS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/
 scp -i $HOME/clave_AWS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/$HOME/glpi_files.tar.gz ./
 ```
 
-#### Paso 4 - Ejecutamos todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente
+**Paso 4 -** Ejecutamos todo el contenido e instalación de los **puntos 6.2 y 6.3** que detallamos anteriormente.
 
 - Creando una instalación de **Proxmox** y un **Ubuntu Server con una pila LAMP sin GLPI** dentro de éste.
 
-#### Paso 5 - Copiamos los archivos desde el \$HOME del HOST al $HOME de Ubuntu Server
+**Paso 5 -** **Copiamos** los archivos desde el **\$HOME del HOST** al **$HOME de Ubuntu Server.**
 
 ```bash
 sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
@@ -1120,14 +1120,14 @@ sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
 
 Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
 
-#### Paso 6 - Descomprimimos y restauramos la BBDD
+**Paso 6 -** **Descomprimimos y restauramos** la BBDD
 
 ```bash
 gunzip -f "$HOME"/glpi_backup.sql.gz
 mysql -u <user> -p<passwd> glpi < "$HOME"/glpi_backup.sql
 ```
 
-#### Paso 7 - Descomprimimos los archivos de glpi
+**Paso 7 -** **Descomprimimos** los archivos de GLPI.
 
 Como el archivo descomprimido ya incluye la estructura **/var/www/**, usamos, **--strip-components=2** que elimina los **2 primeros niveles** de directorio **(var/ y www/)** al descomprimir.
 
@@ -1137,7 +1137,7 @@ sudo rm -rf "$HOME"/glpi_files.tar.gz
 sudo rm -rf /var/www/html/index.html
 ```
 
-#### Paso 8 -  Damos los permisos correspondientes
+**Paso 8 -**  Damos los **permisos** correspondientes.
 
 ```bash
 sudo chown -R www-data:www-data /var/www/glpi
