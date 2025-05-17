@@ -1234,7 +1234,6 @@ Puedes ver el script [aquí](./glpi_backuplocal.md)
 ## 10 - Script para restaurar en local
 
 - **Preguntamos que ficheros queremos restaurar (BBDD-GLPI-AMBOS).**
-- **Preguntamos si los ficheros (BBDD y GLPI) ya existen y si lo queremos sobrescribir.**
 - **Vaciamos la BBDD y la restauramos.**
 - **Restauramos los ficheros de GLPI.**
 
