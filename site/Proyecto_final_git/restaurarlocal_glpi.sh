@@ -88,8 +88,7 @@ clear
 backupDir="/home/yo/glpi_backups"
 glpiDir="/var/www/glpi"
 # ------------------------------------------------------
-fecha=$(dialog --title "Introduce la fecha del backup a restaurar (formato: YYYY-MM-DD_HH-MM-SS):" \
-  --backtitle "Seleccionar la fecha del backup a elegir, sin extensión (ejemplo:2025-03-26_16-06-01)" \
+fecha=$(dialog --title "Introduce fecha backup a restaurar sin ext.(YYYY-MM-DD_HH-MM-SS) (ejem:2025-03-26_16-06-01):" \
   --stdout \
   --fselect /home/yo/glpi_backups/ 20 120) #Cambiar el nombre del usuario que este en vigor
 #Llamo a la funcion:

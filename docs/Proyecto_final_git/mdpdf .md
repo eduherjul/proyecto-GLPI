@@ -23,4 +23,6 @@ pandoc "$INPUT" -o "$OUTPUT" \
 
 # Mensaje de éxito
 echo "PDF generado: $OUTPUT"
+
+exit 0
 ```

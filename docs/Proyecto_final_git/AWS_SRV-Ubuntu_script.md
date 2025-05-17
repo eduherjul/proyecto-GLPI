@@ -141,23 +141,5 @@ dialog --title "Cargamos las zonas horarias del sistema" \
   --msgbox "Introducimos la contraseña de root " 0 0
 clear
 sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root -p mysql
-
-#Descomprimimos y restauramos la BBDD
-echo "Restauramos la BBDD glpi"
-gunzip -f "$HOME"/glpi_backup.sql.gz
-mysql -u "$nomuser" -p glpi < "$HOME"/glpi_backup.sql
-
-# Descomprimimos los archivos de glpi
-# Como el archivo descomprimido ya incluye la estructura var/www/
-# Usamos, --strip-components=2 elimina los 2 primeros niveles de directorio (var/ y www/) al descomprimir.
-sudo tar --strip-components=2 -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
-sudo rm -rf "$HOME"/glpi_files.tar.gz
-sudo rm -rf /var/www/html/index.html
-
-# Dar permisos
-sudo chown -R www-data:www-data /var/www/glpi
-sudo chmod -R 755 /var/www/glpi
-
-clear
 exit 0
 ```

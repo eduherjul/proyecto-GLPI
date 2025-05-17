@@ -139,6 +139,8 @@ while true; do
         #Llamo a la función cancelar
         cancelar
         ;;
-esac
+  esac
 done
+
+exit 0
 ```

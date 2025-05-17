@@ -820,9 +820,9 @@ Aquí ya detallaremos el **tipo, categoría, estado, urgencia, etc...,** que una
 
 ![panel](image-71.png)
 
-### 6.7 - Instalación automatizada de todo este proceso
+### 6.7 - Instalación automatizada de los puntos 6.3 y 6.4
 
-Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.3 y 6.4** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script.
+Para una instalación más **rápida y optimizada** de todo el proceso realizado en los puntos **6.3 y 6.4** y para configurar **automáticamente** algunas funcionalidades clave, podemos utilizar un script:
 
 Puedes ver el script [aquí](./GLPI_script.md)
 
@@ -945,13 +945,16 @@ Es el **conversor** principal que transforma **Markdown en PDF.**
 - **toc**: añade una tabla de contenido (índice).
 - **toc-depth=5**: el índice puede mostrar hasta 5 niveles de títulos.
 
-**Para configurar automáticamente de una manera más rápida, podemos utilizar el script:**
+### 6.13 - Proceso automatizado de conversión de markdown a PFD
+
+Para configurar automáticamente el **proceso de conversión de .md a PDF** de una manera más rápida, podemos utilizar el script:
 
 Puedes ver el script [aquí](./mdpdf%20.md)
 
 [Descargar el archivo](./mdpdf.sh)
 
-### 6.13 - Instalación de MkDocs
+
+### 6.14 - Instalación de MkDocs
 
 ![MkDocs](image-11.png)
 
@@ -1083,76 +1086,77 @@ Incluiremos en la parte **inferior** del código QR el nombre del dispositivo.
 
 ### 8.1 - Detalle del proceso
 
-- **Paso 1 - Hacer backup y comprimir la BBDD de GLPI (MariaDB) al $HOME.**
+#### Paso 1 - Hacer backup y comprimir la BBDD de GLPI (MariaDB) al $HOME
 
-    ```mysql
-    mysqldump -u root -p glpi > $HOME/glpi_backup.sql
-    gzip $HOME/glpi_backup.sql
+```mysql
+mysqldump -u root -p glpi > $HOME/glpi_backup.sql
+gzip $HOME/glpi_backup.sql
+```
 
-    ```
+#### Paso 2 - Comprimir los archivos de GLPI
 
-- **Paso 2 - Comprimir los archivos de GLPI.**
+```bash
+sudo tar -czvf $HOME/glpi_files.tar.gz /var/www/glpi
+```
 
-    ```bash
-    sudo tar -czvf $HOME/glpi_files.tar.gz /var/www/glpi
-    ```
+#### Paso 3 - Copiar los archivos desde el \$HOME de AWS al directorio (Ejem:$HOME) donde se encuentra la clave_AWS.pem del HOST
 
-- **Paso 3 - Copiar los archivos desde el \$HOME de AWS al directorio (Ejem:$HOME) donde se encuentra la clave_AWS.pem del HOST.**
+Esta operación la haremos desde el **HOST.**
 
-    Esta operación la haremos desde el **HOST.**
+```bash
+scp -i $HOME/clave_WS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/ubuntu/glpi_backup.sql.gz ./
+scp -i $HOME/clave_AWS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/$HOME/glpi_files.tar.gz ./
+```
 
-    ```bash
-    scp -i $HOME/clave_WS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/ubuntu/glpi_backup.sql.gz ./
-    scp -i $HOME/clave_AWS.pem ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/$HOME/glpi_files.tar.gz ./
-    ```
+#### Paso 4 - Ejecutamos todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente
 
-- **Paso 4 - Creamos una MV de "Ubuntu Server" con una "ISO" dentro de "Proxmox".**
+- Creando una instalación de **Proxmox** y un **Ubuntu Server con una pila LAMP sin GLPI** dentro de éste.
 
-- **Paso 5 - Copiamos los archivos desde el \$HOME del HOST al $HOME de Ubuntu Server.**
+#### Paso 5 - Copiamos los archivos desde el \$HOME del HOST al $HOME de Ubuntu Server
 
-    ```bash
-    sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
-    ```
+```bash
+sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
+```
 
-- **Paso 6 - Ejecutar todo el contenido e instalación del punto 6.2 que detallamos anteriormente**
+Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
 
-    Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
+#### Paso 6 - Descomprimimos y restauramos la BBDD
 
-- **Paso 7 - Restauramos la BBDD.**
+```bash
+gunzip -f "$HOME"/glpi_backup.sql.gz
+mysql -u <user> -p<passwd> glpi < "$HOME"/glpi_backup.sql
+```
 
-    ```bash
-    gunzip -f "$HOME"/glpi_backup.sql.gz
-    mysql -u <user> -p<passwd> glpi < "$HOME"/glpi_backup.sql
-    ```
+#### Paso 7 - Descomprimimos los archivos de glpi
 
-- **Paso 8 - Descomprimimos los archivos de glpi.**
+Como el archivo descomprimido ya incluye la estructura **/var/www/**, usamos, **--strip-components=2** que elimina los **2 primeros niveles** de directorio **(var/ y www/)** al descomprimir.
 
-    Como el archivo descomprimido ya incluye la estructura **/var/www/**, usamos, **--strip-components=2** que elimina los **2 primeros niveles** de directorio **(var/ y www/)** al descomprimir.
+```bash
+sudo tar --strip-components=2 -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
+sudo rm -rf "$HOME"/glpi_files.tar.gz
+sudo rm -rf /var/www/html/index.html
+```
 
-    ```bash
-    sudo tar --strip-components=2 -xzvf "$HOME"/glpi_files.tar.gz -C /var/www/
-    sudo rm -rf "$HOME"/glpi_files.tar.gz
-    sudo rm -rf /var/www/html/index.html
-    ```
+#### Paso 8 -  Damos los permisos correspondientes
 
-- **Paso 9 -  Damos los permisos correspondientes.**
+```bash
+sudo chown -R www-data:www-data /var/www/glpi
+sudo chmod -R 755 /var/www/glpi
+```
 
-    ```bash
-    sudo chown -R www-data:www-data /var/www/glpi
-    sudo chmod -R 755 /var/www/glpi
-    ```
+### 8.2 - Proceso automatizado del punto 6.3
 
-### 8.2 - Proceso automatizado de los pasos 6 al 9
-
-Para configurar automáticamente los **pasos 6 al 9** de una manera más rápida, podemos utilizar el script.
+Para configurar automáticamente el **punto 6.3** de una manera más rápida, podemos utilizar el script:
 
 Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
 [Descargar el archivo](./AWS_SRV-Ubuntu_script.sh)
 
-- **Paso 10 - Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI**
+#### Abrimos el navegador con la "IP del Servidor" para acceder a la interfaz de GLPI
 
 ## 9 - Script backup en local
+
+**Provisionalmente haremos los backups en local, aunque en un futuro dejaremos preparado el script para que haga los backups en local y remoto.**
 
 - **Definimos las variables que vamos a necesitar.**
 
@@ -1221,7 +1225,7 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
     0 4 * * 0 /home/yo/glpi_backupdual.sh
     ```
 
-Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script.
+Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script:
 
 Puedes ver el script [aquí](./glpi_backuplocal.md)
 
