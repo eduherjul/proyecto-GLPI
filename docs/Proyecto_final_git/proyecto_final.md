@@ -21,7 +21,7 @@
 
 ![SNIPE-IT](image.png)
 
-**Snipe-IT** es una **aplicación web de código abierto** diseñada para la **gestión de activos de TI.** Es una solución popular entre empresas y organizaciones que buscan una herramienta flexible y personalizable para rastrear y administrar sus activos de **hardware y software.**
+**Snipe-IT** es una **aplicación web de código abierto** diseñada para la **gestión de activos de TI (**Information Technology**).** Es una solución popular entre empresas y organizaciones que buscan una herramienta flexible y personalizable para rastrear y administrar sus activos de **hardware y software.**
 
 #### 2.1.1 - Enfoque
 
