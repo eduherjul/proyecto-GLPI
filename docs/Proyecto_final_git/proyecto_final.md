@@ -25,7 +25,7 @@
 
 #### 2.1.1 - Enfoque
 
-- Principalmente una herramienta de gestión de activos de TI (**Information Technology**).
+- Principalmente es una herramienta de gestión de activos de TI (**Information Technology**).
 - Sobresale en el **seguimiento** de activos de hardware y software, **licencias** e información relacionada.
 
 #### 2.1.2 - Fortalezas
