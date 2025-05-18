@@ -1073,7 +1073,7 @@ Cada vez que subamos cambios, nos pedirá **usuario y contraseña** (o **token**
 
 ## 7 - Impresión de códigos QR
 
-LibreOffice Writer es el componente que utilizaremos para crear una **tabla de 5x5** que nos permitirá ubicar **25 códigos QR generados con nuestra extensión de Google** para poder etiquetar e identificar nuestro inventario.
+**LibreOffice Writer** es el componente que utilizaremos para crear una **tabla de 5x5** que nos permitirá ubicar **25 códigos QR generados con nuestra extensión de Google** para poder etiquetar e identificar nuestro inventario.
 
 **Almacenados en nuestros directorios**, iremos seleccionando **uno a uno** y arrastrándolos a una hoja de texto **.odt o .docx** para ponerlos en una **tabla** para su **impresión (PDF) en tamaño A4.**
 
