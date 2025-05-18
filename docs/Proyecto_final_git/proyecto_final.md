@@ -893,8 +893,6 @@ sudo apt install texlive-full
 **Es una herramienta de software libre y de código abierto que se utiliza para convertir documentos de un formato a otro.
 Se le conoce como el "convertidor universal de documentos" debido a su amplia capacidad para manejar una gran variedad de formatos de entrada y salida y por tanto será el conversor que utilizaré para trasformar el documento del proyecto de Markdown a PDF.**
 
-Es el **conversor** principal que transforma **Markdown en PDF.**
-
 `sudo apt install pandoc -y`
 
 ### 6.12 - Instalación de la plantilla Eisvogel
