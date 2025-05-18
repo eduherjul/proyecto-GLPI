@@ -472,7 +472,7 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
 
 ![GLPI](image-1.png)
 
-**Será la aplicación que se instalará en el servidor y que nos gestionará los activos de TI con todos los servicios que nos ofrece.**
+**Será la aplicación que se instalará en el servidor y que nos gestionará los activos de TI (Information Technology) con todos los servicios que nos ofrece.**
 
 - **Paso 1. Procederemos desde su sitio oficial, la última versión para la fecha es la "10.0.18".**
 
