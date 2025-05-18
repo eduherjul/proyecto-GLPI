@@ -1081,6 +1081,8 @@ Incluiremos en la parte **inferior** del código QR el nombre del dispositivo.
 
 ![A4](image-67.png)
 
+Además de guardarlos en un directorio creado a tal efecto guardaremos también cada código QR generado para cada dispositivo en la pestaña **"documentos" dentro de cada uno,** para así tenerlo almacenado en la **BBDD.**
+
 ## 8 - Migración de la aplicación GLPI desde AWS a Proxmox
 
 ### 8.1 - Detalle del proceso
