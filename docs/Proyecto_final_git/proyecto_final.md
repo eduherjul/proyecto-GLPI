@@ -679,7 +679,7 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 #### 6.6.4 - Gestión de GMail como nuestro servidor de correo
 
-**Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una \textcolor{red}{contraseña de aplicación} exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
+**Google ha endurecido el proceso para enviar emails desde aplicaciones externas. Por este motivo recomendable tenemos que crear una contraseña de aplicación exclusiva para GLPI. No sustituye nuestra contraseña de GMail, se trata de una nueva que solamente sirve para enviar emails desde GLPI.**
 
 ##### 6.6.4.1 - Configurar la cuenta de GMail para que funcione con GLPI
 
