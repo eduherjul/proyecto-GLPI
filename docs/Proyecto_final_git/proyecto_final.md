@@ -1049,7 +1049,7 @@ En nuestro caso será la plataforma que alojará nuestro documento del proyecto,
 
 - **Paso 3. Crearemos una cuenta de GitHub (si no la tenemos).**
 
-  - Vamos a : <https://github.com/> y creamos ua cuenta.
+  - Vamos a : <https://github.com/> y creamos una cuenta.
 
     ![cuenta](image-40.png)
 
