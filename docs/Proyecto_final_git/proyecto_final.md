@@ -4,16 +4,16 @@
 
 ### 1.1 - Descripción del proyecto
 
-- El presente proyecto tiene por objeto crear una **aplicación web de Código abierto** que permita llevar el **control** de los equipos informáticos de una organización (empresa particular o de mantenimiento, escuela, instituto, ministerios, agencias, etc...) y sobre todo mantener un **historial ordenado** de todo lo que ocurre con el **soporte técnico.**
+- El presente proyecto tiene por objeto crear una **aplicación web de Código abierto** que permita llevar el **control** de los equipos informáticos del **Instituto JaumeII El Just** y sobre todo mantener un **historial ordenado** de todo lo que ocurre con el **soporte técnico.**
 
 ### 1.2 - Objetivos del proyecto
 
-- Tener un **inventario completo** de los dispositivos tecnológicos de la organización.
+- Tener un **inventario completo** de los dispositivos tecnológicos del centro.
 - Gestionar **incidencias** o problemas técnicos de manera ordenada.
-- Crear **códigos QR** para gestionar puntualmente vía móvil esas incidencias o consultas.*
-- **Asignar tareas** a técnicos y hacer **seguimiento** de su resolución por **e-mail.**
+- Crear **códigos QR** para gestionar puntualmente vía móvil esas incidencias o consultas.
+- Asignar tareas **vía email al grupo de Mantenimiento** y hacer **seguimiento** de su resolución.
 - Obtener reportes útiles sobre el **estado del sistema** y los equipos.
-- Mejorar la **atención al usuario interno** de la empresa.
+- Mejorar la **atención al profesorado y alumnado interno** del centro.
 
 ## 2 - Análisis de opciones y requisitos vistos para considerar
 
@@ -25,7 +25,7 @@
 
 #### 2.1.1 - Enfoque
 
-- Principalmente una herramienta de gestión de activos de TI (**ITAM-gestión de activos de TI**).
+- Principalmente una herramienta de gestión de activos de TI (**Information Technology**).
 - Sobresale en el **seguimiento** de activos de hardware y software, **licencias** e información relacionada.
 
 #### 2.1.2 - Fortalezas
@@ -33,50 +33,49 @@
 - Interfaz **fácil** de usar.
 - Sólidas capacidades de seguimiento de activos.
 - Ideal para organizaciones que necesitan un **inventario detallado** de hardware y software.
-- Muy bueno en la gestión de licencias.
+- Muy bueno en la gestión de licencias, control de equipos y recursos de la organización
 - Muy bueno en el rastreo de los activos con **códigos de barras y códigos QR.**
 
 #### 2.1.3 - Limitaciones
 
-- Menos robusto en áreas como la mesa de ayuda y la gestión de servicios en comparación con **GLPI.**
+- Menos robusto en áreas como la gestión de solicitudes de soporte técnico de los usuarios, en la creación y seguimiento de incidencias, asignación a grupos de mantenimiento, gestión de prioridades, etc.., en comparación con **GLPI.**
+
 
 ### 2.2 - GLPI ( Gestionnaire Libre de Parc Informatique)
 
 ![GLPI](image-1.png)
 
-Un software **gratuito y open-source** para gestionar activos de TI (**hardware, software**).
+Un software **gratuito y open-source** para gestionar activos de TI (**Information Tchnology, hardware, software,...**).
 GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas** y **gestión de tareas** relacionadas con el **mantenimiento** y soporte de **sistemas informáticos**; o sea atender, ayudar, solucionar y rastrear problemas e incidencias (**tickets**).
 
 #### 2.2.1 - Enfoque
 
-- Una **suite integral** de gestión de servicios de TI (ITSM).
-- Incluye **gestión de activos**, **mesa de ayuda** y **funcionalidades** de mesa de servicio.
+- Una **suite integral** de gestión de servicios de TI (Information Technology).
+- Incluye **gestión de activos e incidencias y asignación de prioridades** de ayuda.
 
 #### 2.2.2 - Fortalezas
 
-- Centraliza inventarios, incidencias y recursos en una **plataforma web.**
-- **Multiplataforma + plugins** (flexible y escalable).
-- Fuertes herramientas para el **descubrimiento de redes.**
-- Cumplir normas (ITIL, **auditorías de software**).
+- **GLPI** es un **software libre** para la gestión de TI (Information Technology), destacando por su **personalización, automatización de peticiones e incidencias y ampliamente utilizado por empresas para optimizar la gestión de su infraestructura tecnológica.**
+- Centraliza **activos, inventario y soporte** en una sola plataforma.
 
 #### 2.2.3- Limitaciones
 
 - Puede tener una curva de aprendizaje **más pronunciada.**
 - La interfaz puede considerarse **menos moderna** que la de **Snipe-IT**
 
-**Snipe-IT es más especializado, se ocupa de el "que" tiene la empresa en cuanto a hardware y software.**
-
-**GLPI es más generalizado, se ocupa de "como" la empresa proporciona los servicios informáticos a sus usuarios.**
-
 ## 3 - Decisión: GLPI
 
 ### 3.1 - Motivos
 
-- Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto completo de **herramientas ITSM**, incluyendo **mesa de ayuda**, gestión de **incidencias, problemas y cambios.**
-- En definitiva una mayor capacidad de la aplicación de **crecer** y manejar más amplio volumen de **control de existencias**, o sea más detalle y vigilancia de todo.
-- GLPI cuenta con una **comunidad global** de usuarios y desarrolladores que contribuyen a su desarrollo y soporte,esto nos asegura que la herramienta esté en **constante evolución** y que haya **recursos disponibles** para resolver problemas y dudas.
-- GLPI es utilizado en todo el mundo, con una **fuerte presencia en Europa y sobre todo en América Latina** donde prácticamente es el dominador en ese mercado.
-- Su adaptabilidad a diferentes **idiomas y normativas** es lo que lo hace adecuado para **organizaciones internacionales** que buscan una solución de gestión de IT eficiente y flexible.
+**Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto más completo de **herramientas**, para gestionar:**
+
+- **Incidencias técnicas** (equipos, software, etc.).
+- **Problemas recurrentes** y cambios en la infraestructura.
+- **Escalabilidad:** Crece junto con las necesidades del centro.
+- **Control detallado:** Inventario de equipos y licencias.
+- **Comunidad activa:** Actualizaciones constantes y soporte.
+- **Trayectoria global:** Ampliamente usado en Europa y Latinoamérica.
+- **Multilingüe y flexible:** Se adapta a entornos educativos diversos.
 
 ## 4 - Escenario con AWS
 
