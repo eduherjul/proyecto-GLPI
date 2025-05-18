@@ -599,6 +599,8 @@ Inicialmente **Acceso y Contraseña** serán **glpi**
 
 ![Logout](image-55.png) ![Panel](image-56.png)
 
+Eliminaremos el fichero **/var/www/glpi/install/install.php**
+
 ### 6.6 - Documentación funcional de GLPI
 
 #### 6.6.1 - Crear usuarios
