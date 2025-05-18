@@ -249,7 +249,7 @@ conectarnos a ella.
     ![fin](image-95.png)
     ![instalación](image-96.png)
 
-- **Paso 10.** Accedemos a la interfaz web (después del reinicio.
+- **Paso 10.** Accedemos a la interfaz web (después del reinicio).
   - Abre un navegador y entramos en: `https://[IP-del-servidor]:8006`.
 
     ![alt text](image-97.png)
