@@ -67,7 +67,7 @@ GLPI permite **administrar inventarios** de equipos, **seguimiento de problemas*
 
 ### 3.1 - Motivos
 
-**Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto más completo de **herramientas**, para gestionar:**
+Es una elección **más sólida** que Snipe-IT, ya que ofrece un conjunto más completo de **herramientas**, para gestionar:
 
 - **Incidencias técnicas** (equipos, software, etc.).
 - **Problemas recurrentes** y cambios en la infraestructura.
