@@ -187,9 +187,9 @@ conectarnos a ella.
 
 ![Copiar-SSH](image-28.png)
 
-- En nuestro caso al **crear par de claves** ya las hemos ubicado en el directorio **Música**, pero se pueden descargar pinchando sobe el texto **AWS Details** y le aparecerá en la parte derecha la posibilidad de descargar la clave como un archivo**.PEM o .PPK.**
+- En nuestro caso al **crear par de claves** ya las hemos ubicado en el directorio **Música**, pero se pueden descargar pinchando sobe el texto **AWS Details** y le aparecerá en la parte derecha la posibilidad de descargar la clave como un archivo **.pem o .ppk**
 
-- En Linux utilizaremos la clave **.PEM**, cuando descarguemos la clave se descargará como **nombre.pem o nombre.ppk.**
+- En Linux utilizaremos la clave **.pem**, cuando descarguemos la clave se descargará como **nombre.pem o nombre.ppk.**
 
 ![AWS Details](image-29.png)
 
