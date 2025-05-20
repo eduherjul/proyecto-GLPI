@@ -641,9 +641,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nos-conectamos-a-la-instancia-por-ssh-para-ejecutar-los-comandos-de-instalacion-de-las-herramientas-del-proyecto" class="md-nav__link">
+  <a href="#conexion-ssh-para-ejecutar-los-comandos-de-instalacion" class="md-nav__link">
     <span class="md-ellipsis">
-      Nos conectamos a la instancia por SSH para ejecutar los comandos de instalación de las herramientas del proyecto
+      Conexión SSH para ejecutar los comandos de instalación
     </span>
   </a>
   
@@ -1328,9 +1328,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nos-conectamos-a-la-instancia-por-ssh-para-ejecutar-los-comandos-de-instalacion-de-las-herramientas-del-proyecto" class="md-nav__link">
+  <a href="#conexion-ssh-para-ejecutar-los-comandos-de-instalacion" class="md-nav__link">
     <span class="md-ellipsis">
-      Nos conectamos a la instancia por SSH para ejecutar los comandos de instalación de las herramientas del proyecto
+      Conexión SSH para ejecutar los comandos de instalación
     </span>
   </a>
   
@@ -1879,6 +1879,13 @@ GLPI permite <strong>administrar inventarios</strong> de equipos, <strong>seguim
 <p><img alt="nombre-clave" src="../image-21.png" /></p>
 <p><img alt="Crear-claves" src="../image-20.png" /></p>
 <ul>
+<li>En nuestro caso al <strong>crear par de claves</strong> ya las hemos ubicado en el directorio <strong>$HOME</strong>.
+En Linux utilizaremos la clave <strong>.pem</strong>, cuando descarguemos la clave se descargará como <strong>nombre.pem o nombre.ppk.</strong></li>
+</ul>
+<p>Cambiamos los permisos del archivo para que solo el propietario tenga permisos de lectura.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>clave_aws.pem
+</code></pre></div>
+<ul>
 <li><strong>Paso 8. Configuramos los grupos de seguridad.</strong></li>
 <li>En este proyecto vamos a crear un nuevo grupo de seguridad y vamos a utilizar tres reglas para permitir tráfico <strong>SSH, HTTP y HTTPS.</strong></li>
 <li>SSH. Protocolo: TCP. Puerto: 22. Origen: 0.0.0.0/0</li>
@@ -1910,7 +1917,7 @@ GLPI permite <strong>administrar inventarios</strong> de equipos, <strong>seguim
 conectarnos a ella.</li>
 </ul>
 <p><img alt="Estado" src="../image-26.png" /></p>
-<h4 id="nos-conectamos-a-la-instancia-por-ssh-para-ejecutar-los-comandos-de-instalacion-de-las-herramientas-del-proyecto">Nos conectamos a la instancia por SSH para ejecutar los comandos de instalación de las herramientas del proyecto</h4>
+<h4 id="conexion-ssh-para-ejecutar-los-comandos-de-instalacion">Conexión SSH para ejecutar los comandos de instalación</h4>
 <ul>
 <li><strong>Paso 1. Seleccionamos la instancia y pinchamos sobre "Conectar".</strong></li>
 </ul>
@@ -1923,21 +1930,10 @@ conectarnos a ella.</li>
 </ul>
 <p><img alt="Copiar-SSH" src="../image-28.png" /></p>
 <ul>
-<li>
-<p>En nuestro caso al <strong>crear par de claves</strong> ya las hemos ubicado en el directorio <strong>Música</strong>, pero se pueden descargar pinchando sobe el texto <strong>AWS Details</strong> y le aparecerá en la parte derecha la posibilidad de descargar la clave como un archivo <strong>.pem o .ppk</strong></p>
-</li>
-<li>
-<p>En Linux utilizaremos la clave <strong>.pem</strong>, cuando descarguemos la clave se descargará como <strong>nombre.pem o nombre.ppk.</strong></p>
-</li>
+<li>En nuestro caso al <strong>crear par de claves</strong> ya las hemos ubicado en el directorio <strong>$HOME</strong>.
+En Linux utilizaremos la clave <strong>.pem</strong>, cuando descarguemos la clave se descargará como <strong>nombre.pem o nombre.ppk.</strong></li>
 </ul>
-<p><img alt="AWS Details" src="../image-29.png" /></p>
-<p><img alt="Download.pem" src="../image-30.png" /></p>
 <p><strong>Paso 3. Nos conectamos por SSH desde Linux.</strong></p>
-<ul>
-<li>Cambiamos los permisos del archivo para que solo el propietario tenga permisos de lectura.</li>
-</ul>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>clave_aws.pem
-</code></pre></div>
 <ul>
 <li>Ejecutamos el comando que copiamos en el <strong>paso 2</strong> para conectarnos por SSH a la instancia EC2 desde un terminal de Linux.</li>
 <li>El comando será parecido al este, pero el nombre DNS de la instancia será diferente.</li>
@@ -2747,24 +2743,22 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 </ul>
 <p>Cada vez que subamos cambios, nos pedirá <strong>usuario y contraseña</strong> (o <strong>token</strong> si usamos 2FA).</p>
 <h2 id="7-impresion-de-codigos-qr">7 - Impresión de códigos QR</h2>
-<p><strong>LibreOffice Writer</strong> es el componente que utilizaremos para crear una <strong>tabla de 5x5</strong> que nos permitirá ubicar <strong>25 códigos QR generados con nuestra extensión de Google</strong> para poder etiquetar e identificar nuestro inventario.</p>
+<p><strong>LibreOffice Writer</strong> es el componente que utilizaremos para crear una <strong>tabla de 5x5</strong> aunque solo nos permitirá ubicar por encuadre de la impresión de las etiquetas <strong>20 códigos QR generados con nuestra extensión de Google</strong> para poder etiquetar e identificar nuestro inventario.</p>
 <p><strong>Almacenados en nuestros directorios</strong>, iremos seleccionando <strong>uno a uno</strong> y arrastrándolos a una hoja de texto <strong>.odt o .docx</strong> para ponerlos en una <strong>tabla</strong> para su <strong>impresión (PDF) en tamaño A4.</strong></p>
-<p>Incluiremos en la parte <strong>inferior</strong> del código QR el nombre del dispositivo.</p>
+<p>Los desplazaremos a la parte <strong>inferior</strong> de cada elemento de la tabla y en la parte <strong>superior</strong> del código QR pondremos el nombre del dispositivo.</p>
 <p>Además de guardarlos en un directorio creado a tal efecto guardaremos también cada código QR generado para cada dispositivo en la pestaña <strong>"documentos" dentro de cada uno,</strong> para así tenerlo almacenado en la <strong>BBDD.</strong></p>
-<p><img alt="A4" src="../image-67.png" /></p>
+<p><img alt="A4" src="../image-29.png" /></p>
 <h2 id="8-migracion-de-la-aplicacion-glpi-desde-aws-a-proxmox">8 - Migración de la aplicación GLPI desde AWS a Proxmox</h2>
 <h3 id="81-detalle-del-proceso">8.1 - Detalle del proceso</h3>
-<p><strong>Paso 1 -</strong> Hacer <strong>backup y comprimir la BBDD de GLPI</strong> (MariaDB) al <strong>$HOME.</strong></p>
-<div class="highlight"><pre><span></span><code><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">glpi</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">$HOME</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
-<span class="n">gzip</span><span class="w"> </span><span class="n">$HOME</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
+<p><strong>Paso 1 -</strong> Hacemos un <strong>backup de la BBDD de GLPI</strong> (MariaDB) al <strong>$HOME de AWS.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="k">password</span><span class="o">=&lt;</span><span class="n">passwd</span><span class="o">&gt;</span><span class="w"> </span><span class="n">glpi</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
 </code></pre></div>
 <p><strong>Paso 2 -</strong> <strong>Comprimir los archivos</strong> de GLPI.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span><span class="nv">$HOME</span>/glpi_files.tar.gz<span class="w"> </span>/var/www/glpi
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span>/home/ubuntu/glpi_files.tar.gz<span class="w"> </span>/var/www/glpi
 </code></pre></div>
-<p><strong>Paso 3 -</strong> <strong>Copiar</strong> los archivos desde el <strong>$HOME de AWS</strong> al directorio (Ejem:$HOME) donde se encuentra la <strong>clave_AWS.pem del HOST.</strong></p>
-<p>Esta operación la haremos desde el <strong>HOST.</strong></p>
-<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-i<span class="w"> </span><span class="nv">$HOME</span>/clave_WS.pem<span class="w"> </span>ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/home/ubuntu/glpi_backup.sql.gz<span class="w"> </span>./
-scp<span class="w"> </span>-i<span class="w"> </span><span class="nv">$HOME</span>/clave_AWS.pem<span class="w"> </span>ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:/<span class="nv">$HOME</span>/glpi_files.tar.gz<span class="w"> </span>./
+<p><strong>Paso 3 -</strong> <strong>Copiar</strong> los archivos desde el <strong>$HOME de AWS</strong> al directorio <strong>$HOME del HOST</strong> donde se encuentra la <strong>clave_AWS.pem</strong></p>
+<p>Esta operación la haremos desde el <strong>HOST LOCAL.</strong></p>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;clave_WS.pem&quot;</span><span class="w"> </span>ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:<span class="s2">&quot;/home/ubuntu/glpi_*&quot;</span><span class="w"> </span>./
 </code></pre></div>
 <p><strong>Paso 4 -</strong> Ejecutamos todo el contenido e instalación de los <strong>puntos 6.2 y 6.3</strong> que detallamos anteriormente.</p>
 <ul>
@@ -2775,13 +2769,12 @@ scp<span class="w"> </span>-i<span class="w"> </span><span class="nv">$HOME</spa
 </code></pre></div>
 <p>Tendremos en cuenta al <strong>crear</strong> el usuario para la <strong>BBDD</strong> que sea <strong>el mismo usuario</strong> que el de la <strong>BBDD que exportamos.</strong></p>
 <p><strong>Paso 6 -</strong> <strong>Descomprimimos y restauramos</strong> la BBDD</p>
-<div class="highlight"><pre><span></span><code>gunzip<span class="w"> </span>-f<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql.gz
-mysql<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>-p&lt;passwd&gt;<span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_backup.sql
+<div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>--password<span class="o">=</span>&lt;passwd&gt;<span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span>~/glpi_backup.sql
 </code></pre></div>
 <p><strong>Paso 7 -</strong> <strong>Descomprimimos</strong> los archivos de GLPI.</p>
 <p>Como el archivo descomprimido ya incluye la estructura <strong>/var/www/</strong>, usamos, <strong>--strip-components=2</strong> que elimina los <strong>2 primeros niveles</strong> de directorio <strong>(var/ y www/)</strong> al descomprimir.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">2</span><span class="w"> </span>-xzvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz<span class="w"> </span>-C<span class="w"> </span>/var/www/
-sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">&quot;</span>/glpi_files.tar.gz
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>--strip-components<span class="o">=</span><span class="m">2</span><span class="w"> </span>-xzvf<span class="w"> </span>~/glpi_files.tar.gz<span class="w"> </span>-C<span class="w"> </span>/var/www/
+sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>~/glpi_files.tar.gz
 sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/www/html/index.html
 </code></pre></div>
 <p><strong>Paso 8 -</strong>  Damos los <strong>permisos</strong> correspondientes.</p>
@@ -2946,7 +2939,7 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 </ul>
 <p><strong>Solución:</strong></p>
 <ul>
-<li>Configuré las <strong>acciones Automáticas</strong> en GLP.</li>
+<li>Configuré las <strong>acciones Automáticas</strong> en GLPI.</li>
 <li>Active el modo de ejecución <strong>CLI</strong> (para permitir su ejecución desde el cron).</li>
 <li>Programé el <strong>front/cron.php, que viene incluido con GLPI, que es un script PHP oficial</strong> que GLPI trae para gestionar las acciones automáticas y periódicamente.</li>
 </ul>
