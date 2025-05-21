@@ -1091,33 +1091,32 @@ Además de guardarlos en un directorio creado a tal efecto guardaremos también 
 mysqldump -u <user> --password=<passwd> glpi > /home/ubuntu/glpi_backup.sql
 ```
 
-**Paso 2 -** **Comprimir los archivos** de GLPI.
+**Paso 2 -** **Comprimimos los archivos** de GLPI.
 
 ```bash
 sudo tar -czvf /home/ubuntu/glpi_files.tar.gz /var/www/glpi
 ```
 
-**Paso 3 -** **Copiar** los archivos desde el **\$HOME de AWS** al directorio **$HOME del HOST** donde se encuentra la **clave_AWS.pem**
-
-Esta operación la haremos desde el **HOST LOCAL.**
-
-```bash
-scp -i "clave_WS.pem" ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:"/home/ubuntu/glpi_*" ./
-```
-
-**Paso 4 -** Ejecutamos todo el contenido e instalación de los **puntos 6.2 y 6.3** que detallamos anteriormente.
+**Paso 3 - Ejecutamos todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente**
 
 - Creando una instalación de **Proxmox** y un **Ubuntu Server con una pila LAMP sin GLPI** dentro de éste.
 
-**Paso 5 -** **Copiamos** los archivos desde el **\$HOME del HOST** al **$HOME de Ubuntu Server.**
+Al crear el usuario para la BBDD que sea **el mismo usuario** que el de la BBDD que exportamos.
+
+**Paso 4 - Copiamos la clave ".pem" desde nuestro "$HOME LOCAL" al "Ubuntu server" dentro de "Proxmox".**
 
 ```bash
-sudo scp glpi_backup.sql glpi_files.tar.gz $USER@IP_ubuntu_SRV:./
+scp ~/clave_AWS.pem usuario_proxmox@IP_proxmox:./
 ```
 
-Tendremos en cuenta al **crear** el usuario para la **BBDD** que sea **el mismo usuario** que el de la **BBDD que exportamos.**
+**Paso 5 - Desde el Server dentro de Proxmox damos permisos al fichero .pem y copiamos los ficheros del \$HOME en AWS a nuestro $HOME**
 
-**Paso 6 -** **Descomprimimos y restauramos** la BBDD
+```bash
+sudo chmod 400 clave_AWS.pem
+scp "clave_AWS.pem" ubuntu@ec2-18-233-9-107.compute-1.amazonaws.com:/home/ubuntu/glpi_* ./
+```
+
+**Paso 6 - Restauramos la BBDD.**
 
 ```bash
 mysql -u <user> --password=<passwd> glpi < ~/glpi_backup.sql
