@@ -555,29 +555,27 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
 
 ### 6.5 - Asistente de configuración de GLPI
 
-- **Paso 1.** Si todo ha ido bien tendremos el asistente de configuración de GLPI, después de abrir ya un navegador contra nuestro GLPI, algo como **http://DIRECCION_IP del servidor**, lo primero, escogeremos el idioma a utilizar **& OK**.
-
-- **Paso 2.** Leemos y aceptamos los términos de la licencia de GLPI & **Continuar**.
+- **Paso 1.** Leemos y aceptamos los términos de la licencia de GLPI & **Continuar**.
 
     ![Idioma](image-44.png) ![Licencia](image-45.png)
 
-- **Paso 3.** Pulsamos en **Instalar** ya que estamos instalándolo por primera vez.
+- **Paso 2.** Pulsamos en **Instalar** ya que estamos instalándolo por primera vez.
 
     ![Instalación](image-46.png)
 
-- **Paso 4.** Verificamos que cumplimos todos los requisitos y están todos correctos.
+- **Paso 3.** Verificamos que cumplimos todos los requisitos y están todos correctos.
 
     ![Verificar 1](image-48.png) ![Verificar 2](image-49.png)
 
-- **Paso 5.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BBDD **& Continuar**.
+- **Paso 4.** Indicamos los datos del servidor de BBDD, indicamos **localhost o 127.0.0.1** e indicamos el **usuario y contraseña** de acceso a la BBDD **& Continuar**.
 
-- **Paso 6.** Seleccionamos la BBDD que creamos anteriormente, llamada **glpi & Continuar**.
+- **Paso 5.** Seleccionamos la BBDD que creamos anteriormente, llamada **glpi & Continuar**.
 
     ![BBDD](image-47.png) ![glpi](image-50.png)
 
-- **Paso 7.** Si conectó e inicializó la BBDD, pulsamos en **Continuar**.
+- **Paso 6.** Si conectó e inicializó la BBDD, pulsamos en **Continuar**.
 
-- **Paso 8.** Podemos voluntariamente si queremos enviar las métricas de uso para que la comunidad de GLPI pueda mejorar el producto, en mi caso como son pruebas **desactivaré & Continuar**.
+- **Paso 7.** Podemos voluntariamente si queremos enviar las métricas de uso para que la comunidad de GLPI pueda mejorar el producto, en mi caso como son pruebas **desactivaré & Continuar**.
 
     ![alt text](image-51.png) ![Enviar](image-52.png)
 
