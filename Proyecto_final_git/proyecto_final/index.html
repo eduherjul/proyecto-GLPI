@@ -2753,22 +2753,22 @@ git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"
 <p><strong>Paso 1 -</strong> Hacemos un <strong>backup de la BBDD de GLPI</strong> (MariaDB) al <strong>$HOME de AWS.</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">mysqldump</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="o">&lt;</span><span class="k">user</span><span class="o">&gt;</span><span class="w"> </span><span class="o">--</span><span class="k">password</span><span class="o">=&lt;</span><span class="n">passwd</span><span class="o">&gt;</span><span class="w"> </span><span class="n">glpi</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">glpi_backup</span><span class="p">.</span><span class="k">sql</span>
 </code></pre></div>
-<p><strong>Paso 2 -</strong> <strong>Comprimir los archivos</strong> de GLPI.</p>
+<p><strong>Paso 2 -</strong> <strong>Comprimimos los archivos</strong> de GLPI.</p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span>/home/ubuntu/glpi_files.tar.gz<span class="w"> </span>/var/www/glpi
 </code></pre></div>
-<p><strong>Paso 3 -</strong> <strong>Copiar</strong> los archivos desde el <strong>$HOME de AWS</strong> al directorio <strong>$HOME del HOST</strong> donde se encuentra la <strong>clave_AWS.pem</strong></p>
-<p>Esta operación la haremos desde el <strong>HOST LOCAL.</strong></p>
-<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;clave_WS.pem&quot;</span><span class="w"> </span>ubuntu@ec2-3-86-189-107.compute-1.amazonaws.com:<span class="s2">&quot;/home/ubuntu/glpi_*&quot;</span><span class="w"> </span>./
-</code></pre></div>
-<p><strong>Paso 4 -</strong> Ejecutamos todo el contenido e instalación de los <strong>puntos 6.2 y 6.3</strong> que detallamos anteriormente.</p>
+<p><strong>Paso 3 - Ejecutamos todo el contenido e instalación de los puntos 6.2 y 6.3 que detallamos anteriormente</strong></p>
 <ul>
 <li>Creando una instalación de <strong>Proxmox</strong> y un <strong>Ubuntu Server con una pila LAMP sin GLPI</strong> dentro de éste.</li>
 </ul>
-<p><strong>Paso 5 -</strong> <strong>Copiamos</strong> los archivos desde el <strong>$HOME del HOST</strong> al <strong>$HOME de Ubuntu Server.</strong></p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>scp<span class="w"> </span>glpi_backup.sql<span class="w"> </span>glpi_files.tar.gz<span class="w"> </span><span class="nv">$USER</span>@IP_ubuntu_SRV:./
+<p>Al crear el usuario para la BBDD que sea <strong>el mismo usuario</strong> que el de la BBDD que exportamos.</p>
+<p><strong>Paso 4 - Copiamos la clave ".pem" desde nuestro "$HOME LOCAL" al "Ubuntu server" dentro de "Proxmox".</strong></p>
+<div class="highlight"><pre><span></span><code>scp<span class="w"> </span>~/clave_AWS.pem<span class="w"> </span>usuario_proxmox@IP_proxmox:./
 </code></pre></div>
-<p>Tendremos en cuenta al <strong>crear</strong> el usuario para la <strong>BBDD</strong> que sea <strong>el mismo usuario</strong> que el de la <strong>BBDD que exportamos.</strong></p>
-<p><strong>Paso 6 -</strong> <strong>Descomprimimos y restauramos</strong> la BBDD</p>
+<p><strong>Paso 5 - Desde el Server dentro de Proxmox damos permisos al fichero .pem y copiamos los ficheros del $HOME en AWS a nuestro $HOME</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">400</span><span class="w"> </span>clave_AWS.pem
+scp<span class="w"> </span><span class="s2">&quot;clave_AWS.pem&quot;</span><span class="w"> </span>ubuntu@ec2-18-233-9-107.compute-1.amazonaws.com:/home/ubuntu/glpi_*<span class="w"> </span>./
+</code></pre></div>
+<p><strong>Paso 6 - Restauramos la BBDD.</strong></p>
 <div class="highlight"><pre><span></span><code>mysql<span class="w"> </span>-u<span class="w"> </span>&lt;user&gt;<span class="w"> </span>--password<span class="o">=</span>&lt;passwd&gt;<span class="w"> </span>glpi<span class="w"> </span>&lt;<span class="w"> </span>~/glpi_backup.sql
 </code></pre></div>
 <p><strong>Paso 7 -</strong> <strong>Descomprimimos</strong> los archivos de GLPI.</p>
