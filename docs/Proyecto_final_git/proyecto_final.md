@@ -931,7 +931,7 @@ Se le conoce como el "convertidor universal de documentos" debido a su amplia ca
       --pdf-engine=lualatex \
       --listings \
       --toc \
-      --toc-depth=5
+      --toc-depth=4
     ```
 
 - **from markdown**: el archivo está en formato Markdown.
@@ -940,7 +940,7 @@ Se le conoce como el "convertidor universal de documentos" debido a su amplia ca
 - **pdf-engine=lualatex**: usa el motor LaTeX llamado lualatex para generar el PDF.
 - **listings**: mejora cómo se ve el código (usa el paquete listings de LaTeX).
 - **toc**: añade una tabla de contenido (índice).
-- **toc-depth=5**: el índice puede mostrar hasta 5 niveles de títulos.
+- **toc-depth=4**: el índice puede mostrar hasta 4 niveles de títulos.
 
 ### 6.13 - Proceso automatizado de conversión de markdown a PFD
 
