@@ -1215,16 +1215,15 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
 
 - **Añadimos la línea del cron para que ejecute automáticamente todos los días a las 22:00 horas, ya que todavía estamos incorporando datos a la BBDD para realizar el inventario del centro.**
 
-  ```bash
-  0 22 * * * /home/yo/glpi_backuplocal.sh
-  ```
+    ```bash
+    0 22 * * * /home/yo/glpi_backuplocal.sh
+    ```
 
 - **Posteriormente cuando este cerrado el inventario se podría programar el cron solo una vez a la semana los domingos a las 4:00 de la mañana:**
 
-  ```bash
-  0 4 * * 0 /home/yo/glpi_backuplocal.sh
-  ```
-
+    ```bash
+    0 4 * * 0 /home/yo/glpi_backuplocal.sh
+    ```
 
 Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script:
 
