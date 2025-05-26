@@ -1337,8 +1337,7 @@ Puedes ver el script [aquí](./restaurarlocal_glpi.md)
 
 **Problema 7:**
 
-- Al intentar configurar el plugin de **BorgBase** para realizar backups de GLPI directamente a un **repositorio remoto** de BorgBase, me encontré después de configurar los parámetros requeridos, la incapacidad del plugin para comunicarse correctamente con la API de BorgBase.
-Por tanto me impidió la configuración de backups automatizados y gestionados a través de la interfaz de GLPI utilizando **BorgBase.**
+- Al intentar configurar el plugin de **BorgBase** para realizar backups de GLPI directamente a un **repositorio remoto** de BorgBase, me encontré después de configurar los parámetros requeridos que el plugin no podía comunicarse con la **API de BorgBase,** lo que impidió la configuración de **backups automatizados** desde GLPI.
 
 **Causa:**
 
