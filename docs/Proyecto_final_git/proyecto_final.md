@@ -1297,11 +1297,11 @@ Puedes ver el script [aquí](./restaurarlocal_glpi.md)
 
 **Causa:**
 
-- ***Complejidad** de Postfix, posibles conflictos con **firewalls** y errores de **autenticación o permisos** en el relay.*
+- **Complejidad** de Postfix, posibles conflictos con **firewalls** y errores de **autenticación o permisos** en el relay.
 
 **Solución:**
 
-- ***Gmail** como alternativa usando **smtp.gmail.com** (puerto 587 con TLS), credenciales con **contraseña de aplicación** y protección **anti-spam** integrada, con lo que tener una alta **disponibilidad y robustez** evitando caídas o problemas de entrega de correo.*
+- **Gmail** como alternativa usando **smtp.gmail.com** (puerto 587 con TLS), credenciales con **contraseña de aplicación** y protección **anti-spam** integrada, con lo que tener una alta **disponibilidad y robustez** evitando caídas o problemas de entrega de correo.
 
 ---
 
