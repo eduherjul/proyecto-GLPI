@@ -737,9 +737,9 @@ Podemos crear **perfiles personalizados,** por ejemplo:
 
 ![new ticket](image-85.png)
 
-- En **Destinatarios** (Recipients) nos aseguramos de que seleccionamos el **grupo que nos interesa** y **actualizamos-guardamos.**
+- En **Destinatarios** (Recipients) nos aseguramos de que seleccionamos el **grupo que nos interesa** y sobre todo el **Super-Admin** que es el que tiene que estar informado de todo lo que sucede en la gestión de las peticiones, **actualizamos-guardamos.**
 
-![Destinatarios](image-86.png)
+![alt text](image-30.png)
 
 ##### 6.6.4.4. - Automatizar las notificaciones
 
