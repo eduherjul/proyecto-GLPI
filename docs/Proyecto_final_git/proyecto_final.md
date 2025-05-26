@@ -1182,10 +1182,11 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
     sudo tar -czvf "$GLPI_BACKUP" /var/www/glpi
     ```
 
-- **Eliminamos backups antiguos (más de 15 días).**
+- **Eliminamos backups antiguos (ahora más de 2 días), posteriormente cuando se haga el backup semanalmente (más de 15 días)**
+
 
     ```bash
-    find "$backupDir" -type f -mtime +15 -delete
+    find "$backupDir" -type f -mtime +2 -delete
     ```
 
 - **Damos permisos de ejecución al script.**
@@ -1212,11 +1213,18 @@ Puedes ver el script [aquí](./AWS_SRV-Ubuntu_script.md)
     sudo crontab -e
     ```
 
-- **Añadimos la línea del cron para que ejecute automáticamente todos los domingos a las 4:00 de la mañana:**
+- **Añadimos la línea del cron para que ejecute automáticamente todos los días a las 22:00 horas, ya que todavía estamos incorporando datos a la BBDD para realizar el inventario del centro.**
 
-    ```bash
-    0 4 * * 0 /home/yo/glpi_backupdual.sh
-    ```
+  ```bash
+  0 22 * * * /home/yo/glpi_backuplocal.sh
+  ```
+
+- **Posteriormente cuando este cerrado el inventario se podría programar el cron solo una vez a la semana los domingos a las 4:00 de la mañana:**
+
+  ```bash
+  0 4 * * 0 /home/yo/glpi_backuplocal.sh
+  ```
+
 
 Para configurar automáticamente este proceso de **BACKUP** de una manera más rápida, podemos utilizar el script:
 
