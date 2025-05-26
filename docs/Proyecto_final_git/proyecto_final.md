@@ -766,10 +766,10 @@ Podemos crear **perfiles personalizados,** por ejemplo:
   sudo crontab -e
   ```
 
-- Añadiremos esto para que se ejecute cada **2 minutos:**
+- Añadiremos esto para que se ejecute cada **minuto:**
 
   ```bash
-    */2 * * * * /usr/bin/php8.3 /var/www/glpi/front/cron.php &>/dev/null
+    */1 * * * * /usr/bin/php8.3 /var/www/glpi/front/cron.php &>/dev/null
   ```
 
 El **front/cron.php, viene incluido con GLPI, es un script PHP oficial** que GLPI trae para gestionar las acciones automáticas.
