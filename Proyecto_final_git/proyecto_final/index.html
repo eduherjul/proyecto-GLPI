@@ -2840,15 +2840,15 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 </li>
 <li>
 <p><strong>Añadimos la línea del cron para que ejecute automáticamente todos los días a las 22:00 horas, ya que todavía estamos incorporando datos a la BBDD para realizar el inventario del centro.</strong></p>
-</li>
-</ul>
 <div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">22</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/home/yo/glpi_backuplocal.sh
 </code></pre></div>
-<ul>
-<li><strong>Posteriormente cuando este cerrado el inventario se podría programar el cron solo una vez a la semana los domingos a las 4:00 de la mañana:</strong></li>
-</ul>
+</li>
+<li>
+<p><strong>Posteriormente cuando este cerrado el inventario se podría programar el cron solo una vez a la semana los domingos a las 4:00 de la mañana:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="m">0</span><span class="w"> </span><span class="m">4</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span><span class="m">0</span><span class="w"> </span>/home/yo/glpi_backuplocal.sh
 </code></pre></div>
+</li>
+</ul>
 <p>Para configurar automáticamente este proceso de <strong>BACKUP</strong> de una manera más rápida, podemos utilizar el script:</p>
 <p>Puedes ver el script <a href="../glpi_backuplocal/">aquí</a></p>
 <p><a href="../glpi_backuplocal.sh">Descargar el archivo</a></p>
