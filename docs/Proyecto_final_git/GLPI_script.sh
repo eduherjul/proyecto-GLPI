@@ -180,7 +180,7 @@ if [ $ans -eq 0 ]; then
   sudo apt install imagemagick -y
 
   #Función listar el nombre del logo-master
-  ellogo=$(dialog --title "Listado de los elementos del $HOME" \
+  ellogo=$(dialog --title "Listado de los elementos del $HOME, teclear el nombre del logo-master" \
     --backtitle "Utilizar las flechas de dirección para seleccionar y la barra espaciadora para confirmar la selección" \
     --stdout \
     --fselect "$HOME"/ 20 120)

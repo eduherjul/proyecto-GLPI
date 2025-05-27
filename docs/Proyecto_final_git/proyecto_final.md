@@ -517,9 +517,9 @@ sudo apt install -y php8.3-{curl,gd,imagick,intl,apcu memcache,imap,mysqli,ldap,
     Crearemos los **ficheros de imagen** de los logos con los **tamaños requeridos (pixeles)** que vamos a necesitar.
 
     ```bash
-    sudo convert $HOME/<logo-master> -resize 32x32\! favicon.ico
-    sudo convert $HOME/<logo-master> -resize 100x55\! logo-GLPI-100-white.png
-    sudo convert $HOME/<logo-master> -resize 220x130\! logo-GLPI-250-black.png
+    sudo convert $HOME/<logo-master.png> -resize 32x32\! favicon.ico
+    sudo convert $HOME/<logo-master.png> -resize 100x55\! logo-GLPI-100-white.png
+    sudo convert $HOME/<logo-master.png> -resize 220x130\! logo-GLPI-250-black.png
     ```
 
     Cambiamos los **permisos** de los ficheros creados a **755.**
