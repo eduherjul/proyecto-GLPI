@@ -2207,9 +2207,9 @@ sudo<span class="w"> </span>mv<span class="w"> </span>/var/www/glpi/pics/logos/l
 sudo<span class="w"> </span>mv<span class="w"> </span>/var/www/glpi/pics/logos/logo-GLPI-250-black.png<span class="w"> </span>/var/www/glpi/pics/logos/logo-GLPI-250-black.png.bkp
 </code></pre></div>
 <p>Crearemos los <strong>ficheros de imagen</strong> de los logos con los <strong>tamaños requeridos (pixeles)</strong> que vamos a necesitar.</p>
-<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master&gt;<span class="w"> </span>-resize<span class="w"> </span>32x32<span class="se">\!</span><span class="w"> </span>favicon.ico
-sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master&gt;<span class="w"> </span>-resize<span class="w"> </span>100x55<span class="se">\!</span><span class="w"> </span>logo-GLPI-100-white.png
-sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master&gt;<span class="w"> </span>-resize<span class="w"> </span>220x130<span class="se">\!</span><span class="w"> </span>logo-GLPI-250-black.png
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master.png&gt;<span class="w"> </span>-resize<span class="w"> </span>32x32<span class="se">\!</span><span class="w"> </span>favicon.ico
+sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master.png&gt;<span class="w"> </span>-resize<span class="w"> </span>100x55<span class="se">\!</span><span class="w"> </span>logo-GLPI-100-white.png
+sudo<span class="w"> </span>convert<span class="w"> </span><span class="nv">$HOME</span>/&lt;logo-master.png&gt;<span class="w"> </span>-resize<span class="w"> </span>220x130<span class="se">\!</span><span class="w"> </span>logo-GLPI-250-black.png
 </code></pre></div>
 <p>Cambiamos los <strong>permisos</strong> de los ficheros creados a <strong>755.</strong></p>
 <div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>favicon.ico
