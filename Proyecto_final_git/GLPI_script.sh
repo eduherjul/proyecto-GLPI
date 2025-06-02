@@ -145,7 +145,7 @@ acabar
 clear
 wget https://github.com/glpi-project/glpi/releases/download/"$version_glpi"/glpi-"$version_glpi".tgz
 
-#Descomprimimos, cambiamos el fichero .tgz a /var/wwww/html, eliminamos el index.html y el .tgz
+#Descomprimimos, cambiamos el fichero .tgz a /var/wwww/, eliminamos el index.html y el .tgz
 sudo tar -zxvf glpi-"$version_glpi".tgz -C /var/www/
 sudo rm -rf glpi-"$version_glpi".tgz 
 sudo rm -rf /var/www/html/index.html
