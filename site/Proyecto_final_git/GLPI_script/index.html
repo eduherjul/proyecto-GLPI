@@ -548,7 +548,7 @@ acabar
 clear
 wget<span class="w"> </span>https://github.com/glpi-project/glpi/releases/download/<span class="s2">&quot;</span><span class="nv">$version_glpi</span><span class="s2">&quot;</span>/glpi-<span class="s2">&quot;</span><span class="nv">$version_glpi</span><span class="s2">&quot;</span>.tgz
 
-<span class="c1">#Descomprimimos, cambiamos el fichero .tgz a /var/wwww/html, eliminamos el index.html y el .tgz</span>
+<span class="c1">#Descomprimimos, cambiamos el fichero .tgz a /var/wwww/, eliminamos el index.html y el .tgz</span>
 sudo<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>glpi-<span class="s2">&quot;</span><span class="nv">$version_glpi</span><span class="s2">&quot;</span>.tgz<span class="w"> </span>-C<span class="w"> </span>/var/www/
 sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>glpi-<span class="s2">&quot;</span><span class="nv">$version_glpi</span><span class="s2">&quot;</span>.tgz<span class="w"> </span>
 sudo<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/www/html/index.html
