@@ -425,7 +425,7 @@ gzip<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_B
 sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>/var/www/glpi
 
 <span class="c1"># 3. Borrar backups antiguos de más de 2 días</span>
-find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-delete
+find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-v<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copia local realizada correctamente&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span>glpi_backuplocal.sh
 
