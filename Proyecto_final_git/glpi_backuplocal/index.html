@@ -424,8 +424,9 @@ gzip<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DB_B
 <span class="nv">GLPI_BACKUP</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">/glpi_files_</span><span class="nv">$fecha</span><span class="s2">.tar.gz&quot;</span>
 sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$GLPI_BACKUP</span><span class="s2">&quot;</span><span class="w"> </span>/var/www/glpi
 
-<span class="c1"># 3. Borrar backups antiguos de más de 2 días</span>
-find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-exec<span class="w"> </span>rm<span class="w"> </span>-v<span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+<span class="c1"># 3. # Con esta línea cuenta en periodos de 24 horas, o sea 2 días naturales, a partir de las 00:00 de cada día</span>
+find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-daystart<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-delete
+
 
 <span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copia local realizada correctamente&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>logger<span class="w"> </span>-t<span class="w"> </span>glpi_backuplocal.sh
 
