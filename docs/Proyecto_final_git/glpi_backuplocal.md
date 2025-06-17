@@ -22,8 +22,9 @@ gzip "$DB_BACKUP"
 GLPI_BACKUP="$backupDir/glpi_files_$fecha.tar.gz"
 sudo tar -czvf "$GLPI_BACKUP" /var/www/glpi
 
-# 3. Borrar backups antiguos de más de 2 días
-find "$backupDir" -type f -mtime +2 -exec rm -v {} \;
+# 3. # Con esta línea cuenta en periodos de 24 horas, o sea 2 días naturales, a partir de las 00:00 de cada día
+find "$backupDir" -daystart -type f -mtime +2 -delete
+
 
 echo "Copia local realizada correctamente" | logger -t glpi_backuplocal.sh
 
