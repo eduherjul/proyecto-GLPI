@@ -2815,7 +2815,7 @@ sudo<span class="w"> </span>tar<span class="w"> </span>-czvf<span class="w"> </s
 </li>
 <li>
 <p><strong>Eliminamos backups antiguos (ahora más de 2 días), posteriormente cuando se haga el backup semanalmente (más de 15 días)</strong></p>
-<div class="highlight"><pre><span></span><code>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-delete
+<div class="highlight"><pre><span></span><code>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$backupDir</span><span class="s2">&quot;</span><span class="w"> </span>-daystart<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-mtime<span class="w"> </span>+2<span class="w"> </span>-delete
 </code></pre></div>
 </li>
 <li>
